@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="halo-eclipse-EAR">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="halo-se-EJB.jar" deploy-path="/" handle="module:/resource/halo-se-EJB/halo-se-EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="halo-se.jar" deploy-path="/lib" handle="module:/resource/halo-se/halo-se">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="halo-se-common.jar" deploy-path="/lib" handle="module:/resource/halo-se-common/halo-se-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="halo-se-admin.jar" deploy-path="/lib" handle="module:/resource/halo-se-admin/halo-se-admin">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
