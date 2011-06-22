@@ -53,6 +53,7 @@ public class Quest implements Serializable {
 		this.children = children;
 	}
 	
+	@OneToMany(mappedBy="quest")
 	public List<Task> getTasks() {
 		return tasks;
 	}

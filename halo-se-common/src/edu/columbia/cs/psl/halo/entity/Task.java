@@ -19,6 +19,7 @@ public class Task implements Serializable {
 	private TaskType type;
 	private Task parent;
 	private List<Task> children;
+	private Quest quest;
 	
 	@Id
 	public int getId() {
@@ -59,5 +60,10 @@ public class Task implements Serializable {
 	public void setChildren(List<Task> children) {
 		this.children = children;
 	}
-	
+	public Quest getQuest() {
+		return quest;
+	}
+	public void setQuest(Quest quest) {
+		this.quest = quest;
+	}
 }
