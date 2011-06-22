@@ -9,7 +9,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import edu.columbia.cs.psl.halo.ServerManager;
+import edu.columbia.cs.psl.halo.server.UserService;
 import edu.columbia.cs.psl.halo.server.UserServiceRemote;
+import edu.columbia.cs.psl.halo.server.UserServiceServiceLocator;
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -34,11 +36,8 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		System.out.println("Starting to connect to server");
-		
-		
-
-		UserServiceRemote svc = ServerManager.lookup(UserServiceRemote.class,"edu.columbia.cs.psl.halo.server.UserServiceRemote");
-		
+		UserService svc = (new UserServiceServiceLocator()).getUserServicePort();
+		System.out.println(svc.test());
 		plugin = this;
 	}
 

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 EJB 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_3_0-0.dtd">
 <sun-ejb-jar>
-  <enterprise-beans/>
+<security-role-mapping>
+   <role-name>users</role-name>
+   <principal-name>jontest</principal-name>
+   <group-name>users</group-name>
+ </security-role-mapping>
+  <enterprise-beans>
+     <ejb>
+     <ejb-name>UserService</ejb-name>
+     <webservice-endpoint>
+       <port-component-name>UserService</port-component-name>
+       <login-config>
+         <auth-method>BASIC</auth-method>
+         <realm>file</realm>
+       </login-config>
+     </webservice-endpoint>
+   </ejb>
+   </enterprise-beans>
 </sun-ejb-jar>

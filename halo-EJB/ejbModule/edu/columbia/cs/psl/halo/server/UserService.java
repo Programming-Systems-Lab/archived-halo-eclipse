@@ -1,5 +1,6 @@
 package edu.columbia.cs.psl.halo.server;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
@@ -9,6 +10,8 @@ import javax.jws.WebService;
  */
 @Stateless
 @WebService
+@RolesAllowed("users") 
+
 public class UserService implements UserServiceRemote {
 
     /**
@@ -18,9 +21,7 @@ public class UserService implements UserServiceRemote {
         // TODO Auto-generated constructor stub
     }
 
-	@Override
 	public String test() {
-		
 		return "Foobar";
 	}
 
