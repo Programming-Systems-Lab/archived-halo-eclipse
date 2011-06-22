@@ -1,10 +1,15 @@
 package halo_se_admin;
 
+import java.util.Properties;
+
 import javax.naming.InitialContext;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import edu.columbia.cs.psl.halo.ServerManager;
+import edu.columbia.cs.psl.halo.server.UserServiceRemote;
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -30,9 +35,9 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		System.out.println("Starting to connect to server");
 		
-		InitialContext ctx  = new InitialContext();
+		
 
-		UserServiceRemote svc = (UserServiceRemote) ctx.lookup("edu.columbia.cs.psl.halo.server.UserServiceRemote");
+		UserServiceRemote svc = ServerManager.lookup(UserServiceRemote.class,"edu.columbia.cs.psl.halo.server.UserServiceRemote");
 		
 		plugin = this;
 	}

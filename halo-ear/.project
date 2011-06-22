@@ -3,10 +3,8 @@
 	<name>halo-eclipse-EAR</name>
 	<comment></comment>
 	<projects>
-		<project>halo-se-EJB</project>
-		<project>halo-se</project>
 		<project>halo-se-common</project>
-		<project>halo-se-admin</project>
+		<project>halo-se-EJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
