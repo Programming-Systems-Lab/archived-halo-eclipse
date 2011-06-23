@@ -1,47 +1,58 @@
 package edu.columbia.cs.psl.halo.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 @Entity
 @Table(name="h_user")
-public class User {
+@XmlRootElement
+public class User extends LazyCycleBreaker implements Serializable {
 
+
+	private static final long serialVersionUID = 1L;
 	private int id;
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String password;
 	private UserStatus status;
-	private List<Class> studentClasses;
-	private List<Class> taClasses;
-	private List<Class> profClasses;
-	private List<Class> adminClasses;
+	private List<Enrollment> enrollments;
 	
+	
+	
+	public User() {
+		
+	}
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@XmlElement
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+		
+	public String getLastName() {
+		return lastName;
 	}
-	public String getLast_name() {
-		return last_name;
-	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -62,34 +73,17 @@ public class User {
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
+	@OneToMany(mappedBy="user")
+	public List<Enrollment> getEnrollments() {
+		return enrollments;
+	}
+	public void setEnrollments(List<Enrollment> enrollments) {
+		this.enrollments = enrollments;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 	
-	@ManyToMany(mappedBy="students")
-	public List<Class> getStudentClasses() {
-		return studentClasses;
-	}
-	public void setStudentClasses(List<Class> studentClasses) {
-		this.studentClasses = studentClasses;
-	}
-	@ManyToMany(mappedBy="tas")
-	public List<Class> getTaClasses() {
-		return taClasses;
-	}
-	public void setTaClasses(List<Class> taClasses) {
-		this.taClasses = taClasses;
-	}
-	@ManyToMany(mappedBy="professors")
-	public List<Class> getProfClasses() {
-		return profClasses;
-	}
-	public void setProfClasses(List<Class> profClasses) {
-		this.profClasses = profClasses;
-	}
-	@ManyToMany(mappedBy="admins")
-	public List<Class> getAdminClasses() {
-		return adminClasses;
-	}
-	public void setAdminClasses(List<Class> adminClasses) {
-		this.adminClasses = adminClasses;
-	}
+	
 	
 }

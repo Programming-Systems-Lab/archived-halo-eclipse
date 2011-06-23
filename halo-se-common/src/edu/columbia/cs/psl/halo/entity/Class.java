@@ -4,61 +4,50 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.sun.xml.bind.CycleRecoverable;
 
 @Entity
-public class Class implements Serializable{
+@XmlRootElement
+public class Class extends LazyCycleBreaker implements Serializable {
 
 	
 	private static final long serialVersionUID = -2366901985108807832L;
 	private int id;
 	private String name;
-	private List<User> professors;
-	private List<User> tas;
-	private List<User> students;
-	private List<User> admins;
+	private List<Enrollment> enrollments;
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@XmlElement
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@ManyToMany
-	public List<User> getProfessors() {
-		return professors;
+	@OneToMany(mappedBy="course")
+	public List<Enrollment> getEnrollments() {
+		return enrollments;
 	}
-	public void setProfessors(List<User> professors) {
-		this.professors = professors;
-	}
-	@ManyToMany
-	public List<User> getTas() {
-		return tas;
-	}
-	public void setTas(List<User> tas) {
-		this.tas = tas;
-	}
-	@ManyToMany
-	public List<User> getStudents() {
-		return students;
-	}
-	public void setStudents(List<User> students) {
-		this.students = students;
-	}
-	@ManyToMany
-	public List<User> getAdmins() {
-		return admins;
-	}
-	public void setAdmins(List<User> admins) {
-		this.admins = admins;
+	public void setEnrollments(List<Enrollment> enrollments) {
+		this.enrollments = enrollments;
 	}
 
 }

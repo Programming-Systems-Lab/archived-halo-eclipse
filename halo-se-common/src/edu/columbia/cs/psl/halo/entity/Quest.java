@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -19,6 +21,8 @@ public class Quest implements Serializable {
 	private List<Task> tasks;
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}

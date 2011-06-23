@@ -17,5 +17,7 @@
        </login-config>
      </webservice-endpoint>
    </ejb>
+
    </enterprise-beans>
+   
 </sun-ejb-jar>

@@ -11,6 +11,7 @@
          <class>edu.columbia.cs.psl.halo.entity.QuestProgress</class>
          <class>edu.columbia.cs.psl.halo.entity.Task</class>
          <class>edu.columbia.cs.psl.halo.entity.User</class>
+          <class>edu.columbia.cs.psl.halo.entity.Enrollment</class>
          <properties>
            <!--Use the java2db feature -->
            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -19,7 +20,7 @@
         <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
         <property name="eclipselink.ddl-generation.output-mode" value="sql-script" />
         <property name="eclipselink.ddl-generation.table-creation-suffix" value=" engine=InnoDB" />
-  	    <property name="eclipselink.application-location" value="/Users/jon/Documents/PSL/Projects/halo/"/>
+  	    <property name="eclipselink.application-location" value="/Users/jon/Documents/PSL/Projects/halo-eclipse/"/>
            </properties>
      </persistence-unit>
 </persistence> 
