@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:application="http://java.sun.com/xml/ns/javaee/application_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
+  <display-name>halo-eclipse-EAR</display-name>
+  <module>
+    <ejb>halo-se-EJB.jar</ejb>
+  </module>
+  <persistence-context-ref>
+    <persistence-context-ref-name>halo_persist</persistence-context-ref-name>
+    <persistence-unit-name>halo_persist</persistence-unit-name>
+  </persistence-context-ref>
+</application>
