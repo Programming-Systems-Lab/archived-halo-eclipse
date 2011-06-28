@@ -1,6 +1,7 @@
 package edu.columbia.cs.psl.halo.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
@@ -9,19 +10,19 @@ import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import edu.columbia.cs.psl.halo.entity.Class;
+import edu.columbia.cs.psl.halo.entity.Course;
+import edu.columbia.cs.psl.halo.entity.Enrollment;
+import edu.columbia.cs.psl.halo.entity.QuestProgress;
 import edu.columbia.cs.psl.halo.entity.User;
+import edu.columbia.cs.psl.halo.entity.UserStatus;
 
 /**
  * Session Bean implementation class UserService
  */
 @Stateless
 @WebService
-//@RolesAllowed("users") 
-
+@RolesAllowed("USER") 
 public class UserService extends AbstractFacade<User>  {
-	@PersistenceContext(unitName="halo_persist") 
-	EntityManager em;
 	
     /**
      * Default constructor. 
@@ -30,21 +31,24 @@ public class UserService extends AbstractFacade<User>  {
         super(User.class);
     }
 
-	public User test() {
-//		User u = new User();
-//		Class d = new Class();
-//		u.setFirst_name("Jon Bell");
-//		d.setName("Fake class");
-//		em.persist(d);
-//		d.setStudents(new ArrayList<User>());
-//		u.setStudentClasses(new ArrayList<Class>());
-//		d.getStudents().add(u);
-//		u.getStudentClasses().add(d);
-//		em.persist(u);
-//		em.merge(d);
-//		em.merge(u);
-//		return u;
-		return null;
-	}
+    public String sayHello()
+    {
+    	return "Hello";
+    }
+    public List<QuestProgress> getMyProgress()
+    {
+    	return null; //TODO
+    }
+    
+    public List<QuestProgress> getMyProgressFor(Course c)
+    {
+    	return null; //TODO
+    }
+    
+    public List<Enrollment> getEnrollments()
+    {
+    	User u = getUser();
+    	return u.getEnrollments();
+    }    
 
 }

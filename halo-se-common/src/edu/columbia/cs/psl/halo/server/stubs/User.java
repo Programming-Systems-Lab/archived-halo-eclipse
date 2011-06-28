@@ -1,11 +1,8 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -20,7 +17,6 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="enrollments" type="{http://server.halo.psl.cs.columbia.edu/}enrollment" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -37,7 +33,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "user", propOrder = {
     "email",
-    "enrollments",
     "firstName",
     "id",
     "lastName",
@@ -49,8 +44,6 @@ public class User
 {
 
     protected String email;
-    @XmlElement(nillable = true)
-    protected List<Enrollment> enrollments;
     protected String firstName;
     protected int id;
     protected String lastName;
@@ -79,35 +72,6 @@ public class User
      */
     public void setEmail(String value) {
         this.email = value;
-    }
-
-    /**
-     * Gets the value of the enrollments property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the enrollments property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getEnrollments().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Enrollment }
-     * 
-     * 
-     */
-    public List<Enrollment> getEnrollments() {
-        if (enrollments == null) {
-            enrollments = new ArrayList<Enrollment>();
-        }
-        return this.enrollments;
     }
 
     /**

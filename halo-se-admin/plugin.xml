@@ -26,11 +26,25 @@
             class="edu.columbia.cs.psl.halo.admin.View"
             id="halo-se-admin.view">
       </view>
+      <view
+            class="edu.columbia.cs.psl.halo.admin.views.LoginView"
+            id="edu.columbia.cs.psl.halo.admin.views.LoginView"
+            name="Login"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="*">
+         <view
+               id="edu.columbia.cs.psl.halo.admin.views.LoginView"
+               minimized="false"
+               ratio=".95f"
+               relationship="stack"
+               relative="halo-se-admin.view"
+               standalone="true">
+         </view>
          <view
                standalone="true"
                minimized="false"
@@ -52,6 +66,9 @@
             </command>
          </menu>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
    </extension>
 
 </plugin>

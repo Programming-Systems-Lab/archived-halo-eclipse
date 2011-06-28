@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "idstr"
 })
 @XmlSeeAlso({
-    Class.class,
+    Course.class,
     Enrollment.class,
     User.class
 })

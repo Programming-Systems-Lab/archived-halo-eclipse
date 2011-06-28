@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Quest implements Serializable {
@@ -19,6 +20,7 @@ public class Quest implements Serializable {
 	private Quest parent;
 	private List<Quest> children;
 	private List<Task> tasks;
+	private Assignment assignment;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -42,6 +44,7 @@ public class Quest implements Serializable {
 		this.description = description;
 	}
 	
+	@XmlTransient
 	public Quest getParent() {
 		return parent;
 	}
@@ -49,6 +52,7 @@ public class Quest implements Serializable {
 		this.parent = parent;
 	}
 	
+	@XmlTransient
 	@OneToMany(mappedBy="parent")
 	public List<Quest> getChildren() {
 		return children;
@@ -65,5 +69,12 @@ public class Quest implements Serializable {
 		this.tasks = tasks;
 	}
 	
+	@XmlTransient
+	public Assignment getAssignment() {
+		return assignment;
+	}
+	public void setAssignment(Assignment assignment) {
+		this.assignment = assignment;
+	}
 	
 }

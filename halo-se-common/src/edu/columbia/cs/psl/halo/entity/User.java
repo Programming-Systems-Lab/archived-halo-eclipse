@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -73,6 +74,7 @@ public class User extends LazyCycleBreaker implements Serializable {
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
+	@XmlTransient
 	@OneToMany(mappedBy="user")
 	public List<Enrollment> getEnrollments() {
 		return enrollments;

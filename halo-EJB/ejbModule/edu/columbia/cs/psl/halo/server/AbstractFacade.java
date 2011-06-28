@@ -64,9 +64,10 @@ public abstract class AbstractFacade<T> {
     {
 //    	if(cachedUser != null)
 //    		return cachedUser;
+    	System.out.println("Req from " + ctx.getCallerPrincipal().getName());
     	if(ctx.getCallerPrincipal().getName().equals("anonymous"))
     		return null;
-    	Query q = getEntityManager().createQuery("select object(c) from User as c where c.username=:user");
+    	Query q = getEntityManager().createQuery("select object(c) from User as c where c.email=:user");
 		q.setParameter("user", ctx.getCallerPrincipal().getName());
 		User r = null;
 		try

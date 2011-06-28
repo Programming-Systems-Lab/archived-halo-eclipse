@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Assignment implements Serializable {
@@ -18,7 +19,8 @@ public class Assignment implements Serializable {
 	private String description;
 	private Date dueOn;
 	private Date assignedOn;
-
+	private Course course;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 
@@ -55,4 +57,11 @@ public class Assignment implements Serializable {
 		this.assignedOn = assignedOn;
 	}
 
+	@XmlTransient
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 }

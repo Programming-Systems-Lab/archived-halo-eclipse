@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Task implements Serializable {
@@ -57,6 +58,7 @@ public class Task implements Serializable {
 	public void setParent(Task parent) {
 		this.parent = parent;
 	}
+	@XmlTransient
 	@OneToMany(mappedBy="parent")
 	public List<Task> getChildren() {
 		return children;

@@ -6,7 +6,7 @@
 
          <jta-data-source>jdbc/HALOdb</jta-data-source>
          <class>edu.columbia.cs.psl.halo.entity.Assignment</class>
-         <class>edu.columbia.cs.psl.halo.entity.Class</class>
+         <class>edu.columbia.cs.psl.halo.entity.Course</class>
          <class>edu.columbia.cs.psl.halo.entity.Quest</class>
          <class>edu.columbia.cs.psl.halo.entity.QuestProgress</class>
          <class>edu.columbia.cs.psl.halo.entity.Task</class>

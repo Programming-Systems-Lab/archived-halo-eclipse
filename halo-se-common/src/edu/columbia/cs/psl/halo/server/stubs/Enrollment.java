@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
- *         &lt;element name="course" type="{http://server.halo.psl.cs.columbia.edu/}class" minOccurs="0"/>
+ *         &lt;element name="course" type="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="type" type="{http://server.halo.psl.cs.columbia.edu/}enrollmentType" minOccurs="0"/>
  *         &lt;element name="user" type="{http://server.halo.psl.cs.columbia.edu/}user" minOccurs="0"/>
@@ -39,7 +39,7 @@ public class Enrollment
     extends LazyCycleBreaker
 {
 
-    protected Class course;
+    protected Course course;
     protected int id;
     protected EnrollmentType type;
     protected User user;
@@ -49,10 +49,10 @@ public class Enrollment
      * 
      * @return
      *     possible object is
-     *     {@link Class }
+     *     {@link Course }
      *     
      */
-    public Class getCourse() {
+    public Course getCourse() {
         return course;
     }
 
@@ -61,10 +61,10 @@ public class Enrollment
      * 
      * @param value
      *     allowed object is
-     *     {@link Class }
+     *     {@link Course }
      *     
      */
-    public void setCourse(Class value) {
+    public void setCourse(Course value) {
         this.course = value;
     }
 

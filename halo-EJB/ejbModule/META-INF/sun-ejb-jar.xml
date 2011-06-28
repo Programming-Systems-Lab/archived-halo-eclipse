@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 EJB 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_3_0-0.dtd">
 <sun-ejb-jar>
-<security-role-mapping>
-   <role-name>users</role-name>
-   <principal-name>jontest</principal-name>
-   <group-name>users</group-name>
- </security-role-mapping>
+
   <enterprise-beans>
      <ejb>
      <ejb-name>UserService</ejb-name>
@@ -13,11 +9,31 @@
        <port-component-name>UserService</port-component-name>
        <login-config>
          <auth-method>BASIC</auth-method>
-         <realm>file</realm>
+         <realm>HALOLogin</realm>
        </login-config>
      </webservice-endpoint>
    </ejb>
 
+<ejb>
+     <ejb-name>CourseService</ejb-name>
+     <webservice-endpoint>
+       <port-component-name>CourseService</port-component-name>
+       <login-config>
+         <auth-method>BASIC</auth-method>
+         <realm>HALOLogin</realm>
+       </login-config>
+     </webservice-endpoint>
+   </ejb>
+   <ejb>
+     <ejb-name>AdminService</ejb-name>
+     <webservice-endpoint>
+       <port-component-name>AdminService</port-component-name>
+       <login-config>
+         <auth-method>BASIC</auth-method>
+         <realm>HALOLogin</realm>
+       </login-config>
+     </webservice-endpoint>
+   </ejb>
    </enterprise-beans>
    
 </sun-ejb-jar>
