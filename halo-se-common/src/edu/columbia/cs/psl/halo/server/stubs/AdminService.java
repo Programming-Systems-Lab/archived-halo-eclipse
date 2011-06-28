@@ -56,62 +56,6 @@ public interface AdminService {
      * 
      * @param arg0
      * @return
-     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Enrollment>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getEnrollmentsFor", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsFor")
-    @ResponseWrapper(localName = "getEnrollmentsForResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsForResponse")
-    public List<Enrollment> getEnrollmentsFor(
-        @WebParam(name = "arg0", targetNamespace = "")
-        User arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns edu.columbia.cs.psl.halo.server.stubs.Enrollment
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createEnrollment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateEnrollment")
-    @ResponseWrapper(localName = "createEnrollmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateEnrollmentResponse")
-    public Enrollment createEnrollment(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Enrollment arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns edu.columbia.cs.psl.halo.server.stubs.User
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createUser", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateUser")
-    @ResponseWrapper(localName = "createUserResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateUserResponse")
-    public User createUser(
-        @WebParam(name = "arg0", targetNamespace = "")
-        User arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns edu.columbia.cs.psl.halo.server.stubs.Course
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCourse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCourse")
-    @ResponseWrapper(localName = "getCourseResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCourseResponse")
-    public Course getCourse(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
      *     returns edu.columbia.cs.psl.halo.server.stubs.Course
      */
     @WebMethod
@@ -158,6 +102,20 @@ public interface AdminService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createEnrollment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateEnrollment")
+    @ResponseWrapper(localName = "createEnrollmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateEnrollmentResponse")
+    public Enrollment createEnrollment(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Enrollment arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Enrollment
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "updateEnrollment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateEnrollment")
     @ResponseWrapper(localName = "updateEnrollmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateEnrollmentResponse")
     public Enrollment updateEnrollment(
@@ -182,6 +140,20 @@ public interface AdminService {
      * 
      * @param arg0
      * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createUser", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateUser")
+    @ResponseWrapper(localName = "createUserResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateUserResponse")
+    public User createUser(
+        @WebParam(name = "arg0", targetNamespace = "")
+        User arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns boolean
      */
     @WebMethod
@@ -191,5 +163,55 @@ public interface AdminService {
     public boolean deleteUser(
         @WebParam(name = "arg0", targetNamespace = "")
         User arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Enrollment>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getEnrollmentsFor", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsFor")
+    @ResponseWrapper(localName = "getEnrollmentsForResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsForResponse")
+    public List<Enrollment> getEnrollmentsFor(
+        @WebParam(name = "arg0", targetNamespace = "")
+        User arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Course
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCourse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCourse")
+    @ResponseWrapper(localName = "getCourseResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCourseResponse")
+    public Course getCourse(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Course>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCourses", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCourses")
+    @ResponseWrapper(localName = "getCoursesResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetCoursesResponse")
+    public List<Course> getCourses();
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.User>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getUsers", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetUsers")
+    @ResponseWrapper(localName = "getUsersResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetUsersResponse")
+    public List<User> getUsers();
 
 }

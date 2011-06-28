@@ -28,20 +28,6 @@ public interface CourseService {
      * 
      * @param arg0
      * @return
-     *     returns edu.columbia.cs.psl.halo.server.stubs.Quest
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createQuest", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuest")
-    @ResponseWrapper(localName = "createQuestResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuestResponse")
-    public Quest createQuest(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Quest arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
      *     returns edu.columbia.cs.psl.halo.server.stubs.Assignment
      */
     @WebMethod
@@ -70,6 +56,34 @@ public interface CourseService {
      * 
      * @param arg0
      * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteAssignment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignment")
+    @ResponseWrapper(localName = "deleteAssignmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignmentResponse")
+    public boolean deleteAssignment(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Assignment arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Quest
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createQuest", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuest")
+    @ResponseWrapper(localName = "createQuestResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuestResponse")
+    public Quest createQuest(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Quest arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns edu.columbia.cs.psl.halo.server.stubs.Quest
      */
     @WebMethod
@@ -93,20 +107,6 @@ public interface CourseService {
     public boolean deleteQuest(
         @WebParam(name = "arg0", targetNamespace = "")
         Quest arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "deleteAssignment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignment")
-    @ResponseWrapper(localName = "deleteAssignmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignmentResponse")
-    public boolean deleteAssignment(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Assignment arg0);
 
     /**
      * 

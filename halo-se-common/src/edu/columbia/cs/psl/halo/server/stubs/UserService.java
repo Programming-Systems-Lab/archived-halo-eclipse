@@ -27,6 +27,17 @@ public interface UserService {
     /**
      * 
      * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Enrollment>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getEnrollments", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollments")
+    @ResponseWrapper(localName = "getEnrollmentsResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsResponse")
+    public List<Enrollment> getEnrollments();
+
+    /**
+     * 
+     * @return
      *     returns java.lang.String
      */
     @WebMethod
@@ -59,16 +70,5 @@ public interface UserService {
     public List<QuestProgress> getMyProgressFor(
         @WebParam(name = "arg0", targetNamespace = "")
         Course arg0);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Enrollment>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getEnrollments", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollments")
-    @ResponseWrapper(localName = "getEnrollmentsResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetEnrollmentsResponse")
-    public List<Enrollment> getEnrollments();
 
 }

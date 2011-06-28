@@ -1,12 +1,13 @@
 package edu.columbia.cs.psl.halo.admin;
 
+import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
-	private static final String PERSPECTIVE_ID = "halo-se-admin.perspective";
+	private static final String PERSPECTIVE_ID = "edu.columbia.cs.psl.halo.admin.perspective.ClassesUsersPerspective";
 
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 			IWorkbenchWindowConfigurer configurer) {
@@ -17,4 +18,9 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		return PERSPECTIVE_ID;
 	}
 
+	@Override
+	public void initialize(IWorkbenchConfigurer configurer) {
+		super.initialize(configurer);
+		configurer.setSaveAndRestore(true);
+	}
 }

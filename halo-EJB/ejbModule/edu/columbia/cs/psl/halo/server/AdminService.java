@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.persistence.criteria.CriteriaQuery;
 
 import edu.columbia.cs.psl.halo.entity.Course;
 import edu.columbia.cs.psl.halo.entity.Enrollment;
@@ -15,6 +16,21 @@ import edu.columbia.cs.psl.halo.entity.User;
 @RolesAllowed("ADMIN")
 public class AdminService extends AbstractFacade<User> {
     
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Course> getCourses()
+	{
+		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Course.class));
+        return getEntityManager().createQuery(cq).getResultList();
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<User> getUsers()
+	{
+		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(User.class));
+        return getEntityManager().createQuery(cq).getResultList();
+	}
+	
 	public AdminService() {
 		super(User.class);
 	}

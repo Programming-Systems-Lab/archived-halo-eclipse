@@ -3,9 +3,10 @@
 <plugin>
 
    <extension
-         id="application"
+         id="edu.columbia.cs.psl.halo.admin.application"
          point="org.eclipse.core.runtime.applications">
-      <application>
+      <application
+            icon="halo-admin-icon.png">
          <run
                class="edu.columbia.cs.psl.halo.admin.Application">
          </run>
@@ -14,43 +15,42 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="Perspective"
-            class="edu.columbia.cs.psl.halo.admin.Perspective"
-            id="halo-se-admin.perspective">
+            class="edu.columbia.cs.psl.halo.admin.perspective.ClassesUsersPerspective"
+            id="edu.columbia.cs.psl.halo.admin.perspective.ClassesUsersPerspective"
+            name="Users and Classes">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="View"
-            class="edu.columbia.cs.psl.halo.admin.View"
-            id="halo-se-admin.view">
+            class="edu.columbia.cs.psl.halo.admin.view.ClassesUsers"
+            id="edu.columbia.cs.psl.halo.admin.view.ClassesUsers"
+            name="Classes and Users"
+            restorable="true">
       </view>
       <view
-            class="edu.columbia.cs.psl.halo.admin.views.LoginView"
-            id="edu.columbia.cs.psl.halo.admin.views.LoginView"
-            name="Login"
+            class="edu.columbia.cs.psl.halo.admin.view.ClassUserDetails"
+            id="edu.columbia.cs.psl.halo.admin.view.ClassUserDetails"
+            name="Editor"
             restorable="true">
       </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="*">
+            targetID="edu.columbia.cs.psl.halo.admin.perspective.ClassesUsersPerspective">
          <view
-               id="edu.columbia.cs.psl.halo.admin.views.LoginView"
+               id="edu.columbia.cs.psl.halo.admin.view.ClassesUsers"
                minimized="false"
-               ratio=".95f"
+               ratio=".02f"
                relationship="stack"
-               relative="halo-se-admin.view"
-               standalone="true">
+               relative="org.eclipse.ui.editorss">
          </view>
          <view
-               standalone="true"
+               id="edu.columbia.cs.psl.halo.admin.view.ClassUserDetails"
                minimized="false"
-               relative="org.eclipse.ui.editorss"
-               relationship="left"
-               id="halo-se-admin.view">
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
          </view>
       </perspectiveExtension>
    </extension>
@@ -69,6 +69,54 @@
    </extension>
    <extension
          point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="edu.columbia.cs.psl.halo.admin.handler.CallEditor"
+            id="edu.columbia.cs.psl.halo.admin.openEditor"
+            name="Open Editor">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="edu.columbia.cs.psl.halo.admin.application"
+            name="HALO Application Product">
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="edu.columbia.cs.psl.halo.admin.splashHandlers.InteractiveSplashHandler"
+            id="edu.columbia.cs.psl.halo.admin.splashHandlers.interactive">
+      </splashHandler>
+      <splashHandlerProductBinding
+            productId="edu.columbia.cs.psl.halo.admin.product"
+            splashId="edu.columbia.cs.psl.halo.admin.splashHandlers.interactive">
+      </splashHandlerProductBinding>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="edu.columbia.cs.psl.halo.admin.application"
+            name="HALO SE Admin">
+         <property
+               name="windowImages"
+               value="os x icon/128.png">
+         </property>
+         <property
+               name="appName"
+               value="HALO SE Admin">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="edu.columbia.cs.psl.halo.admin.editor.UserEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.admin.editor.UserEditor"
+            name="User Editor">
+      </editor>
    </extension>
 
 </plugin>

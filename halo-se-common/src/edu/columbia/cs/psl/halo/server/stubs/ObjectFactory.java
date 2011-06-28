@@ -24,25 +24,29 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetCoursesResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCoursesResponse");
     private final static QName _DeleteCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteCourseResponse");
     private final static QName _UpdateCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateCourseResponse");
     private final static QName _GetCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourseResponse");
     private final static QName _DeleteCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteCourse");
     private final static QName _GetUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUser");
-    private final static QName _User_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "user");
     private final static QName _UpdateEnrollmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateEnrollmentResponse");
+    private final static QName _User_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "user");
     private final static QName _CreateEnrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createEnrollment");
+    private final static QName _GetUsers_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUsers");
     private final static QName _UpdateUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateUser");
     private final static QName _DeleteEnrollmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteEnrollmentResponse");
     private final static QName _DeleteUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteUser");
     private final static QName _UpdateUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateUserResponse");
     private final static QName _CreateUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createUser");
     private final static QName _GetEnrollmentsForResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollmentsForResponse");
+    private final static QName _GetCourses_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourses");
     private final static QName _UpdateCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateCourse");
     private final static QName _CreateUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createUserResponse");
     private final static QName _GetEnrollmentsFor_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollmentsFor");
     private final static QName _GetCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourse");
     private final static QName _CreateCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createCourse");
+    private final static QName _GetUsersResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUsersResponse");
     private final static QName _GetUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUserResponse");
     private final static QName _CreateCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createCourseResponse");
     private final static QName _Enrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "enrollment");
@@ -60,11 +64,91 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateCourseResponse }
+     * Create an instance of {@link DeleteCourseResponse }
      * 
      */
-    public UpdateCourseResponse createUpdateCourseResponse() {
-        return new UpdateCourseResponse();
+    public DeleteCourseResponse createDeleteCourseResponse() {
+        return new DeleteCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
+    }
+
+    /**
+     * Create an instance of {@link GetEnrollmentsForResponse }
+     * 
+     */
+    public GetEnrollmentsForResponse createGetEnrollmentsForResponse() {
+        return new GetEnrollmentsForResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnrollmentResponse }
+     * 
+     */
+    public UpdateEnrollmentResponse createUpdateEnrollmentResponse() {
+        return new UpdateEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUserResponse }
+     * 
+     */
+    public UpdateUserResponse createUpdateUserResponse() {
+        return new UpdateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteUser }
+     * 
+     */
+    public DeleteUser createDeleteUser() {
+        return new DeleteUser();
+    }
+
+    /**
+     * Create an instance of {@link GetUser }
+     * 
+     */
+    public GetUser createGetUser() {
+        return new GetUser();
+    }
+
+    /**
+     * Create an instance of {@link Course }
+     * 
+     */
+    public Course createCourse() {
+        return new Course();
+    }
+
+    /**
+     * Create an instance of {@link CreateUserResponse }
+     * 
+     */
+    public CreateUserResponse createCreateUserResponse() {
+        return new CreateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollmentResponse }
+     * 
+     */
+    public CreateEnrollmentResponse createCreateEnrollmentResponse() {
+        return new CreateEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCourseResponse }
+     * 
+     */
+    public GetCourseResponse createGetCourseResponse() {
+        return new GetCourseResponse();
     }
 
     /**
@@ -73,6 +157,110 @@ public class ObjectFactory {
      */
     public UpdateEnrollment createUpdateEnrollment() {
         return new UpdateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link GetCourses }
+     * 
+     */
+    public GetCourses createGetCourses() {
+        return new GetCourses();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollment }
+     * 
+     */
+    public CreateEnrollment createCreateEnrollment() {
+        return new CreateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnrollment }
+     * 
+     */
+    public DeleteEnrollment createDeleteEnrollment() {
+        return new DeleteEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCourse }
+     * 
+     */
+    public UpdateCourse createUpdateCourse() {
+        return new UpdateCourse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteUserResponse }
+     * 
+     */
+    public DeleteUserResponse createDeleteUserResponse() {
+        return new DeleteUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateCourseResponse }
+     * 
+     */
+    public CreateCourseResponse createCreateCourseResponse() {
+        return new CreateCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateCourse }
+     * 
+     */
+    public CreateCourse createCreateCourse() {
+        return new CreateCourse();
+    }
+
+    /**
+     * Create an instance of {@link CreateUser }
+     * 
+     */
+    public CreateUser createCreateUser() {
+        return new CreateUser();
+    }
+
+    /**
+     * Create an instance of {@link GetUserResponse }
+     * 
+     */
+    public GetUserResponse createGetUserResponse() {
+        return new GetUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCoursesResponse }
+     * 
+     */
+    public GetCoursesResponse createGetCoursesResponse() {
+        return new GetCoursesResponse();
+    }
+
+    /**
+     * Create an instance of {@link Enrollment }
+     * 
+     */
+    public Enrollment createEnrollment() {
+        return new Enrollment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnrollmentResponse }
+     * 
+     */
+    public DeleteEnrollmentResponse createDeleteEnrollmentResponse() {
+        return new DeleteEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUser }
+     * 
+     */
+    public UpdateUser createUpdateUser() {
+        return new UpdateUser();
     }
 
     /**
@@ -92,99 +280,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetUser }
+     * Create an instance of {@link GetUsersResponse }
      * 
      */
-    public GetUser createGetUser() {
-        return new GetUser();
+    public GetUsersResponse createGetUsersResponse() {
+        return new GetUsersResponse();
     }
 
     /**
-     * Create an instance of {@link UpdateCourse }
+     * Create an instance of {@link UpdateCourseResponse }
      * 
      */
-    public UpdateCourse createUpdateCourse() {
-        return new UpdateCourse();
-    }
-
-    /**
-     * Create an instance of {@link CreateUserResponse }
-     * 
-     */
-    public CreateUserResponse createCreateUserResponse() {
-        return new CreateUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateEnrollmentResponse }
-     * 
-     */
-    public UpdateEnrollmentResponse createUpdateEnrollmentResponse() {
-        return new UpdateEnrollmentResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateUser }
-     * 
-     */
-    public CreateUser createCreateUser() {
-        return new CreateUser();
-    }
-
-    /**
-     * Create an instance of {@link CreateEnrollment }
-     * 
-     */
-    public CreateEnrollment createCreateEnrollment() {
-        return new CreateEnrollment();
-    }
-
-    /**
-     * Create an instance of {@link CreateCourseResponse }
-     * 
-     */
-    public CreateCourseResponse createCreateCourseResponse() {
-        return new CreateCourseResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteEnrollmentResponse }
-     * 
-     */
-    public DeleteEnrollmentResponse createDeleteEnrollmentResponse() {
-        return new DeleteEnrollmentResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteUserResponse }
-     * 
-     */
-    public DeleteUserResponse createDeleteUserResponse() {
-        return new DeleteUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateCourse }
-     * 
-     */
-    public CreateCourse createCreateCourse() {
-        return new CreateCourse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateUser }
-     * 
-     */
-    public UpdateUser createUpdateUser() {
-        return new UpdateUser();
-    }
-
-    /**
-     * Create an instance of {@link DeleteUser }
-     * 
-     */
-    public DeleteUser createDeleteUser() {
-        return new DeleteUser();
+    public UpdateCourseResponse createUpdateCourseResponse() {
+        return new UpdateCourseResponse();
     }
 
     /**
@@ -196,83 +304,20 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link GetUsers }
      * 
      */
-    public User createUser() {
-        return new User();
+    public GetUsers createGetUsers() {
+        return new GetUsers();
     }
 
     /**
-     * Create an instance of {@link UpdateUserResponse }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCoursesResponse }{@code >}}
      * 
      */
-    public UpdateUserResponse createUpdateUserResponse() {
-        return new UpdateUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link Course }
-     * 
-     */
-    public Course createCourse() {
-        return new Course();
-    }
-
-    /**
-     * Create an instance of {@link Enrollment }
-     * 
-     */
-    public Enrollment createEnrollment() {
-        return new Enrollment();
-    }
-
-    /**
-     * Create an instance of {@link GetUserResponse }
-     * 
-     */
-    public GetUserResponse createGetUserResponse() {
-        return new GetUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnrollmentsForResponse }
-     * 
-     */
-    public GetEnrollmentsForResponse createGetEnrollmentsForResponse() {
-        return new GetEnrollmentsForResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCourseResponse }
-     * 
-     */
-    public DeleteCourseResponse createDeleteCourseResponse() {
-        return new DeleteCourseResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteEnrollment }
-     * 
-     */
-    public DeleteEnrollment createDeleteEnrollment() {
-        return new DeleteEnrollment();
-    }
-
-    /**
-     * Create an instance of {@link GetCourseResponse }
-     * 
-     */
-    public GetCourseResponse createGetCourseResponse() {
-        return new GetCourseResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateEnrollmentResponse }
-     * 
-     */
-    public CreateEnrollmentResponse createCreateEnrollmentResponse() {
-        return new CreateEnrollmentResponse();
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCoursesResponse")
+    public JAXBElement<GetCoursesResponse> createGetCoursesResponse(GetCoursesResponse value) {
+        return new JAXBElement<GetCoursesResponse>(_GetCoursesResponse_QNAME, GetCoursesResponse.class, null, value);
     }
 
     /**
@@ -321,15 +366,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link User }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "user")
-    public JAXBElement<User> createUser(User value) {
-        return new JAXBElement<User>(_User_QNAME, User.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdateEnrollmentResponse }{@code >}}
      * 
      */
@@ -339,12 +375,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link User }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "user")
+    public JAXBElement<User> createUser(User value) {
+        return new JAXBElement<User>(_User_QNAME, User.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CreateEnrollment }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createEnrollment")
     public JAXBElement<CreateEnrollment> createCreateEnrollment(CreateEnrollment value) {
         return new JAXBElement<CreateEnrollment>(_CreateEnrollment_QNAME, CreateEnrollment.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsers }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUsers")
+    public JAXBElement<GetUsers> createGetUsers(GetUsers value) {
+        return new JAXBElement<GetUsers>(_GetUsers_QNAME, GetUsers.class, null, value);
     }
 
     /**
@@ -402,6 +456,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCourses }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCourses")
+    public JAXBElement<GetCourses> createGetCourses(GetCourses value) {
+        return new JAXBElement<GetCourses>(_GetCourses_QNAME, GetCourses.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdateCourse }{@code >}}
      * 
      */
@@ -444,6 +507,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createCourse")
     public JAXBElement<CreateCourse> createCreateCourse(CreateCourse value) {
         return new JAXBElement<CreateCourse>(_CreateCourse_QNAME, CreateCourse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsersResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUsersResponse")
+    public JAXBElement<GetUsersResponse> createGetUsersResponse(GetUsersResponse value) {
+        return new JAXBElement<GetUsersResponse>(_GetUsersResponse_QNAME, GetUsersResponse.class, null, value);
     }
 
     /**
