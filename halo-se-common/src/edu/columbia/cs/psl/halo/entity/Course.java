@@ -21,6 +21,7 @@ public class Course extends LazyCycleBreaker implements Serializable {
 	private int id;
 	private String name;
 	private List<Enrollment> enrollments;
+	private List<Assignment> assignments;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -45,6 +46,15 @@ public class Course extends LazyCycleBreaker implements Serializable {
 	}
 	public void setEnrollments(List<Enrollment> enrollments) {
 		this.enrollments = enrollments;
+	}
+	
+	@XmlTransient
+	@OneToMany(mappedBy="course")
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+	public void setAssignments(List<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 
 }

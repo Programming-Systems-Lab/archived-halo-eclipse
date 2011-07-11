@@ -91,7 +91,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 		
 		// Keep the splash screen visible and prevent the RCP application from 
 		// loading until the close button is clicked.
-//		doEventLoop();
+		doEventLoop();
 	}
 	
 	/**
@@ -188,6 +188,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
+					System.out.println("UP:" + username +", " + password);
 					if (HALOServiceFactory.getInstance().login(username,password))
 					{
 						loginStatus = 1;

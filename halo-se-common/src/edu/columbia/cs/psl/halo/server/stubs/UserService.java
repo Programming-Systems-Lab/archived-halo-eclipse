@@ -38,17 +38,6 @@ public interface UserService {
     /**
      * 
      * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "sayHello", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.SayHello")
-    @ResponseWrapper(localName = "sayHelloResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.SayHelloResponse")
-    public String sayHello();
-
-    /**
-     * 
-     * @return
      *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.QuestProgress>
      */
     @WebMethod
@@ -70,5 +59,55 @@ public interface UserService {
     public List<QuestProgress> getMyProgressFor(
         @WebParam(name = "arg0", targetNamespace = "")
         Course arg0);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getRememberMeToken", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetRememberMeToken")
+    @ResponseWrapper(localName = "getRememberMeTokenResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetRememberMeTokenResponse")
+    public String getRememberMeToken();
+
+    /**
+     * 
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getMe", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMe")
+    @ResponseWrapper(localName = "getMeResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMeResponse")
+    public User getMe();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Assignment>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAssignmentsFor", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetAssignmentsFor")
+    @ResponseWrapper(localName = "getAssignmentsForResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetAssignmentsForResponse")
+    public List<Assignment> getAssignmentsFor(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Course arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Quest>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getQuestsFor", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetQuestsFor")
+    @ResponseWrapper(localName = "getQuestsForResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetQuestsForResponse")
+    public List<Quest> getQuestsFor(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Assignment arg0);
 
 }

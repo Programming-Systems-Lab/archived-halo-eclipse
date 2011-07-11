@@ -100,12 +100,12 @@
             application="edu.columbia.cs.psl.halo.admin.application"
             name="HALO SE Admin">
          <property
-               name="windowImages"
-               value="os x icon/128.png">
-         </property>
-         <property
                name="appName"
                value="HALO SE Admin">
+         </property>
+         <property
+               name="windowImages"
+               value="os x icon/128.png">
          </property>
       </product>
    </extension>

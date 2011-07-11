@@ -30,12 +30,15 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private String password;
 	private UserStatus status;
 	private List<Enrollment> enrollments;
-	
+	private List<Achievement> achievements;
+	private int xp;
+	private int achievementPoints;
 	
 	
 	public User() {
 		
 	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@XmlElement
@@ -84,6 +87,36 @@ public class User extends LazyCycleBreaker implements Serializable {
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	@XmlTransient
+	@OneToMany
+	public List<Achievement> getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(List<Achievement> achievements) {
+		this.achievements = achievements;
+	}
+
+	public int getXp() {
+		return xp;
+	}
+
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
+
+	public int getAchievementPoints() {
+		return achievementPoints;
+	}
+
+	public void setAchievementPoints(int achievementPoints) {
+		this.achievementPoints = achievementPoints;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	

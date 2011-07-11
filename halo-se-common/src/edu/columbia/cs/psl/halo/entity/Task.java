@@ -72,4 +72,23 @@ public class Task implements Serializable {
 	public void setQuest(Quest quest) {
 		this.quest = quest;
 	}
+	
+	private List<CausualRelation> causedBy;
+	private List<CausualRelation> resultsIn;
+	@XmlTransient
+	@OneToMany(mappedBy="taskResult")
+	public List<CausualRelation> getCausedBy() {
+		return causedBy;
+	}
+	public void setCausedBy(List<CausualRelation> causedBy) {
+		this.causedBy = causedBy;
+	}
+	@XmlTransient
+	@OneToMany(mappedBy="taskCause")
+	public List<CausualRelation> getResultsIn() {
+		return resultsIn;
+	}
+	public void setResultsIn(List<CausualRelation> resultsIn) {
+		this.resultsIn = resultsIn;
+	}
 }

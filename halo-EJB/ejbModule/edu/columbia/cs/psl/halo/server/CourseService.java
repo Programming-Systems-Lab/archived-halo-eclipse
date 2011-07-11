@@ -14,7 +14,7 @@ import edu.columbia.cs.psl.halo.entity.Task;
 
 @Stateless
 @WebService
-@RolesAllowed("USER") 
+@RolesAllowed("ADMIN") 
 public class CourseService extends AbstractFacade<Course>{
 	public CourseService()
 	{

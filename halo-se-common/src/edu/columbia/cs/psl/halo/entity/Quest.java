@@ -52,7 +52,6 @@ public class Quest implements Serializable {
 		this.parent = parent;
 	}
 	
-	@XmlTransient
 	@OneToMany(mappedBy="parent")
 	public List<Quest> getChildren() {
 		return children;
@@ -75,6 +74,25 @@ public class Quest implements Serializable {
 	}
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
+	}
+	
+	private List<CausualRelation> causedBy;
+	private List<CausualRelation> resultsIn;
+	@XmlTransient
+	@OneToMany(mappedBy="questResult")
+	public List<CausualRelation> getCausedBy() {
+		return causedBy;
+	}
+	public void setCausedBy(List<CausualRelation> causedBy) {
+		this.causedBy = causedBy;
+	}
+	@XmlTransient
+	@OneToMany(mappedBy="questCause")
+	public List<CausualRelation> getResultsIn() {
+		return resultsIn;
+	}
+	public void setResultsIn(List<CausualRelation> resultsIn) {
+		this.resultsIn = resultsIn;
 	}
 	
 }

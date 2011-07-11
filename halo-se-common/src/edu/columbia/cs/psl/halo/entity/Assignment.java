@@ -2,16 +2,20 @@ package edu.columbia.cs.psl.halo.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
+@Table(name="studentAsisgnment")
 public class Assignment implements Serializable {
 	private static final long serialVersionUID = -5087782653671688079L;
 	private int id;
@@ -20,6 +24,7 @@ public class Assignment implements Serializable {
 	private Date dueOn;
 	private Date assignedOn;
 	private Course course;
+	private List<Quest> quests;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -64,4 +69,14 @@ public class Assignment implements Serializable {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
+	
+	@XmlTransient
+	@OneToMany(mappedBy="assignment")
+	public List<Quest> getQuests() {
+		return quests;
+	}
+	public void setQuests(List<Quest> quests) {
+		this.quests = quests;
+	}
+	
 }

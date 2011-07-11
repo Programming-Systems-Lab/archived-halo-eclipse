@@ -6,6 +6,7 @@ import edu.columbia.cs.psl.halo.server.stubs.AdminService;
 import edu.columbia.cs.psl.halo.server.stubs.AdminServiceService;
 import edu.columbia.cs.psl.halo.server.stubs.CourseService;
 import edu.columbia.cs.psl.halo.server.stubs.CourseServiceService;
+import edu.columbia.cs.psl.halo.server.stubs.User;
 import edu.columbia.cs.psl.halo.server.stubs.UserService;
 import edu.columbia.cs.psl.halo.server.stubs.UserServiceService;
 import edu.columbia.cs.psl.halo.server.wrapper.UserWrapper;
@@ -39,6 +40,10 @@ public class HALOServiceFactory {
 			((BindingProvider)svc).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, password);
 		}
 	}
+	private User me;
+	public User getMe() {
+		return me;
+	};
 	public boolean login(String username, String password)
 	{
 		this.username = username;
@@ -46,18 +51,24 @@ public class HALOServiceFactory {
 		clearCache();
 		try
 		{
-			getUserSvc().getEnrollments();
+			me = getUserSvc().getMe();
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+	public boolean isLoggedIn()
+	{
+		return me != null;
 	}
 	public void logout()
 	{
 		this.username = null;
 		this.password = null;
+		me = null;
 		clearCache();
 	}
 	

@@ -13,8 +13,7 @@
        </login-config>
      </webservice-endpoint>
    </ejb>
-
-<ejb>
+	<ejb>
      <ejb-name>CourseService</ejb-name>
      <webservice-endpoint>
        <port-component-name>CourseService</port-component-name>
