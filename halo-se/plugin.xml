@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="HALO SE"
+            id="edu.columbia.cs.psl.halo.client">
+      </category>
+      <view
+            name="Sample View"
+            icon="icons/sample.gif"
+            category="edu.columbia.cs.psl.halo.client"
+            class="edu.columbia.cs.psl.halo.client.views.SampleView"
+            id="edu.columbia.cs.psl.halo.client.views.SampleView">
+      </view>
+      <stickyView
+            id="edu.columbia.cs.psl.halo.client.views.DashboardView">
+      </stickyView>
+      <view
+            category="edu.columbia.cs.psl.halo.client"
+            class="edu.columbia.cs.psl.halo.client.views.DashboardView"
+            id="edu.columbia.cs.psl.halo.client.views.DashboardView"
+            name="Dashboard"
+            restorable="true">
+      </view>
+      <view
+            category="edu.columbia.cs.psl.halo.client"
+            class="edu.columbia.cs.psl.halo.client.views.QuestHUD"
+            id="edu.columbia.cs.psl.halo.client.views.QuestHUD"
+            name="Quests HUD"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="edu.columbia.cs.psl.halo.client.views.SampleView">
+         </view>
+         <view
+               id="edu.columbia.cs.psl.halo.client.views.DashboardView"
+               minimized="false"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="edu.columbia.cs.psl.halo.client.editor.AssignmentViewerEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.client.editor.AssignmentViewerEditor"
+            name="Assignment Viewer">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="edu.columbia.cs.psl.halo.client.handler.OpenEditor"
+            id="edu.columbia.cs.psl.halo.client.commands.openEditor"
+            name="Open Editor">
+      </command>
+   </extension>
+
+</plugin>

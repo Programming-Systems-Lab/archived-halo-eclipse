@@ -1,0 +1,89 @@
+package edu.columbia.cs.psl.halo.client.editor;
+
+import java.util.List;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.EditorPart;
+
+import edu.columbia.cs.psl.halo.server.stubs.Assignment;
+import edu.columbia.cs.psl.halo.server.stubs.Quest;
+
+public class AssignmentViewerEditor extends EditorPart {
+	public static final String ID="edu.columbia.cs.psl.halo.client.editor.AssignmentViewerEditor";
+	
+	private AssignmentViewerInput input;
+	
+	public AssignmentViewerEditor() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void doSave(IProgressMonitor monitor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void doSaveAs() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		if (!(input instanceof AssignmentViewerInput)) {
+			throw new RuntimeException("Wrong input");
+		}
+
+		this.input = (AssignmentViewerInput) input;
+		setSite(site);
+		setInput(input);
+		setPartName("Assignment: " + this.input.getAssignment().getTitle());
+	}
+
+	@Override
+	public boolean isDirty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void createPartControl(Composite parent) {
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		parent.setLayout(layout);
+		Label label1 = new Label(parent, SWT.NONE);
+		label1.setText("Assignment Title");
+		Text text = new Text(parent, SWT.BORDER);
+		text.setText(input.getAssignment().getTitle());
+		text.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+		new Label(parent, SWT.NONE).setText("Assignment Description");
+		Text lastName = new Text(parent, SWT.BORDER);
+		lastName.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true,
+				false));
+		lastName.setText(input.getAssignment().getDescription());
+	}
+
+	@Override
+	public void setFocus() {
+		// TODO Auto-generated method stub
+
+	}
+
+}
