@@ -43,6 +43,7 @@ public class UserService extends AbstractFacade<User>  {
     }
     public List<Quest> getQuestsFor(Assignment a)
     {
+    	getEntityManager().getEntityManagerFactory().getCache().evictAll();
     	a = getEntityManager().find(Assignment.class, a.getId());
     	return a.getQuests();
     }

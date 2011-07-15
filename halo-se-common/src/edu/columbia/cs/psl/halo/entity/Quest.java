@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Quest implements Serializable {
+public class Quest extends LazyCycleBreaker implements Serializable {
 	
 	private static final long serialVersionUID = -7137631033959876404L;
 	private int id;
