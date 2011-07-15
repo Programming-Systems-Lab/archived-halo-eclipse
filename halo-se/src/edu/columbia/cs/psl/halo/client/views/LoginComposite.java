@@ -93,9 +93,9 @@ public class LoginComposite extends Composite {
 		createProgressInfo();
 
 		//TODO delete this to turn off auto login
-		fTextPassword.setText("test123");
-		fTextUsername.setText("jon");
-		handleButtonOKWidgetSelected();
+//		fTextPassword.setText("test123");
+//		fTextUsername.setText("jon");
+//		handleButtonOKWidgetSelected();
 
 		// Create the cancel button
 //		createUIButtonCancel();

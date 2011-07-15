@@ -22,10 +22,14 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -48,17 +52,86 @@ import edu.columbia.cs.psl.halo.server.stubs.QuestProgress;
 import edu.columbia.cs.psl.halo.server.stubs.Task;
 
 public class QuestHUD extends ViewPart {
-	public static final String ID = "edu.columbia.cs.psl.halo.client.views.QuestHUD";
+	class NameSorter extends ViewerSorter {
+	}
 
 	class QuestDetails extends Composite
 	{
 
-		Label questTitle;
-		Label questDueDate;
 		Label backgroundHeader;
-		Label questBackground;
-		Label objectivesHeader;
 		Label objectivesBody;
+		Label objectivesHeader;
+		Label questBackground;
+		Label questDueDate;
+		Label questTitle;
+		public QuestDetails(Composite parent, int style) {
+			super(parent, style);
+			
+			this.setLayout(new GridLayout(1,true));
+			questTitle = new Label(this, SWT.NONE);
+			questTitle.setText("Batman's Quest");
+			FontData[] fD = questTitle.getFont().getFontData();
+			fD[0].setHeight(24);
+			fD[0].setStyle(SWT.BOLD);
+			questTitle.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			this.pack();
+			questDueDate = new Label(this, SWT.WRAP);
+			questDueDate.setText("For Assignment 1, due in 3 days");
+			GridData data = new GridData();
+			data.widthHint=this.getBounds().width - 20;
+			questDueDate.setLayoutData(data);
+			fD[0].setHeight(16);
+			fD[0].setStyle(SWT.BOLD);
+			questDueDate.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			backgroundHeader = new Label(this, SWT.NONE);
+			backgroundHeader.setText("Background");
+			fD[0].setHeight(16);
+			fD[0].setStyle(SWT.BOLD);
+			backgroundHeader.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			parent.pack();
+			
+			questBackground = new Label(this, SWT.WRAP);
+			questBackground.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
+			data = new GridData();
+			data.widthHint=this.getBounds().width - 20;
+			fD[0].setHeight(11);
+			questBackground.setLayoutData(data);
+			fD[0].setStyle(SWT.NORMAL);
+			questBackground.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			objectivesHeader = new Label(this, SWT.NONE);
+			objectivesHeader.setText("Objectives");
+			fD[0].setHeight(16);
+			fD[0].setStyle(SWT.BOLD);
+			objectivesHeader.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			objectivesBody = new Label(this, SWT.WRAP);
+			objectivesBody.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
+			data = new GridData();
+			data.widthHint=this.getBounds().width - 20;
+			fD[0].setHeight(11);
+			objectivesBody.setLayoutData(data);
+			fD[0].setStyle(SWT.NORMAL);
+			objectivesBody.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			parent.addListener(SWT.Resize, new Listener() {
+				public void handleEvent(Event event) {
+					int prefWidth = getShell().getBounds().width -40;
+					System.out.println("Pref is " + prefWidth);
+						GridData data = (GridData)questBackground.getLayoutData();
+						data.widthHint = prefWidth;
+						questBackground.setLayoutData(data);
+						objectivesBody.setLayoutData(data);
+						data = (GridData)questDueDate.getLayoutData();
+						data.widthHint = prefWidth;
+						questDueDate.setLayoutData(data);
+						pack();
+				}
+			});
+		}
 		public void setQuest(QuestWrapper w)
 		{
 			questTitle.setText(w.getQuest().getName());
@@ -71,70 +144,10 @@ public class QuestHUD extends ViewPart {
 				objectives += t.getName() + "\n";
 			}
 			objectivesBody.setText(objectives);
-		}
-		public QuestDetails(Composite parent, int style) {
-			super(parent, style);
-			
-			this.setLayout(new GridLayout(1,true));
-			questTitle = new Label(this, SWT.NONE);
-			questTitle.setText("Batman's Quest");
-			FontData[] fD = questTitle.getFont().getFontData();
-			fD[0].setHeight(30);
-			fD[0].setStyle(SWT.BOLD);
-			questTitle.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			this.pack();
-			questDueDate = new Label(this, SWT.NONE);
-			questDueDate.setText("For Assignment 1, due in 3 days");
-			fD[0].setHeight(20);
-			fD[0].setStyle(SWT.BOLD);
-			questDueDate.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			backgroundHeader = new Label(this, SWT.NONE);
-			backgroundHeader.setText("Background");
-			fD[0].setHeight(24);
-			fD[0].setStyle(SWT.BOLD);
-			backgroundHeader.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			questBackground = new Label(this, SWT.WRAP);
-			questBackground.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
-			GridData data = new GridData();
-			data.widthHint=this.getBounds().width - 20;
-			fD[0].setHeight(12);
-			questBackground.setLayoutData(data);
-			fD[0].setStyle(SWT.NORMAL);
-			questBackground.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			objectivesHeader = new Label(this, SWT.NONE);
-			objectivesHeader.setText("Objectives");
-			fD[0].setHeight(24);
-			fD[0].setStyle(SWT.BOLD);
-			objectivesHeader.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			objectivesBody = new Label(this, SWT.WRAP);
-			objectivesBody.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
-			data = new GridData();
-			data.widthHint=this.getBounds().width - 20;
-			fD[0].setHeight(12);
-			objectivesBody.setLayoutData(data);
-			fD[0].setStyle(SWT.NORMAL);
-			objectivesBody.setFont( new Font(parent.getDisplay(),fD[0]));
-			
-			parent.addListener(SWT.Resize, new Listener() {
-				public void handleEvent(Event event) {
-					int curWidth = questBackground.getBounds().width;
-					int prefWidth = getBounds().width - 20;
-					System.out.println(prefWidth);
-					if (prefWidth != curWidth) {
-						GridData data = (GridData)questBackground.getLayoutData();
-						data.widthHint = prefWidth;
-						questBackground.setLayoutData(data);
-						objectivesBody.setLayoutData(data);
-
-						pack();
-					}
-				}
-			});
+			pack();
+			Rectangle r = questDetailsScroller.getClientArea();
+			questDetailsScroller.setMinSize(questDetails.computeSize(r.width, SWT.DEFAULT));
+			parent.notifyListeners(SWT.Resize, new Event());
 		}
 
 		
@@ -143,9 +156,15 @@ public class QuestHUD extends ViewPart {
 										   ITreeContentProvider {
 		private Set<QuestWrapper> invisibleRoot;
 
-		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-		}
 		public void dispose() {
+		}
+		public Object [] getChildren(Object parent) {
+			if (parent instanceof QuestWrapper) {
+				return ((QuestWrapper)parent).getQuest().getTasks().toArray();
+			}
+			else if(parent == invisibleRoot)
+				return invisibleRoot.toArray();
+			return new Object[0];
 		}
 		public Object[] getElements(Object parent) {
 			if (parent.equals("root")) {
@@ -160,14 +179,6 @@ public class QuestHUD extends ViewPart {
 			}
 			return null;
 		}
-		public Object [] getChildren(Object parent) {
-			if (parent instanceof QuestWrapper) {
-				return ((QuestWrapper)parent).getQuest().getTasks().toArray();
-			}
-			else if(parent == invisibleRoot)
-				return invisibleRoot.toArray();
-			return new Object[0];
-		}
 		public boolean hasChildren(Object parent) {
 			if (parent instanceof QuestWrapper)
 				return ((QuestWrapper)parent).getQuest().getTasks().size() > 0;
@@ -175,7 +186,6 @@ public class QuestHUD extends ViewPart {
 				return invisibleRoot.size() > 0;
 			return false;
 		}
-		
 		private void initialize() {
 			invisibleRoot = new HashSet<QuestWrapper>();
 			if(quests != null)
@@ -186,8 +196,18 @@ public class QuestHUD extends ViewPart {
 				}
 
 		}
+		
+		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+		}
 	}
 	class ViewLabelProvider extends LabelProvider {
+		public Image getImage(Object obj) {
+			return null;
+//			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
+//			if (obj instanceof TreeParent)
+//			   imageKey = ISharedImages.IMG_OBJ_FOLDER;
+//			return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);
+		}
 		public String getText(Object obj) {
 			if(obj instanceof QuestWrapper)
 			{
@@ -201,27 +221,8 @@ public class QuestHUD extends ViewPart {
 			}
 			return obj.toString();
 		}
-		public Image getImage(Object obj) {
-			return null;
-//			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-//			if (obj instanceof TreeParent)
-//			   imageKey = ISharedImages.IMG_OBJ_FOLDER;
-//			return PlatformUI.getWorkbench().getSharedImages().getImage(imageKey);
-		}
 	}
-	class NameSorter extends ViewerSorter {
-	}
-	
-	Composite needToLogin;
-	Composite loggedInPanel;
-
-	Tree questsTree;
-	TreeViewer questsViewer;
-	
-	Composite parent;
-	public QuestHUD() {
-		
-	}
+	public static final String ID = "edu.columbia.cs.psl.halo.client.views.QuestHUD";
 	
 	public static void main(String[] args) {
 		HALOServiceFactory.getInstance().login("jon", "test123");
@@ -240,6 +241,25 @@ public class QuestHUD extends ViewPart {
 		display.dispose ();
 		
 	}
+	private Composite detailsArea;
+
+	private StackLayout layout;
+	Composite loggedInPanel;
+	
+	Composite needToLogin;
+	Composite parent;
+	
+	private QuestDetails questDetails;
+	private ScrolledComposite questDetailsScroller;
+
+	List<QuestWrapper> quests;
+	Tree questsTree;
+	TreeViewer questsViewer;
+	private Boolean updatingFlag = Boolean.FALSE;
+	public QuestHUD() {
+		
+	}
+	
 	private void createNeedLoginPanel()
 	{
 		needToLogin = new Composite(parent, SWT.NONE);
@@ -247,12 +267,20 @@ public class QuestHUD extends ViewPart {
 		Label goLogin = new Label(needToLogin, SWT.NONE);
 		goLogin.setText("Please login to utilize HALO-SE");
 	}
-	private void showQuestDetails(QuestWrapper w)
-	{
-		System.out.println("SHowing details");
-		System.out.println(w.getQuest().getName());
+	
+	@Override
+	public void createPartControl(Composite parent) {
+		this.parent = parent;
+		this.layout = new StackLayout();
+		parent.setLayout(this.layout);
+		
+
+		createNeedLoginPanel();
+		this.layout.topControl = needToLogin;
+		createQuestsHUDPanel();
 	}
-	private QuestDetails questDetails;
+	private StackLayout detailsLayout;
+	private Label noQuestSelected;
 	private void createQuestsHUDPanel()
 	{
 		loggedInPanel = new Composite(parent,SWT.BORDER);
@@ -264,8 +292,25 @@ public class QuestHUD extends ViewPart {
 		questsViewer.setLabelProvider(new ViewLabelProvider());
 		questsViewer.setSorter(new NameSorter());
 		questsViewer.setInput("root");
-			
-		questDetails = new QuestDetails(sash, SWT.NONE);
+		
+		detailsArea = new Composite(sash, SWT.BORDER);
+		detailsLayout = new StackLayout();
+		detailsArea.setLayout(detailsLayout);
+		noQuestSelected = new Label(detailsArea, SWT.WRAP);
+		noQuestSelected.setText("Please select a quest or task to view information about it");
+		detailsLayout.topControl=noQuestSelected;
+		questDetailsScroller = new ScrolledComposite(detailsArea, SWT.V_SCROLL | SWT.H_SCROLL);
+		
+		questDetails = new QuestDetails(questDetailsScroller, SWT.NONE);
+		questDetailsScroller.setContent(questDetails);
+		questDetailsScroller.setExpandHorizontal(true);
+		questDetailsScroller.setExpandVertical(true);
+		questDetailsScroller.addControlListener(new ControlAdapter(){
+			public void controlResized(ControlEvent e) {
+				Rectangle r = questDetailsScroller.getClientArea();
+				questDetailsScroller.setMinSize(questDetails.computeSize(r.width, SWT.DEFAULT));
+			}
+		});
 		
 		questsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			
@@ -274,19 +319,45 @@ public class QuestHUD extends ViewPart {
 		       if(event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();
 				if((selection.getFirstElement()) instanceof QuestWrapper)
-					questDetails.setQuest((QuestWrapper) selection.getFirstElement());
+				{
+					detailsLayout.topControl=questDetailsScroller;
+					detailsArea.layout(true);
+					detailsArea.pack();
+					questDetailsScroller.pack();
+//					questDetails.setQuest((QuestWrapper) selection.getFirstElement());
+					detailsArea.layout(true);
+					detailsArea.pack();
+					parent.notifyListeners(SWT.Resize, new Event());
+					parent.layout(true);
+					detailsArea.layout(true);
+					detailsArea.pack();
+					questDetailsScroller.layout(true);
+				}
 		       }
-
-//				else
-//					System.out.println(questsViewer.getSelection().);
 			}
 		});
 
 		updateQuests();
 	}
-	List<QuestWrapper> quests;
 	
-	private Boolean updatingFlag = Boolean.FALSE;
+	void loggedIn(){
+		this.layout.topControl = loggedInPanel;
+
+		updateQuests();
+		parent.layout();
+		updateQuests();
+	}
+	
+
+	void loggedOut()
+	{
+		questsTree.dispose();
+		createNeedLoginPanel();
+	}
+	@Override
+	public void setFocus() {
+		updateQuests();
+	}
 	
 	private void updateQuests()
 	{
@@ -294,9 +365,7 @@ public class QuestHUD extends ViewPart {
 			if(updatingFlag)
 				return;
 			updatingFlag = true;
-		
-		if(!HALOServiceFactory.getInstance().isLoggedIn())
-			System.out.println("Not logged in yet");
+
 		if(HALOServiceFactory.getInstance().isLoggedIn() && questsViewer != null)
 		{
 
@@ -319,7 +388,6 @@ public class QuestHUD extends ViewPart {
 								for(Quest q : HALOServiceFactory.getInstance().getUserSvc().getQuestsFor(a))
 								{
 									QuestWrapper qw = new QuestWrapper(q, a, e.getCourse(), progress.get(q));
-									System.out.println(qw);
 									quests.add(qw);
 								}
 							}
@@ -329,10 +397,8 @@ public class QuestHUD extends ViewPart {
 						
 						@Override
 						public void run() {
-							System.out.println(quests);
 							questsViewer.refresh();
 							questsViewer.expandAll();
-							System.out.println("Refreshed");
 							updatingFlag = false;
 						}
 					});
@@ -344,39 +410,5 @@ public class QuestHUD extends ViewPart {
 		else
 			updatingFlag = false;
 		}
-	}
-	private StackLayout layout;
-	
-	@Override
-	public void createPartControl(Composite parent) {
-		this.parent = parent;
-		this.layout = new StackLayout();
-		parent.setLayout(this.layout);
-		
-
-		createNeedLoginPanel();
-		this.layout.topControl = needToLogin;
-		createQuestsHUDPanel();
-//		this.layout.topControl = loggedInPanel;
-	}
-	
-
-	@Override
-	public void setFocus() {
-		updateQuests();
-	}
-	void loggedIn(){
-		System.out.println("Logging in");
-		this.layout.topControl = loggedInPanel;
-
-		updateQuests();
-		parent.layout();
-		updateQuests();
-	}
-	
-	void loggedOut()
-	{
-		questsTree.dispose();
-		createNeedLoginPanel();
 	}
 }
