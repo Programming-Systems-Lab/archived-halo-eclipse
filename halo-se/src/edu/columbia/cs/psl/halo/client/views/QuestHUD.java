@@ -23,12 +23,17 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StackLayout;
-import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.part.ViewPart;
@@ -45,6 +50,95 @@ import edu.columbia.cs.psl.halo.server.stubs.Task;
 public class QuestHUD extends ViewPart {
 	public static final String ID = "edu.columbia.cs.psl.halo.client.views.QuestHUD";
 
+	class QuestDetails extends Composite
+	{
+
+		Label questTitle;
+		Label questDueDate;
+		Label backgroundHeader;
+		Label questBackground;
+		Label objectivesHeader;
+		Label objectivesBody;
+		public void setQuest(QuestWrapper w)
+		{
+			questTitle.setText(w.getQuest().getName());
+			questDueDate.setText("(Part of " + w.getAssignment().getTitle() + ", due " + w.getDueStrHuman() + ")");
+			questBackground.setText(w.getQuest().getDescription());
+			
+			String objectives = "";
+			for(Task t : w.getQuest().getTasks())
+			{
+				objectives += t.getName() + "\n";
+			}
+			objectivesBody.setText(objectives);
+		}
+		public QuestDetails(Composite parent, int style) {
+			super(parent, style);
+			
+			this.setLayout(new GridLayout(1,true));
+			questTitle = new Label(this, SWT.NONE);
+			questTitle.setText("Batman's Quest");
+			FontData[] fD = questTitle.getFont().getFontData();
+			fD[0].setHeight(30);
+			fD[0].setStyle(SWT.BOLD);
+			questTitle.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			this.pack();
+			questDueDate = new Label(this, SWT.NONE);
+			questDueDate.setText("For Assignment 1, due in 3 days");
+			fD[0].setHeight(20);
+			fD[0].setStyle(SWT.BOLD);
+			questDueDate.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			backgroundHeader = new Label(this, SWT.NONE);
+			backgroundHeader.setText("Background");
+			fD[0].setHeight(24);
+			fD[0].setStyle(SWT.BOLD);
+			backgroundHeader.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			questBackground = new Label(this, SWT.WRAP);
+			questBackground.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
+			GridData data = new GridData();
+			data.widthHint=this.getBounds().width - 20;
+			fD[0].setHeight(12);
+			questBackground.setLayoutData(data);
+			fD[0].setStyle(SWT.NORMAL);
+			questBackground.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			objectivesHeader = new Label(this, SWT.NONE);
+			objectivesHeader.setText("Objectives");
+			fD[0].setHeight(24);
+			fD[0].setStyle(SWT.BOLD);
+			objectivesHeader.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			objectivesBody = new Label(this, SWT.WRAP);
+			objectivesBody.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
+			data = new GridData();
+			data.widthHint=this.getBounds().width - 20;
+			fD[0].setHeight(12);
+			objectivesBody.setLayoutData(data);
+			fD[0].setStyle(SWT.NORMAL);
+			objectivesBody.setFont( new Font(parent.getDisplay(),fD[0]));
+			
+			parent.addListener(SWT.Resize, new Listener() {
+				public void handleEvent(Event event) {
+					int curWidth = questBackground.getBounds().width;
+					int prefWidth = getBounds().width - 20;
+					System.out.println(prefWidth);
+					if (prefWidth != curWidth) {
+						GridData data = (GridData)questBackground.getLayoutData();
+						data.widthHint = prefWidth;
+						questBackground.setLayoutData(data);
+						objectivesBody.setLayoutData(data);
+
+						pack();
+					}
+				}
+			});
+		}
+
+		
+	}
 	class ViewContentProvider implements IStructuredContentProvider, 
 										   ITreeContentProvider {
 		private Set<QuestWrapper> invisibleRoot;
@@ -153,13 +247,12 @@ public class QuestHUD extends ViewPart {
 		Label goLogin = new Label(needToLogin, SWT.NONE);
 		goLogin.setText("Please login to utilize HALO-SE");
 	}
-	private StyledText questsDetails;
 	private void showQuestDetails(QuestWrapper w)
 	{
 		System.out.println("SHowing details");
-		questsDetails.setText("<html><b>Test</b></html>");
 		System.out.println(w.getQuest().getName());
 	}
+	private QuestDetails questDetails;
 	private void createQuestsHUDPanel()
 	{
 		loggedInPanel = new Composite(parent,SWT.BORDER);
@@ -171,10 +264,8 @@ public class QuestHUD extends ViewPart {
 		questsViewer.setLabelProvider(new ViewLabelProvider());
 		questsViewer.setSorter(new NameSorter());
 		questsViewer.setInput("root");
-		
-		questsDetails = new StyledText(sash, SWT.None);
-		questsDetails.setText("Select a quest to view its details");
-		
+			
+		questDetails = new QuestDetails(sash, SWT.NONE);
 		
 		questsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			
@@ -183,7 +274,7 @@ public class QuestHUD extends ViewPart {
 		       if(event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();
 				if((selection.getFirstElement()) instanceof QuestWrapper)
-					showQuestDetails((QuestWrapper) selection.getFirstElement());
+					questDetails.setQuest((QuestWrapper) selection.getFirstElement());
 		       }
 
 //				else

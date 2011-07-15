@@ -80,7 +80,7 @@ public abstract class AbstractFacade<T> {
 		}
 		return r;
     }
-
+  
     protected User findByUserName(String username)
 	{
 		Query q = getEntityManager().createQuery("select object(c) from User as c where c.username=:user");
@@ -90,7 +90,7 @@ public abstract class AbstractFacade<T> {
 		{
 		r = (User) q.getSingleResult();
 		}
-		catch(NoResultException e)
+		catch(NoResultException e) 
 		{
 			
 		}
