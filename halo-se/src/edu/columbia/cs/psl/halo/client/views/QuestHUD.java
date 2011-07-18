@@ -120,7 +120,7 @@ public class QuestHUD extends ViewPart {
 			parent.addListener(SWT.Resize, new Listener() {
 				public void handleEvent(Event event) {
 					int prefWidth = getShell().getBounds().width -40;
-					System.out.println("Pref is " + prefWidth);
+//					System.out.println("Pref is " + prefWidth);
 						GridData data = (GridData)questBackground.getLayoutData();
 						data.widthHint = prefWidth;
 						questBackground.setLayoutData(data);
@@ -324,7 +324,7 @@ public class QuestHUD extends ViewPart {
 					detailsArea.layout(true);
 					detailsArea.pack();
 					questDetailsScroller.pack();
-//					questDetails.setQuest((QuestWrapper) selection.getFirstElement());
+					questDetails.setQuest((QuestWrapper) selection.getFirstElement());
 					detailsArea.layout(true);
 					detailsArea.pack();
 					parent.notifyListeners(SWT.Resize, new Event());
@@ -368,19 +368,20 @@ public class QuestHUD extends ViewPart {
 
 		if(HALOServiceFactory.getInstance().isLoggedIn() && questsViewer != null)
 		{
-
 			Job j = new Job("Updating quests list") {
 				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					quests  = new ArrayList<QuestWrapper>();
 					HashMap<Quest, QuestProgress> progress = new HashMap<Quest, QuestProgress>();
-					for(QuestProgress p : HALOServiceFactory.getInstance().getUserSvc().getMyProgress())
-					{
-						progress.put(p.getQuest(), p);
-					}
+					if(HALOServiceFactory.getInstance().getUserSvc().getMyProgress() != null)
+						for(QuestProgress p : HALOServiceFactory.getInstance().getUserSvc().getMyProgress())
+						{
+							progress.put(p.getQuest(), p);
+						}
 					for(Enrollment e : HALOServiceFactory.getInstance().getUserSvc().getEnrollments())
 					{
+						System.out.println(e);
 						if(e.getType().equals(EnrollmentType.STUDENT))
 						{
 							for(Assignment a : HALOServiceFactory.getInstance().getUserSvc().getAssignmentsFor(e.getCourse()))

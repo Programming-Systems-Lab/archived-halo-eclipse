@@ -15,7 +15,7 @@ public class Achievement {
 	private int id;
 	private String name;
 	private int points;
-	
+	private Title resultTitle;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -57,6 +57,11 @@ public class Achievement {
 		this.resultsIn = resultsIn;
 	}
 	
-	
+	public Title getResultTitle() {
+		return resultTitle;
+	}
+	public void setResultTitle(Title resultTitle) {
+		this.resultTitle = resultTitle;
+	}
 	
 }

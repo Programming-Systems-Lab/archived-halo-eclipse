@@ -41,9 +41,15 @@ public class HALOServiceFactory {
 		}
 	}
 	private User me;
+	
+
 	public User getMe() {
 		return me;
 	};
+	public void refreshMe()
+	{
+		me = getUserSvc().getMe();
+	}
 	public boolean login(String username, String password)
 	{
 		this.username = username;

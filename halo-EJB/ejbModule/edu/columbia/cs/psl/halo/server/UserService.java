@@ -12,12 +12,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
+import edu.columbia.cs.psl.halo.entity.Achievement;
+import edu.columbia.cs.psl.halo.entity.AchievementRecord;
 import edu.columbia.cs.psl.halo.entity.Assignment;
 import edu.columbia.cs.psl.halo.entity.Course;
 import edu.columbia.cs.psl.halo.entity.Enrollment;
+import edu.columbia.cs.psl.halo.entity.Level;
 import edu.columbia.cs.psl.halo.entity.Quest;
 import edu.columbia.cs.psl.halo.entity.QuestProgress;
+import edu.columbia.cs.psl.halo.entity.Title;
 import edu.columbia.cs.psl.halo.entity.User;
 import edu.columbia.cs.psl.halo.entity.UserStatus;
 
@@ -36,6 +41,67 @@ public class UserService extends AbstractFacade<User>  {
         super(User.class);
     }
 
+    public boolean setDefaultTitle(Title t)
+    {
+    	User u = getUser();
+    	if(u.getTitles().contains(t))
+    	{
+    		u.setActiveTitle(t);
+    		getEntityManager().merge(u);
+    		return true;
+    	}
+    	return false;
+    }
+    public Byte[] getMyProfileImage()
+    {
+    	return null; //TODO
+    }
+    public Byte[] getProfileImage(User u)
+    {
+    	return null; //TODO
+    }
+    public void setProfileImage(Byte[] img)
+    {
+    	//TODO
+    }
+    public Level getLevel(int i)
+    {
+    	Query q = getEntityManager().createNativeQuery("select * FROM level where level=?", Level.class);
+    	q.setParameter(1, i);
+    	try{
+    		return (Level) q.getSingleResult();    		
+    	}
+    	catch(NoResultException ex)
+    	{
+    		return null;
+    	}
+    }
+    
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+    public List<Achievement> getAllAchievements()
+    {
+		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Achievement.class));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+    public List<Quest> getAllQuests()
+    {
+    	CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Quest.class));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    public List<Title> getMyTitles()
+    {
+    	User u = getUser();
+    	return u.getTitles();
+    }
+    public List<AchievementRecord> getMyAchievements()
+    {
+    	User u = getUser();
+    	return u.getAchievements();
+    }
     public List<Assignment> getAssignmentsFor(Course c)
     {
     	c = getEntityManager().find(Course.class, c.getId());
@@ -49,13 +115,10 @@ public class UserService extends AbstractFacade<User>  {
     }
     public List<QuestProgress> getMyProgress()
     {
-    	return null; //TODO
+    	User u = getUser();
+    	return u.getProgress();
     }
     
-    public List<QuestProgress> getMyProgressFor(Course c)
-    {
-    	return null; //TODO
-    } 
     
     public List<Enrollment> getEnrollments()
     {

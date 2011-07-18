@@ -66,6 +66,7 @@ public class Task implements Serializable {
 	public void setChildren(List<Task> children) {
 		this.children = children;
 	}
+	@XmlTransient
 	public Quest getQuest() {
 		return quest;
 	}

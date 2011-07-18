@@ -64,35 +64,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateEnrollment }
+     * Create an instance of {@link CreateUserResponse }
      * 
      */
-    public UpdateEnrollment createUpdateEnrollment() {
-        return new UpdateEnrollment();
-    }
-
-    /**
-     * Create an instance of {@link GetUsersResponse }
-     * 
-     */
-    public GetUsersResponse createGetUsersResponse() {
-        return new GetUsersResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUserResponse }
-     * 
-     */
-    public GetUserResponse createGetUserResponse() {
-        return new GetUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnrollmentsForResponse }
-     * 
-     */
-    public GetEnrollmentsForResponse createGetEnrollmentsForResponse() {
-        return new GetEnrollmentsForResponse();
+    public CreateUserResponse createCreateUserResponse() {
+        return new CreateUserResponse();
     }
 
     /**
@@ -104,123 +80,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetUsers }
-     * 
-     */
-    public GetUsers createGetUsers() {
-        return new GetUsers();
-    }
-
-    /**
-     * Create an instance of {@link Enrollment }
-     * 
-     */
-    public Enrollment createEnrollment() {
-        return new Enrollment();
-    }
-
-    /**
-     * Create an instance of {@link GetCourses }
-     * 
-     */
-    public GetCourses createGetCourses() {
-        return new GetCourses();
-    }
-
-    /**
      * Create an instance of {@link DeleteEnrollmentResponse }
      * 
      */
     public DeleteEnrollmentResponse createDeleteEnrollmentResponse() {
         return new DeleteEnrollmentResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateEnrollment }
-     * 
-     */
-    public CreateEnrollment createCreateEnrollment() {
-        return new CreateEnrollment();
-    }
-
-    /**
-     * Create an instance of {@link User }
-     * 
-     */
-    public User createUser() {
-        return new User();
-    }
-
-    /**
-     * Create an instance of {@link CreateCourseResponse }
-     * 
-     */
-    public CreateCourseResponse createCreateCourseResponse() {
-        return new CreateCourseResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateUserResponse }
-     * 
-     */
-    public CreateUserResponse createCreateUserResponse() {
-        return new CreateUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateUser }
-     * 
-     */
-    public UpdateUser createUpdateUser() {
-        return new UpdateUser();
-    }
-
-    /**
-     * Create an instance of {@link DeleteUser }
-     * 
-     */
-    public DeleteUser createDeleteUser() {
-        return new DeleteUser();
-    }
-
-    /**
-     * Create an instance of {@link CreateCourse }
-     * 
-     */
-    public CreateCourse createCreateCourse() {
-        return new CreateCourse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCourseResponse }
-     * 
-     */
-    public UpdateCourseResponse createUpdateCourseResponse() {
-        return new UpdateCourseResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCourse }
-     * 
-     */
-    public GetCourse createGetCourse() {
-        return new GetCourse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCourse }
-     * 
-     */
-    public DeleteCourse createDeleteCourse() {
-        return new DeleteCourse();
-    }
-
-    /**
-     * Create an instance of {@link CreateEnrollmentResponse }
-     * 
-     */
-    public CreateEnrollmentResponse createCreateEnrollmentResponse() {
-        return new CreateEnrollmentResponse();
     }
 
     /**
@@ -232,11 +96,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteEnrollment }
+     * Create an instance of {@link CreateCourseResponse }
      * 
      */
-    public DeleteEnrollment createDeleteEnrollment() {
-        return new DeleteEnrollment();
+    public CreateCourseResponse createCreateCourseResponse() {
+        return new CreateCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCourseResponse }
+     * 
+     */
+    public UpdateCourseResponse createUpdateCourseResponse() {
+        return new UpdateCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateCourse }
+     * 
+     */
+    public CreateCourse createCreateCourse() {
+        return new CreateCourse();
     }
 
     /**
@@ -248,51 +128,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Course }
+     * Create an instance of {@link Title }
      * 
      */
-    public Course createCourse() {
-        return new Course();
-    }
-
-    /**
-     * Create an instance of {@link GetCoursesResponse }
-     * 
-     */
-    public GetCoursesResponse createGetCoursesResponse() {
-        return new GetCoursesResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCourse }
-     * 
-     */
-    public UpdateCourse createUpdateCourse() {
-        return new UpdateCourse();
-    }
-
-    /**
-     * Create an instance of {@link GetUser }
-     * 
-     */
-    public GetUser createGetUser() {
-        return new GetUser();
-    }
-
-    /**
-     * Create an instance of {@link CreateUser }
-     * 
-     */
-    public CreateUser createCreateUser() {
-        return new CreateUser();
-    }
-
-    /**
-     * Create an instance of {@link DeleteUserResponse }
-     * 
-     */
-    public DeleteUserResponse createDeleteUserResponse() {
-        return new DeleteUserResponse();
+    public Title createTitle() {
+        return new Title();
     }
 
     /**
@@ -304,11 +144,195 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetCoursesResponse }
+     * 
+     */
+    public GetCoursesResponse createGetCoursesResponse() {
+        return new GetCoursesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUsers }
+     * 
+     */
+    public GetUsers createGetUsers() {
+        return new GetUsers();
+    }
+
+    /**
+     * Create an instance of {@link GetCourses }
+     * 
+     */
+    public GetCourses createGetCourses() {
+        return new GetCourses();
+    }
+
+    /**
+     * Create an instance of {@link GetUser }
+     * 
+     */
+    public GetUser createGetUser() {
+        return new GetUser();
+    }
+
+    /**
      * Create an instance of {@link DeleteCourseResponse }
      * 
      */
     public DeleteCourseResponse createDeleteCourseResponse() {
         return new DeleteCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link Level }
+     * 
+     */
+    public Level createLevel() {
+        return new Level();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollmentResponse }
+     * 
+     */
+    public CreateEnrollmentResponse createCreateEnrollmentResponse() {
+        return new CreateEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCourse }
+     * 
+     */
+    public DeleteCourse createDeleteCourse() {
+        return new DeleteCourse();
+    }
+
+    /**
+     * Create an instance of {@link Achievement }
+     * 
+     */
+    public Achievement createAchievement() {
+        return new Achievement();
+    }
+
+    /**
+     * Create an instance of {@link CreateUser }
+     * 
+     */
+    public CreateUser createCreateUser() {
+        return new CreateUser();
+    }
+
+    /**
+     * Create an instance of {@link GetUsersResponse }
+     * 
+     */
+    public GetUsersResponse createGetUsersResponse() {
+        return new GetUsersResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEnrollmentsForResponse }
+     * 
+     */
+    public GetEnrollmentsForResponse createGetEnrollmentsForResponse() {
+        return new GetEnrollmentsForResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollment }
+     * 
+     */
+    public CreateEnrollment createCreateEnrollment() {
+        return new CreateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteUserResponse }
+     * 
+     */
+    public DeleteUserResponse createDeleteUserResponse() {
+        return new DeleteUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCourse }
+     * 
+     */
+    public GetCourse createGetCourse() {
+        return new GetCourse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnrollment }
+     * 
+     */
+    public UpdateEnrollment createUpdateEnrollment() {
+        return new UpdateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUser }
+     * 
+     */
+    public UpdateUser createUpdateUser() {
+        return new UpdateUser();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnrollment }
+     * 
+     */
+    public DeleteEnrollment createDeleteEnrollment() {
+        return new DeleteEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link Course }
+     * 
+     */
+    public Course createCourse() {
+        return new Course();
+    }
+
+    /**
+     * Create an instance of {@link GetUserResponse }
+     * 
+     */
+    public GetUserResponse createGetUserResponse() {
+        return new GetUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteUser }
+     * 
+     */
+    public DeleteUser createDeleteUser() {
+        return new DeleteUser();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCourse }
+     * 
+     */
+    public UpdateCourse createUpdateCourse() {
+        return new UpdateCourse();
+    }
+
+    /**
+     * Create an instance of {@link Enrollment }
+     * 
+     */
+    public Enrollment createEnrollment() {
+        return new Enrollment();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
     }
 
     /**

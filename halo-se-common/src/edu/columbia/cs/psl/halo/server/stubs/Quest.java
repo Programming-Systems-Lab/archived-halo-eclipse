@@ -17,15 +17,14 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="quest">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
  *         &lt;element name="children" type="{http://server.halo.psl.cs.columbia.edu/}quest" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tasks" type="{http://server.halo.psl.cs.columbia.edu/}task" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -36,16 +35,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "quest", propOrder = {
     "children",
     "description",
-    "id",
     "name",
     "tasks"
 })
-public class Quest {
+public class Quest
+    extends LazyCycleBreaker
+{
 
     @XmlElement(nillable = true)
     protected List<Quest> children;
     protected String description;
-    protected int id;
     protected String name;
     @XmlElement(nillable = true)
     protected List<Task> tasks;
@@ -101,22 +100,6 @@ public class Quest {
      */
     public void setDescription(String value) {
         this.description = value;
-    }
-
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(int value) {
-        this.id = value;
     }
 
     /**

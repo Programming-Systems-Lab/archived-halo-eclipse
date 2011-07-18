@@ -42,6 +42,7 @@ public class DashboardView extends ViewPart {
 	void loggedIn(){
 		parentLayout.topControl = dashboardComposite;
 		parent.pack();
+		dashboardComposite.updateWindow();
 		parent.layout(true);
 	}
 	
@@ -65,6 +66,7 @@ public class DashboardView extends ViewPart {
 		DashboardView s = new DashboardView();
 		s.createPartControl(shell);
 		s.loggedIn();
+
 		shell.open ();
 
 		while (!shell.isDisposed ()) {

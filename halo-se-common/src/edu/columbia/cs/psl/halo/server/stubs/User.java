@@ -16,12 +16,16 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
+ *         &lt;element name="achievementPoints" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="activeTitle" type="{http://server.halo.psl.cs.columbia.edu/}title" minOccurs="0"/>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="level" type="{http://server.halo.psl.cs.columbia.edu/}level" minOccurs="0"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="status" type="{http://server.halo.psl.cs.columbia.edu/}userStatus" minOccurs="0"/>
+ *         &lt;element name="xp" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -32,23 +36,71 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "user", propOrder = {
+    "achievementPoints",
+    "activeTitle",
     "email",
     "firstName",
     "id",
     "lastName",
+    "level",
     "password",
-    "status"
+    "status",
+    "xp"
 })
 public class User
     extends LazyCycleBreaker
 {
 
+    protected int achievementPoints;
+    protected Title activeTitle;
     protected String email;
     protected String firstName;
     protected int id;
     protected String lastName;
+    protected Level level;
     protected String password;
     protected UserStatus status;
+    protected int xp;
+
+    /**
+     * Gets the value of the achievementPoints property.
+     * 
+     */
+    public int getAchievementPoints() {
+        return achievementPoints;
+    }
+
+    /**
+     * Sets the value of the achievementPoints property.
+     * 
+     */
+    public void setAchievementPoints(int value) {
+        this.achievementPoints = value;
+    }
+
+    /**
+     * Gets the value of the activeTitle property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Title }
+     *     
+     */
+    public Title getActiveTitle() {
+        return activeTitle;
+    }
+
+    /**
+     * Sets the value of the activeTitle property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Title }
+     *     
+     */
+    public void setActiveTitle(Title value) {
+        this.activeTitle = value;
+    }
 
     /**
      * Gets the value of the email property.
@@ -139,6 +191,30 @@ public class User
     }
 
     /**
+     * Gets the value of the level property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Level }
+     *     
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
+     * Sets the value of the level property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Level }
+     *     
+     */
+    public void setLevel(Level value) {
+        this.level = value;
+    }
+
+    /**
      * Gets the value of the password property.
      * 
      * @return
@@ -184,6 +260,22 @@ public class User
      */
     public void setStatus(UserStatus value) {
         this.status = value;
+    }
+
+    /**
+     * Gets the value of the xp property.
+     * 
+     */
+    public int getXp() {
+        return xp;
+    }
+
+    /**
+     * Sets the value of the xp property.
+     * 
+     */
+    public void setXp(int value) {
+        this.xp = value;
     }
 
 }

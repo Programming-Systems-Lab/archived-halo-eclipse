@@ -1,14 +1,18 @@
 package edu.columbia.cs.psl.halo.entity;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
@@ -30,10 +34,14 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private String password;
 	private UserStatus status;
 	private List<Enrollment> enrollments;
-	private List<Achievement> achievements;
+	private List<AchievementRecord> achievements;
 	private int xp;
 	private int achievementPoints;
-	
+	private Level level;
+	private List<Title> titles;
+	private Title activeTitle;
+	private byte[] thumbnail;
+	private List<QuestProgress> progress;
 	
 	public User() {
 		
@@ -90,12 +98,12 @@ public class User extends LazyCycleBreaker implements Serializable {
 	}
 
 	@XmlTransient
-	@OneToMany
-	public List<Achievement> getAchievements() {
+	@OneToMany(mappedBy="user")
+	public List<AchievementRecord> getAchievements() {
 		return achievements;
 	}
 
-	public void setAchievements(List<Achievement> achievements) {
+	public void setAchievements(List<AchievementRecord> achievements) {
 		this.achievements = achievements;
 	}
 
@@ -119,6 +127,43 @@ public class User extends LazyCycleBreaker implements Serializable {
 		return serialVersionUID;
 	}
 	
+	public Level getLevel() {
+		return level;
+	}
+	public void setLevel(Level level) {
+		this.level = level;
+	}
 	
+	@OneToMany
+	@XmlTransient
+	public List<Title> getTitles() {
+		return titles;
+	}
+	public void setTitles(List<Title> titles) {
+		this.titles = titles;
+	}
 	
+	public void setActiveTitle(Title activeTitle) {
+		this.activeTitle = activeTitle;
+	}
+	public Title getActiveTitle() {
+		return activeTitle;
+	}
+	
+	@XmlTransient
+	@Lob @Basic(fetch=FetchType.LAZY)
+	public byte[] getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(byte[] thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	@XmlTransient
+	@OneToMany(mappedBy="user")
+	public List<QuestProgress> getProgress() {
+		return progress;
+	}
+	public void setProgress(List<QuestProgress> progress) {
+		this.progress = progress;
+	}
 }

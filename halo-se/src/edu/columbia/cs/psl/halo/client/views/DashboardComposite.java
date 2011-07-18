@@ -1,56 +1,32 @@
 package edu.columbia.cs.psl.halo.client.views;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableTree;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
-
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.handlers.IHandlerService;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
+import edu.columbia.cs.psl.halo.client.Util;
+import edu.columbia.cs.psl.halo.client.wrapper.QuestWrapper;
+import edu.columbia.cs.psl.halo.client.wrapper.UserWrapper;
+import edu.columbia.cs.psl.halo.server.stubs.AchievementRecord;
 import edu.columbia.cs.psl.halo.server.stubs.Assignment;
-import edu.columbia.cs.psl.halo.server.stubs.Course;
 import edu.columbia.cs.psl.halo.server.stubs.Enrollment;
 import edu.columbia.cs.psl.halo.server.stubs.EnrollmentType;
+import edu.columbia.cs.psl.halo.server.stubs.Level;
 import edu.columbia.cs.psl.halo.server.stubs.Quest;
+import edu.columbia.cs.psl.halo.server.stubs.QuestProgress;
 
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+
 public class DashboardComposite extends Composite {
 
 	private DashboardView dashboard;
@@ -80,7 +56,6 @@ public class DashboardComposite extends Composite {
 	private Label nameLabel;
 	private Thermometer expProgress;
 	private Thermometer achievementsProgress;
-	private Label achievementsStatus;
 	private Thermometer questProgressBar;
 	private Label curLevel;
 	private Label nextLevel;
@@ -174,7 +149,6 @@ public class DashboardComposite extends Composite {
 		d.horizontalAlignment=GridData.FILL;
 		bottomRow.setLayoutData(d);
 		bottomRow.setLayout(new GridLayout(5, false));
-//		bottomRow.setBackground(new Color(getDisplay(),255,255,0));
 
 		spacer = new Canvas(bottomRow, SWT.NONE);
 		data = new GridData(GridData.FILL,GridData.FILL,true,true);
@@ -182,11 +156,9 @@ public class DashboardComposite extends Composite {
 		
 		Composite achievementsArea = new Composite(bottomRow, SWT.NONE);
 		achievementsArea.setLayout(new GridLayout(1,true));
-//		data = new GridData();
-//		data.horizontalAlignment=GridData.FILL;
-//		data.grabExcessHorizontalSpace = true;
-//		achievementsArea.setLayoutData(data);
-		
+		data = new GridData();
+		data.verticalAlignment=SWT.TOP;
+		achievementsArea.setLayoutData(data);
 		Composite achievementsBar = new Composite(achievementsArea, SWT.NONE);
 		achievementsBar.setLayout(new GridLayout(2, false));
 		Label achievementsLabel = new Label(achievementsBar, SWT.None);
@@ -202,10 +174,6 @@ public class DashboardComposite extends Composite {
 		achievementsProgress.setMaximum(1000);
 		achievementsProgress.setSelection(700, "Foobar");
 		
-		achievementsStatus = new Label(achievementsArea, SWT.NONE);
-		achievementsStatus.setText("3 achievements completed of 15");
-		setFontSize(achievementsStatus, H3_SIZE, false);
-
 		
 		spacer = new Canvas(bottomRow, SWT.NONE);
 		data = new GridData(GridData.FILL,GridData.FILL,true,true);
@@ -222,6 +190,7 @@ public class DashboardComposite extends Composite {
 		data = new GridData();
 		data.horizontalIndent=30;
 		recentAchievements.setLayoutData(data);
+
 		
 		Composite questProgressArea = new Composite(bottomRow, SWT.NONE);
 		data = new GridData();
@@ -230,7 +199,6 @@ public class DashboardComposite extends Composite {
 		questProgressArea.setLayout(new GridLayout());
 		
 		Composite questBar = new Composite(questProgressArea, SWT.NONE);
-//		questBar.setBackground(new Color(getDisplay(),0,255,0));
 
 		questBar.setLayout(new GridLayout(2,false));
 		Label questProgressLabel = new Label(questBar, SWT.NONE);
@@ -241,10 +209,12 @@ public class DashboardComposite extends Composite {
 		questProgressBar.setMinimum(0);
 		questProgressBar.setMaximum(1000);
 		questProgressBar.setSelection(700, "Foobar");
-		
+		questBar.setBackground(new Color(getDisplay(),0,255,0));
+
 		assignmentsInfo = new Composite(questBar, SWT.NONE);
 		data = new GridData();
 		data.horizontalIndent=30;
+		data.horizontalSpan=2;
 		assignmentsInfo.setLayoutData(data);
 		assignmentsInfo.setLayout(new GridLayout(3, false));
 		
@@ -261,33 +231,83 @@ public class DashboardComposite extends Composite {
 			}
 		});
 	}
-	private void updateWindow() {
-//		lblLoggedInAs.setText("Logged in as: " + HALOServiceFactory.getInstance().getMe().getEmail());
-//		for(TreeItem i : assignmentsTree.getItems())
-//			i.dispose();
-//		for(Enrollment c : HALOServiceFactory.getInstance().getUserSvc().getEnrollments())
-//		{
-//			if(c.getType().equals(EnrollmentType.STUDENT))
-//			{
-//				TreeItem courseRoot = new TreeItem(assignmentsTree, SWT.NONE);
-//				courseRoot.setText(c.getCourse().getName());
-//				courseRoot.setExpanded(true);
-//				for(Assignment a : HALOServiceFactory.getInstance().getUserSvc().getAssignmentsFor(c.getCourse()))
-//				{
-//					TreeItem assignmentRoot = new TreeItem(courseRoot, SWT.NONE);
-//					assignmentRoot.setText(a.getTitle());
-//					assignmentRoot.setExpanded(true);
-//					assignmentRoot.setData(a);
-//					System.out.println(assignmentRoot);
-//					for(Quest t : HALOServiceFactory.getInstance().getUserSvc().getQuestsFor(a))
-//					{
-//						TreeItem questRoot = new TreeItem(assignmentRoot, SWT.NONE);
-//						questRoot.setText(t.getName());
-//					}
-//				}
-//			}
-//		}
-//		
+	public void updateWindow() {
+		if(HALOServiceFactory.getInstance().isLoggedIn())
+		{
+			UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance().getMe());
+			if(!nameLabel.getText().equals(uw.getFullName()))
+				nameLabel.setText(uw.getFullName());
+
+			topRow.layout(true);
+			if(!curLevel.getText().equals("Level "+uw.getLevel().getLevel()))
+				curLevel.setText("Level "+uw.getLevel().getLevel());
+			
+			Level nextLevelLvl = HALOServiceFactory.getInstance().getUserSvc().getLevel(uw.getLevel().getLevel() + 1);
+			
+			if(!nextLevel.getText().equals("Level "+(uw.getLevel().getLevel() + 1)))
+				nextLevel.setText("Level "+(uw.getLevel().getLevel() + 1));
+			
+			if(expProgress.getValue() != uw.getXp())
+				expProgress.setSelection(uw.getXp(),uw.getXp() + " of " + nextLevelLvl.getXpRequired());
+			
+			if(achievementsProgress.getValue() != uw.getAchievementPoints())
+				achievementsProgress.setSelection(uw.getAchievementPoints(), uw.getAchievementPoints() + " completed of ??");
+			
+//			achievementsStatus.setText("3 achievements completed of 15");
+			String recentAchievemntsTxt = "";
+			
+			for(AchievementRecord a : HALOServiceFactory.getInstance().getUserSvc().getMyAchievements())
+			{
+				recentAchievemntsTxt += a.getAchievement().getName() + " - " + Util.formatDate(a.getCompletionTime());
+			}
+			if(!recentAchievements.getText().equals(recentAchievemntsTxt))
+				recentAchievements.setText(recentAchievemntsTxt);
+
+			for(Control c : assignmentsInfo.getChildren())
+				c.dispose();
+			assignmentsInfo.layout(true);
+			assignmentsInfo.setLayout(new GridLayout(3, false));
+			
+			HashMap<Quest, QuestProgress> progress = new HashMap<Quest, QuestProgress>();
+			for(QuestProgress p : HALOServiceFactory.getInstance().getUserSvc().getMyProgress())
+			{
+				System.out.println(p.getQuest().getName());
+				progress.put(p.getQuest(), p);
+			}
+			for(Enrollment e: HALOServiceFactory.getInstance().getUserSvc().getEnrollments())
+			{
+				if(e.getType().equals(EnrollmentType.STUDENT))
+				{
+					for(Assignment a : HALOServiceFactory.getInstance().getUserSvc().getAssignmentsFor(e.getCourse()))
+					{
+
+						Label l = new Label(assignmentsInfo, SWT.NONE);
+						l.setText(a.getTitle());
+						Thermometer t = new Thermometer(assignmentsInfo, SWT.NONE);
+						int max = 0;
+						int done = 0;
+						for(Quest q : HALOServiceFactory.getInstance().getUserSvc().getQuestsFor(a))
+						{
+							if(progress.containsKey(q) && progress.get(q).isCompleted())
+							{
+								System.out.println(q);
+								done++;
+							}
+							max++;
+						}
+						t.setSelection(done, done + " of " + max + " quests");
+						t.setMinimum(0);
+						t.setMaximum(max);
+						Label ll = new Label(assignmentsInfo, SWT.NONE);
+						ll.setText("Due " + Util.getDueStrHuman(a.getDueOn()));
+					}
+				}
+			}
+			assignmentsInfo.layout(true);
+			questProgressBar.setSelection(700, "Foobar");
+			layout(true);
+			
+		}
 	}
 	
 }

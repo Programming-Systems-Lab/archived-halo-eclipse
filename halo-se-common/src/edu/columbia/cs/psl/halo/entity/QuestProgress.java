@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -42,6 +43,7 @@ public class QuestProgress implements Serializable{
 	public void setTask(Task task) {
 		this.task = task;
 	}
+	@ManyToOne
 	public User getUser() {
 		return user;
 	}

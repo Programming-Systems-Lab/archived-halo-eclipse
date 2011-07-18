@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getMyProgressFor complex type.
+ * <p>Java class for setDefaultTitle complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getMyProgressFor">
+ * &lt;complexType name="setDefaultTitle">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
+ *         &lt;element name="arg0" type="{http://server.halo.psl.cs.columbia.edu/}title" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -26,22 +26,22 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getMyProgressFor", propOrder = {
+@XmlType(name = "setDefaultTitle", propOrder = {
     "arg0"
 })
-public class GetMyProgressFor {
+public class SetDefaultTitle {
 
-    protected Course arg0;
+    protected Title arg0;
 
     /**
      * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
-     *     {@link Course }
+     *     {@link Title }
      *     
      */
-    public Course getArg0() {
+    public Title getArg0() {
         return arg0;
     }
 
@@ -50,10 +50,10 @@ public class GetMyProgressFor {
      * 
      * @param value
      *     allowed object is
-     *     {@link Course }
+     *     {@link Title }
      *     
      */
-    public void setArg0(Course value) {
+    public void setArg0(Title value) {
         this.arg0 = value;
     }
 

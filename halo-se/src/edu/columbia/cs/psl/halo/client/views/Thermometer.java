@@ -103,6 +103,9 @@ class Thermometer extends Canvas
 		this.maximum = n;
 	}
 
+	public double getValue() {
+		return value;
+	}
 	/** set progress value
 	 * @param n value
 	 */

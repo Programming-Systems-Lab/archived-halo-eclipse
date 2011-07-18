@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getMyProgressForResponse complex type.
+ * <p>Java class for getAllQuestsResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getMyProgressForResponse">
+ * &lt;complexType name="getAllQuestsResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://server.halo.psl.cs.columbia.edu/}questProgress" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://server.halo.psl.cs.columbia.edu/}quest" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getMyProgressForResponse", propOrder = {
+@XmlType(name = "getAllQuestsResponse", propOrder = {
     "_return"
 })
-public class GetMyProgressForResponse {
+public class GetAllQuestsResponse {
 
     @XmlElement(name = "return")
-    protected List<QuestProgress> _return;
+    protected List<Quest> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetMyProgressForResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link QuestProgress }
+     * {@link Quest }
      * 
      * 
      */
-    public List<QuestProgress> getReturn() {
+    public List<Quest> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<QuestProgress>();
+            _return = new ArrayList<Quest>();
         }
         return this._return;
     }

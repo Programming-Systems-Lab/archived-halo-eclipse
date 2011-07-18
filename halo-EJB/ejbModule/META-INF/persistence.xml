@@ -7,10 +7,14 @@
          <jta-data-source>jdbc/HALOdb</jta-data-source>
          <class>edu.columbia.cs.psl.halo.entity.Assignment</class>
         <class>edu.columbia.cs.psl.halo.entity.Achievement</class>
+        <class>edu.columbia.cs.psl.halo.entity.AchievementRecord</class>
 		<class>edu.columbia.cs.psl.halo.entity.CausualRelation</class>
                   
          <class>edu.columbia.cs.psl.halo.entity.Course</class>
          <class>edu.columbia.cs.psl.halo.entity.Quest</class>
+         <class>edu.columbia.cs.psl.halo.entity.Level</class>
+         <class>edu.columbia.cs.psl.halo.entity.Title</class>
+         
          <class>edu.columbia.cs.psl.halo.entity.QuestProgress</class>
          <class>edu.columbia.cs.psl.halo.entity.Task</class>
          <class>edu.columbia.cs.psl.halo.entity.User</class>
