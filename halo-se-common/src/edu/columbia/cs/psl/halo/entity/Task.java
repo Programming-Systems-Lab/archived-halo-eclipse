@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Task implements Serializable {
+public class Task extends LazyCycleBreaker implements Serializable {
 
 	private static final long serialVersionUID = 8320114424613456623L;
 	private int id;
@@ -66,7 +66,6 @@ public class Task implements Serializable {
 	public void setChildren(List<Task> children) {
 		this.children = children;
 	}
-	@XmlTransient
 	public Quest getQuest() {
 		return quest;
 	}
@@ -91,5 +90,18 @@ public class Task implements Serializable {
 	}
 	public void setResultsIn(List<CausualRelation> resultsIn) {
 		this.resultsIn = resultsIn;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Task)
+		{
+			return ((Task) obj).getId() == getId();
+		}
+		return false;
+	}
+	@Override
+	public int hashCode() {
+		return 29 * getId() + this.getClass().getName().hashCode();
 	}
 }

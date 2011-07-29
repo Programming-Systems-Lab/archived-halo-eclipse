@@ -12,11 +12,9 @@ public class CausualRelation {
 	
 	private Achievement achievementCause;
 	private Task taskCause;
-	private Quest questCause;
 	
 	private Achievement achievementResult;
 	private Task taskResult;
-	private Quest questResult;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -41,13 +39,7 @@ public class CausualRelation {
 	public void setTaskCause(Task taskCause) {
 		this.taskCause = taskCause;
 	}
-	@ManyToOne
-	public Quest getQuestCause() {
-		return questCause;
-	}
-	public void setQuestCause(Quest questCause) {
-		this.questCause = questCause;
-	}
+	
 	@ManyToOne
 	public Achievement getAchievementResult() {
 		return achievementResult;
@@ -62,13 +54,7 @@ public class CausualRelation {
 	public void setTaskResult(Task taskResult) {
 		this.taskResult = taskResult;
 	}
-	@ManyToOne
-	public Quest getQuestResult() {
-		return questResult;
-	}
-	public void setQuestResult(Quest questResult) {
-		this.questResult = questResult;
-	}
+
 	
 	
 }

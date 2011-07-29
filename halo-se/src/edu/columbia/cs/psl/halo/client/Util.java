@@ -14,7 +14,11 @@ public class Util {
 		
 		return DateFormat.getDateInstance().format(da);
 	}
-	
+	public static int daysTillDate(XMLGregorianCalendar d)
+	{
+		long time_til = (d.toGregorianCalendar().getTimeInMillis() - System.currentTimeMillis())/1000;
+		return (int) (time_til/DAY_SECS);
+	}
 	public static String getDueStrHuman(XMLGregorianCalendar dueDate) {
 		if(dueDate != null)
 		{

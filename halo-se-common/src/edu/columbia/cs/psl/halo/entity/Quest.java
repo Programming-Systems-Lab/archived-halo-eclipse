@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -21,10 +22,11 @@ public class Quest extends LazyCycleBreaker implements Serializable {
 	private List<Quest> children;
 	private List<Task> tasks;
 	private Assignment assignment;
+	private int experiencePoints;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
+	@XmlElement
 	public int getId() {
 		return id;
 	}
@@ -68,31 +70,18 @@ public class Quest extends LazyCycleBreaker implements Serializable {
 		this.tasks = tasks;
 	}
 	
-	@XmlTransient
 	public Assignment getAssignment() {
 		return assignment;
 	}
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 	}
-	
-	private List<CausualRelation> causedBy;
-	private List<CausualRelation> resultsIn;
-	@XmlTransient
-	@OneToMany(mappedBy="questResult")
-	public List<CausualRelation> getCausedBy() {
-		return causedBy;
+	public int getExperiencePoints() {
+		return experiencePoints;
 	}
-	public void setCausedBy(List<CausualRelation> causedBy) {
-		this.causedBy = causedBy;
+	public void setExperiencePoints(int experiencePoints) {
+		this.experiencePoints = experiencePoints;
 	}
-	@XmlTransient
-	@OneToMany(mappedBy="questCause")
-	public List<CausualRelation> getResultsIn() {
-		return resultsIn;
-	}
-	public void setResultsIn(List<CausualRelation> resultsIn) {
-		this.resultsIn = resultsIn;
-	}
+
 	
 }

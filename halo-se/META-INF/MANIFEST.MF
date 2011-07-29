@@ -10,4 +10,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/ha-api.jar,
- lib/halo-common.jar
+ lib/halo-common.jar,
+ lib/jaxb2-basics-runtime-0.6.2.jar

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="level" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="xpMax" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="xpRequired" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -31,12 +32,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "level", propOrder = {
     "id",
     "level",
+    "xpMax",
     "xpRequired"
 })
 public class Level {
 
     protected int id;
     protected int level;
+    protected int xpMax;
     protected int xpRequired;
 
     /**
@@ -69,6 +72,22 @@ public class Level {
      */
     public void setLevel(int value) {
         this.level = value;
+    }
+
+    /**
+     * Gets the value of the xpMax property.
+     * 
+     */
+    public int getXpMax() {
+        return xpMax;
+    }
+
+    /**
+     * Sets the value of the xpMax property.
+     * 
+     */
+    public void setXpMax(int value) {
+        this.xpMax = value;
     }
 
     /**

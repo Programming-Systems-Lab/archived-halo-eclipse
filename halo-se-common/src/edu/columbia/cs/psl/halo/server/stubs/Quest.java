@@ -19,8 +19,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
+ *         &lt;element name="assignment" type="{http://server.halo.psl.cs.columbia.edu/}assignment" minOccurs="0"/>
  *         &lt;element name="children" type="{http://server.halo.psl.cs.columbia.edu/}quest" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="experiencePoints" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tasks" type="{http://server.halo.psl.cs.columbia.edu/}task" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -33,8 +36,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "quest", propOrder = {
+    "assignment",
     "children",
     "description",
+    "experiencePoints",
+    "id",
     "name",
     "tasks"
 })
@@ -42,12 +48,39 @@ public class Quest
     extends LazyCycleBreaker
 {
 
+    protected Assignment assignment;
     @XmlElement(nillable = true)
     protected List<Quest> children;
     protected String description;
+    protected int experiencePoints;
+    protected int id;
     protected String name;
     @XmlElement(nillable = true)
     protected List<Task> tasks;
+
+    /**
+     * Gets the value of the assignment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Assignment }
+     *     
+     */
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    /**
+     * Sets the value of the assignment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Assignment }
+     *     
+     */
+    public void setAssignment(Assignment value) {
+        this.assignment = value;
+    }
 
     /**
      * Gets the value of the children property.
@@ -100,6 +133,38 @@ public class Quest
      */
     public void setDescription(String value) {
         this.description = value;
+    }
+
+    /**
+     * Gets the value of the experiencePoints property.
+     * 
+     */
+    public int getExperiencePoints() {
+        return experiencePoints;
+    }
+
+    /**
+     * Sets the value of the experiencePoints property.
+     * 
+     */
+    public void setExperiencePoints(int value) {
+        this.experiencePoints = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
     }
 
     /**

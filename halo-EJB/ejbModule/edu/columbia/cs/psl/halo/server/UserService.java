@@ -1,30 +1,29 @@
 package edu.columbia.cs.psl.halo.server;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 import edu.columbia.cs.psl.halo.entity.Achievement;
 import edu.columbia.cs.psl.halo.entity.AchievementRecord;
 import edu.columbia.cs.psl.halo.entity.Assignment;
+import edu.columbia.cs.psl.halo.entity.CausualRelation;
 import edu.columbia.cs.psl.halo.entity.Course;
 import edu.columbia.cs.psl.halo.entity.Enrollment;
 import edu.columbia.cs.psl.halo.entity.Level;
 import edu.columbia.cs.psl.halo.entity.Quest;
 import edu.columbia.cs.psl.halo.entity.QuestProgress;
+import edu.columbia.cs.psl.halo.entity.Task;
 import edu.columbia.cs.psl.halo.entity.Title;
 import edu.columbia.cs.psl.halo.entity.User;
-import edu.columbia.cs.psl.halo.entity.UserStatus;
 
 /**
  * Session Bean implementation class UserService
@@ -39,6 +38,99 @@ public class UserService extends AbstractFacade<User>  {
      */
     public UserService() {
         super(User.class);
+    }
+
+    /**
+     * If completing this task completes a quest, this returns any results
+     * @param t
+     * @return
+     */
+    public void markTaskCompleted(Task pT)
+    {
+    	Task t = getEntityManager().find(Task.class, pT.getId());
+    	QuestProgress qp = getMyProgressFor(t);
+    	qp.setUpdated(new Date());
+    	qp.setCompleted(true);
+    	getEntityManager().merge(qp);
+    	handleResults(t.getResultsIn());
+    	User me = getUser();
+    	me.setXp(me.getXp() + t.getQuest().getExperiencePoints());
+    	if(me.getLevel().getXpMax() <= me.getXp())
+    	{
+    		me.setLevel(getLevel(me.getLevel().getLevel() + 1));
+    	}
+    	getEntityManager().merge(me);
+    }
+    public Set<QuestProgress> getMyProgressFor(Quest q)
+    {
+    	User me = getUser();
+    	Query qu = getEntityManager().createNativeQuery("select * FROM questprogress where quest_id=? and user_id=?",QuestProgress.class);
+    	qu.setParameter(1, q.getId());
+    	qu.setParameter(2, getUser().getId());
+
+    	HashSet<QuestProgress> progress = new HashSet<QuestProgress>();
+    	try{
+    		List<QuestProgress> res = qu.getResultList();
+    		for(QuestProgress qp : res)
+    		{
+    			progress.add(qp);
+    		}
+    	}
+    	catch(NoResultException ex)
+    	{
+    		
+    	}
+    	
+    	return progress;
+    }
+    private QuestProgress getMyProgressFor(Task t)
+    {
+    	User me = getUser();
+    	Query qu = getEntityManager().createNativeQuery("select * FROM questprogress where task_id=? and user_id=?",QuestProgress.class);
+    	qu.setParameter(1, t.getId());
+    	qu.setParameter(2, getUser().getId());
+
+    	try{
+    		return (QuestProgress) qu.getSingleResult();
+    	}
+    	catch(NoResultException ex)
+    	{
+    		QuestProgress qp = new QuestProgress();
+    		qp.setUser(me);
+    		qp.setQuest(t.getQuest());
+    		qp.setTask(t);
+    		qp.setUpdated(new Date());
+    		qp.setCompleted(false);
+    		getEntityManager().persist(qp);
+    		return qp;
+    	}
+    	
+    }
+    private void handleResults(List<CausualRelation> relations)
+    {
+    	for(CausualRelation r : relations)
+    	{
+    		if(r.getAchievementResult() != null)
+    		{
+    			AchievementRecord rec = new AchievementRecord();
+    			rec.setAchievement(r.getAchievementResult());
+    			rec.setUser(getUser());
+    			rec.setCompletionTime(new Date());
+    			getEntityManager().persist(rec);
+
+    			User me = getUser();
+    			if(r.getAchievementResult().getResultTitle() != null)
+    			{
+    				me.getTitles().add(r.getAchievementResult().getResultTitle());
+    			}
+    			me.setAchievementPoints(me.getAchievementPoints() + r.getAchievementResult().getPoints());
+    			getEntityManager().merge(me);
+    		}
+    		if(r.getTaskResult() != null)
+    		{
+    			getMyProgressFor(r.getTaskResult());
+    		}
+    	}
     }
 
     public boolean setDefaultTitle(Title t)
@@ -107,11 +199,14 @@ public class UserService extends AbstractFacade<User>  {
     	c = getEntityManager().find(Course.class, c.getId());
     	return c.getAssignments();
     }
-    public List<Quest> getQuestsFor(Assignment a)
+    @SuppressWarnings("unchecked")
+	public List<Quest> getQuestsFor(Assignment a)
     {
     	getEntityManager().getEntityManagerFactory().getCache().evictAll();
-    	a = getEntityManager().find(Assignment.class, a.getId());
-    	return a.getQuests();
+    	Query q = getEntityManager().createNativeQuery("select q.* FROM quest q inner join questprogress qp on qp.quest_id=q.id where qp.user_id=? and q.assignment_id = ? group by q.id", Quest.class);
+    	q.setParameter(1, getUser().getId());
+    	q.setParameter(2, a.getId());
+    	return q.getResultList();
     }
     public List<QuestProgress> getMyProgress()
     {

@@ -65,5 +65,16 @@ public class QuestProgress implements Serializable{
 		this.updated = updated;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof QuestProgress)
+		{
+			return ((QuestProgress) obj).getId() == getId();
+		}
+		return false;
+	}
+	@Override
+	public int hashCode() {
+		return 29 * getId() + this.getClass().getName().hashCode();
+	}
 }

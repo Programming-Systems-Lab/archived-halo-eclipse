@@ -10,6 +10,7 @@ public class Level {
 	private int id;
 	private int level;
 	private int xpRequired;
+	private int xpMax;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,6 +31,12 @@ public class Level {
 	}
 	public void setXpRequired(int xpRequired) {
 		this.xpRequired = xpRequired;
+	}
+	public int getXpMax() {
+		return xpMax;
+	}
+	public void setXpMax(int xpMax) {
+		this.xpMax = xpMax;
 	}
 	
 	

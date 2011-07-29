@@ -40,7 +40,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlSeeAlso({
     Course.class,
     Enrollment.class,
-    User.class
+    User.class,
+    Task.class,
+    Quest.class
 })
 public abstract class LazyCycleBreaker {
 
@@ -48,7 +50,7 @@ public abstract class LazyCycleBreaker {
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String idstr;
-    @XmlAttribute
+    @XmlAttribute(name = "ref")
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Object ref;
