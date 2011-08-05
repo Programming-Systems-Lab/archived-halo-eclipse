@@ -1,8 +1,12 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -16,15 +20,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * <pre>
  * &lt;complexType name="assignment">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
  *         &lt;element name="assignedOn" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="course" type="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="dueOn" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="quests" type="{http://server.halo.psl.cs.columbia.edu/}quest" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -34,19 +40,28 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "assignment", propOrder = {
     "assignedOn",
+    "course",
     "description",
     "dueOn",
     "id",
+    "quests",
     "title"
 })
-public class Assignment {
+public class Assignment
+    extends LazyCycleBreaker
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar assignedOn;
+    protected Course course;
     protected String description;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar dueOn;
     protected int id;
+    @XmlElement(nillable = true)
+    protected List<Quest> quests;
     protected String title;
 
     /**
@@ -71,6 +86,30 @@ public class Assignment {
      */
     public void setAssignedOn(XMLGregorianCalendar value) {
         this.assignedOn = value;
+    }
+
+    /**
+     * Gets the value of the course property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Course }
+     *     
+     */
+    public Course getCourse() {
+        return course;
+    }
+
+    /**
+     * Sets the value of the course property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Course }
+     *     
+     */
+    public void setCourse(Course value) {
+        this.course = value;
     }
 
     /**
@@ -135,6 +174,35 @@ public class Assignment {
      */
     public void setId(int value) {
         this.id = value;
+    }
+
+    /**
+     * Gets the value of the quests property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the quests property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getQuests().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Quest }
+     * 
+     * 
+     */
+    public List<Quest> getQuests() {
+        if (quests == null) {
+            quests = new ArrayList<Quest>();
+        }
+        return this.quests;
     }
 
     /**

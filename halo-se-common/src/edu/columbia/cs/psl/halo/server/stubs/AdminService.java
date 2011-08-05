@@ -214,4 +214,130 @@ public interface AdminService {
         @WebParam(name = "arg0", targetNamespace = "")
         int arg0);
 
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Assignment
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createAssignment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateAssignment")
+    @ResponseWrapper(localName = "createAssignmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateAssignmentResponse")
+    public Assignment createAssignment(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Assignment arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Assignment
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateAssignment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateAssignment")
+    @ResponseWrapper(localName = "updateAssignmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateAssignmentResponse")
+    public Assignment updateAssignment(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Assignment arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteAssignment", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignment")
+    @ResponseWrapper(localName = "deleteAssignmentResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteAssignmentResponse")
+    public boolean deleteAssignment(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Assignment arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Quest
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createQuest", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuest")
+    @ResponseWrapper(localName = "createQuestResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateQuestResponse")
+    public Quest createQuest(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Quest arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Quest
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateQuest", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateQuest")
+    @ResponseWrapper(localName = "updateQuestResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateQuestResponse")
+    public Quest updateQuest(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Quest arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteQuest", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteQuest")
+    @ResponseWrapper(localName = "deleteQuestResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteQuestResponse")
+    public boolean deleteQuest(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Quest arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Task
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createTask", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateTask")
+    @ResponseWrapper(localName = "createTaskResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.CreateTaskResponse")
+    public Task createTask(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Task arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.Task
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updateTask", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateTask")
+    @ResponseWrapper(localName = "updateTaskResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.UpdateTaskResponse")
+    public Task updateTask(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Task arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deleteTask", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteTask")
+    @ResponseWrapper(localName = "deleteTaskResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.DeleteTaskResponse")
+    public boolean deleteTask(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Task arg0);
+
 }

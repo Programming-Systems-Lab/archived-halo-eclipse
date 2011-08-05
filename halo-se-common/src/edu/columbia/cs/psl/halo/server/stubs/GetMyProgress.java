@@ -1,9 +1,11 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -26,7 +28,11 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getMyProgress")
-public class GetMyProgress {
+public class GetMyProgress
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
 
 }

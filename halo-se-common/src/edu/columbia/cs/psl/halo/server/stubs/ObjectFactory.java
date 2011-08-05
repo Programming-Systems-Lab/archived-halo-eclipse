@@ -24,43 +24,55 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetQuestsFor_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getQuestsFor");
-    private final static QName _GetMyAchievements_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyAchievements");
-    private final static QName _GetProfileImageResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getProfileImageResponse");
-    private final static QName _SetProfileImageResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "setProfileImageResponse");
-    private final static QName _GetLevel_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getLevel");
+    private final static QName _GetCoursesResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCoursesResponse");
+    private final static QName _DeleteCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteCourseResponse");
+    private final static QName _UpdateCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateCourseResponse");
+    private final static QName _GetUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUser");
     private final static QName _User_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "user");
-    private final static QName _GetMyProgressResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProgressResponse");
-    private final static QName _GetRememberMeToken_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getRememberMeToken");
-    private final static QName _SetDefaultTitleResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "setDefaultTitleResponse");
-    private final static QName _SetProfileImage_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "setProfileImage");
-    private final static QName _GetMeResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMeResponse");
-    private final static QName _GetEnrollments_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollments");
-    private final static QName _MarkTaskCompleted_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "markTaskCompleted");
-    private final static QName _GetAllAchievements_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAllAchievements");
-    private final static QName _GetMyProfileImage_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProfileImage");
-    private final static QName _GetMe_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMe");
-    private final static QName _SetDefaultTitle_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "setDefaultTitle");
-    private final static QName _GetMyTitlesResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyTitlesResponse");
-    private final static QName _GetAssignmentsForResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAssignmentsForResponse");
-    private final static QName _GetAllQuests_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAllQuests");
-    private final static QName _GetMyProgress_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProgress");
-    private final static QName _GetEnrollmentsResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollmentsResponse");
-    private final static QName _GetMyAchievementsResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyAchievementsResponse");
-    private final static QName _GetAssignmentsFor_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAssignmentsFor");
-    private final static QName _GetProfileImage_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getProfileImage");
-    private final static QName _GetMyProgressForResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProgressForResponse");
+    private final static QName _CreateEnrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createEnrollment");
+    private final static QName _GetUsers_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUsers");
+    private final static QName _DeleteAssignment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteAssignment");
+    private final static QName _CreateAssignmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createAssignmentResponse");
+    private final static QName _UpdateUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateUserResponse");
+    private final static QName _UpdateAssignment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateAssignment");
+    private final static QName _CreateQuest_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createQuest");
+    private final static QName _UpdateCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateCourse");
+    private final static QName _CreateTaskResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createTaskResponse");
+    private final static QName _GetEnrollmentsFor_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollmentsFor");
+    private final static QName _GetUsersResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUsersResponse");
+    private final static QName _CreateCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createCourseResponse");
+    private final static QName _CreateAssignment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createAssignment");
+    private final static QName _UpdateQuestResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateQuestResponse");
+    private final static QName _UpdateTask_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateTask");
+    private final static QName _UpdateEnrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateEnrollment");
+    private final static QName _DeleteUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteUserResponse");
+    private final static QName _DeleteQuest_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteQuest");
+    private final static QName _DeleteTask_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteTask");
+    private final static QName _UpdateQuest_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateQuest");
+    private final static QName _GetCourseResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourseResponse");
+    private final static QName _DeleteCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteCourse");
+    private final static QName _UpdateEnrollmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateEnrollmentResponse");
+    private final static QName _CreateQuestResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createQuestResponse");
+    private final static QName _UpdateUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateUser");
+    private final static QName _DeleteEnrollmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteEnrollmentResponse");
+    private final static QName _DeleteUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteUser");
+    private final static QName _UpdateAssignmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateAssignmentResponse");
+    private final static QName _GetEnrollmentsForResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getEnrollmentsForResponse");
+    private final static QName _CreateUser_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createUser");
+    private final static QName _GetCourses_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourses");
+    private final static QName _CreateUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createUserResponse");
+    private final static QName _GetCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getCourse");
+    private final static QName _CreateCourse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createCourse");
+    private final static QName _GetUserResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getUserResponse");
+    private final static QName _DeleteTaskResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteTaskResponse");
+    private final static QName _DeleteAssignmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteAssignmentResponse");
+    private final static QName _CreateTask_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createTask");
     private final static QName _Enrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "enrollment");
-    private final static QName _MarkTaskCompletedResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "markTaskCompletedResponse");
-    private final static QName _GetMyProgressFor_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProgressFor");
-    private final static QName _GetAllAchievementsResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAllAchievementsResponse");
-    private final static QName _GetMyTitles_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyTitles");
-    private final static QName _GetQuestsForResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getQuestsForResponse");
-    private final static QName _GetLevelResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getLevelResponse");
+    private final static QName _DeleteQuestResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteQuestResponse");
+    private final static QName _DeleteEnrollment_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "deleteEnrollment");
     private final static QName _Course_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "course");
-    private final static QName _GetAllQuestsResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getAllQuestsResponse");
-    private final static QName _GetMyProfileImageResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getMyProfileImageResponse");
-    private final static QName _GetRememberMeTokenResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "getRememberMeTokenResponse");
+    private final static QName _UpdateTaskResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "updateTaskResponse");
+    private final static QName _CreateEnrollmentResponse_QNAME = new QName("http://server.halo.psl.cs.columbia.edu/", "createEnrollmentResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: edu.columbia.cs.psl.halo.server.stubs
@@ -70,347 +82,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllQuests }
+     * Create an instance of {@link DeleteUserResponse }
      * 
      */
-    public GetAllQuests createGetAllQuests() {
-        return new GetAllQuests();
+    public DeleteUserResponse createDeleteUserResponse() {
+        return new DeleteUserResponse();
     }
 
     /**
-     * Create an instance of {@link GetMyProgress }
+     * Create an instance of {@link CreateTaskResponse }
      * 
      */
-    public GetMyProgress createGetMyProgress() {
-        return new GetMyProgress();
-    }
-
-    /**
-     * Create an instance of {@link GetAssignmentsForResponse }
-     * 
-     */
-    public GetAssignmentsForResponse createGetAssignmentsForResponse() {
-        return new GetAssignmentsForResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMyTitlesResponse }
-     * 
-     */
-    public GetMyTitlesResponse createGetMyTitlesResponse() {
-        return new GetMyTitlesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMe }
-     * 
-     */
-    public GetMe createGetMe() {
-        return new GetMe();
-    }
-
-    /**
-     * Create an instance of {@link SetDefaultTitle }
-     * 
-     */
-    public SetDefaultTitle createSetDefaultTitle() {
-        return new SetDefaultTitle();
-    }
-
-    /**
-     * Create an instance of {@link MarkTaskCompleted }
-     * 
-     */
-    public MarkTaskCompleted createMarkTaskCompleted() {
-        return new MarkTaskCompleted();
-    }
-
-    /**
-     * Create an instance of {@link GetAllAchievements }
-     * 
-     */
-    public GetAllAchievements createGetAllAchievements() {
-        return new GetAllAchievements();
-    }
-
-    /**
-     * Create an instance of {@link GetMyProfileImage }
-     * 
-     */
-    public GetMyProfileImage createGetMyProfileImage() {
-        return new GetMyProfileImage();
-    }
-
-    /**
-     * Create an instance of {@link GetAllQuestsResponse }
-     * 
-     */
-    public GetAllQuestsResponse createGetAllQuestsResponse() {
-        return new GetAllQuestsResponse();
-    }
-
-    /**
-     * Create an instance of {@link Course }
-     * 
-     */
-    public Course createCourse() {
-        return new Course();
-    }
-
-    /**
-     * Create an instance of {@link GetMyProfileImageResponse }
-     * 
-     */
-    public GetMyProfileImageResponse createGetMyProfileImageResponse() {
-        return new GetMyProfileImageResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetRememberMeTokenResponse }
-     * 
-     */
-    public GetRememberMeTokenResponse createGetRememberMeTokenResponse() {
-        return new GetRememberMeTokenResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAllAchievementsResponse }
-     * 
-     */
-    public GetAllAchievementsResponse createGetAllAchievementsResponse() {
-        return new GetAllAchievementsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMyTitles }
-     * 
-     */
-    public GetMyTitles createGetMyTitles() {
-        return new GetMyTitles();
-    }
-
-    /**
-     * Create an instance of {@link GetQuestsForResponse }
-     * 
-     */
-    public GetQuestsForResponse createGetQuestsForResponse() {
-        return new GetQuestsForResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetLevelResponse }
-     * 
-     */
-    public GetLevelResponse createGetLevelResponse() {
-        return new GetLevelResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMyProgressForResponse }
-     * 
-     */
-    public GetMyProgressForResponse createGetMyProgressForResponse() {
-        return new GetMyProgressForResponse();
-    }
-
-    /**
-     * Create an instance of {@link Enrollment }
-     * 
-     */
-    public Enrollment createEnrollment() {
-        return new Enrollment();
-    }
-
-    /**
-     * Create an instance of {@link MarkTaskCompletedResponse }
-     * 
-     */
-    public MarkTaskCompletedResponse createMarkTaskCompletedResponse() {
-        return new MarkTaskCompletedResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMyProgressFor }
-     * 
-     */
-    public GetMyProgressFor createGetMyProgressFor() {
-        return new GetMyProgressFor();
-    }
-
-    /**
-     * Create an instance of {@link GetEnrollmentsResponse }
-     * 
-     */
-    public GetEnrollmentsResponse createGetEnrollmentsResponse() {
-        return new GetEnrollmentsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetMyAchievementsResponse }
-     * 
-     */
-    public GetMyAchievementsResponse createGetMyAchievementsResponse() {
-        return new GetMyAchievementsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAssignmentsFor }
-     * 
-     */
-    public GetAssignmentsFor createGetAssignmentsFor() {
-        return new GetAssignmentsFor();
-    }
-
-    /**
-     * Create an instance of {@link GetProfileImage }
-     * 
-     */
-    public GetProfileImage createGetProfileImage() {
-        return new GetProfileImage();
-    }
-
-    /**
-     * Create an instance of {@link GetProfileImageResponse }
-     * 
-     */
-    public GetProfileImageResponse createGetProfileImageResponse() {
-        return new GetProfileImageResponse();
-    }
-
-    /**
-     * Create an instance of {@link SetProfileImageResponse }
-     * 
-     */
-    public SetProfileImageResponse createSetProfileImageResponse() {
-        return new SetProfileImageResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetQuestsFor }
-     * 
-     */
-    public GetQuestsFor createGetQuestsFor() {
-        return new GetQuestsFor();
-    }
-
-    /**
-     * Create an instance of {@link GetMyAchievements }
-     * 
-     */
-    public GetMyAchievements createGetMyAchievements() {
-        return new GetMyAchievements();
-    }
-
-    /**
-     * Create an instance of {@link GetMeResponse }
-     * 
-     */
-    public GetMeResponse createGetMeResponse() {
-        return new GetMeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnrollments }
-     * 
-     */
-    public GetEnrollments createGetEnrollments() {
-        return new GetEnrollments();
-    }
-
-    /**
-     * Create an instance of {@link SetDefaultTitleResponse }
-     * 
-     */
-    public SetDefaultTitleResponse createSetDefaultTitleResponse() {
-        return new SetDefaultTitleResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetRememberMeToken }
-     * 
-     */
-    public GetRememberMeToken createGetRememberMeToken() {
-        return new GetRememberMeToken();
-    }
-
-    /**
-     * Create an instance of {@link SetProfileImage }
-     * 
-     */
-    public SetProfileImage createSetProfileImage() {
-        return new SetProfileImage();
-    }
-
-    /**
-     * Create an instance of {@link GetLevel }
-     * 
-     */
-    public GetLevel createGetLevel() {
-        return new GetLevel();
-    }
-
-    /**
-     * Create an instance of {@link User }
-     * 
-     */
-    public User createUser() {
-        return new User();
-    }
-
-    /**
-     * Create an instance of {@link GetMyProgressResponse }
-     * 
-     */
-    public GetMyProgressResponse createGetMyProgressResponse() {
-        return new GetMyProgressResponse();
-    }
-
-    /**
-     * Create an instance of {@link Level }
-     * 
-     */
-    public Level createLevel() {
-        return new Level();
-    }
-
-    /**
-     * Create an instance of {@link Achievement }
-     * 
-     */
-    public Achievement createAchievement() {
-        return new Achievement();
-    }
-
-    /**
-     * Create an instance of {@link AchievementRecord }
-     * 
-     */
-    public AchievementRecord createAchievementRecord() {
-        return new AchievementRecord();
-    }
-
-    /**
-     * Create an instance of {@link Title }
-     * 
-     */
-    public Title createTitle() {
-        return new Title();
-    }
-
-    /**
-     * Create an instance of {@link QuestProgress }
-     * 
-     */
-    public QuestProgress createQuestProgress() {
-        return new QuestProgress();
-    }
-
-    /**
-     * Create an instance of {@link Task }
-     * 
-     */
-    public Task createTask() {
-        return new Task();
+    public CreateTaskResponse createCreateTaskResponse() {
+        return new CreateTaskResponse();
     }
 
     /**
@@ -422,6 +106,238 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetEnrollmentsForResponse }
+     * 
+     */
+    public GetEnrollmentsForResponse createGetEnrollmentsForResponse() {
+        return new GetEnrollmentsForResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateCourse }
+     * 
+     */
+    public CreateCourse createCreateCourse() {
+        return new CreateCourse();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollmentResponse }
+     * 
+     */
+    public CreateEnrollmentResponse createCreateEnrollmentResponse() {
+        return new CreateEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateCourseResponse }
+     * 
+     */
+    public CreateCourseResponse createCreateCourseResponse() {
+        return new CreateCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUser }
+     * 
+     */
+    public GetUser createGetUser() {
+        return new GetUser();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
+    }
+
+    /**
+     * Create an instance of {@link CreateUserResponse }
+     * 
+     */
+    public CreateUserResponse createCreateUserResponse() {
+        return new CreateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateAssignment }
+     * 
+     */
+    public CreateAssignment createCreateAssignment() {
+        return new CreateAssignment();
+    }
+
+    /**
+     * Create an instance of {@link Course }
+     * 
+     */
+    public Course createCourse() {
+        return new Course();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUser }
+     * 
+     */
+    public UpdateUser createUpdateUser() {
+        return new UpdateUser();
+    }
+
+    /**
+     * Create an instance of {@link GetUsers }
+     * 
+     */
+    public GetUsers createGetUsers() {
+        return new GetUsers();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAssignmentResponse }
+     * 
+     */
+    public UpdateAssignmentResponse createUpdateAssignmentResponse() {
+        return new UpdateAssignmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUserResponse }
+     * 
+     */
+    public GetUserResponse createGetUserResponse() {
+        return new GetUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link Title }
+     * 
+     */
+    public Title createTitle() {
+        return new Title();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnrollmentResponse }
+     * 
+     */
+    public UpdateEnrollmentResponse createUpdateEnrollmentResponse() {
+        return new UpdateEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteQuestResponse }
+     * 
+     */
+    public DeleteQuestResponse createDeleteQuestResponse() {
+        return new DeleteQuestResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateUser }
+     * 
+     */
+    public CreateUser createCreateUser() {
+        return new CreateUser();
+    }
+
+    /**
+     * Create an instance of {@link CreateEnrollment }
+     * 
+     */
+    public CreateEnrollment createCreateEnrollment() {
+        return new CreateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link GetEnrollmentsFor }
+     * 
+     */
+    public GetEnrollmentsFor createGetEnrollmentsFor() {
+        return new GetEnrollmentsFor();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCourseResponse }
+     * 
+     */
+    public DeleteCourseResponse createDeleteCourseResponse() {
+        return new DeleteCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCourseResponse }
+     * 
+     */
+    public GetCourseResponse createGetCourseResponse() {
+        return new GetCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateQuest }
+     * 
+     */
+    public CreateQuest createCreateQuest() {
+        return new CreateQuest();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUserResponse }
+     * 
+     */
+    public UpdateUserResponse createUpdateUserResponse() {
+        return new UpdateUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link Enrollment }
+     * 
+     */
+    public Enrollment createEnrollment() {
+        return new Enrollment();
+    }
+
+    /**
+     * Create an instance of {@link UpdateTask }
+     * 
+     */
+    public UpdateTask createUpdateTask() {
+        return new UpdateTask();
+    }
+
+    /**
+     * Create an instance of {@link DeleteUser }
+     * 
+     */
+    public DeleteUser createDeleteUser() {
+        return new DeleteUser();
+    }
+
+    /**
+     * Create an instance of {@link Achievement }
+     * 
+     */
+    public Achievement createAchievement() {
+        return new Achievement();
+    }
+
+    /**
+     * Create an instance of {@link GetCourse }
+     * 
+     */
+    public GetCourse createGetCourse() {
+        return new GetCourse();
+    }
+
+    /**
+     * Create an instance of {@link Level }
+     * 
+     */
+    public Level createLevel() {
+        return new Level();
+    }
+
+    /**
      * Create an instance of {@link Assignment }
      * 
      */
@@ -430,48 +346,215 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestsFor }{@code >}}
+     * Create an instance of {@link Task }
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getQuestsFor")
-    public JAXBElement<GetQuestsFor> createGetQuestsFor(GetQuestsFor value) {
-        return new JAXBElement<GetQuestsFor>(_GetQuestsFor_QNAME, GetQuestsFor.class, null, value);
+    public Task createTask() {
+        return new Task();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyAchievements }{@code >}}
+     * Create an instance of {@link UpdateTaskResponse }
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyAchievements")
-    public JAXBElement<GetMyAchievements> createGetMyAchievements(GetMyAchievements value) {
-        return new JAXBElement<GetMyAchievements>(_GetMyAchievements_QNAME, GetMyAchievements.class, null, value);
+    public UpdateTaskResponse createUpdateTaskResponse() {
+        return new UpdateTaskResponse();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetProfileImageResponse }{@code >}}
+     * Create an instance of {@link UpdateCourse }
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getProfileImageResponse")
-    public JAXBElement<GetProfileImageResponse> createGetProfileImageResponse(GetProfileImageResponse value) {
-        return new JAXBElement<GetProfileImageResponse>(_GetProfileImageResponse_QNAME, GetProfileImageResponse.class, null, value);
+    public UpdateCourse createUpdateCourse() {
+        return new UpdateCourse();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetProfileImageResponse }{@code >}}
+     * Create an instance of {@link UpdateQuest }
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "setProfileImageResponse")
-    public JAXBElement<SetProfileImageResponse> createSetProfileImageResponse(SetProfileImageResponse value) {
-        return new JAXBElement<SetProfileImageResponse>(_SetProfileImageResponse_QNAME, SetProfileImageResponse.class, null, value);
+    public UpdateQuest createUpdateQuest() {
+        return new UpdateQuest();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetLevel }{@code >}}
+     * Create an instance of {@link CreateAssignmentResponse }
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getLevel")
-    public JAXBElement<GetLevel> createGetLevel(GetLevel value) {
-        return new JAXBElement<GetLevel>(_GetLevel_QNAME, GetLevel.class, null, value);
+    public CreateAssignmentResponse createCreateAssignmentResponse() {
+        return new CreateAssignmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnrollment }
+     * 
+     */
+    public UpdateEnrollment createUpdateEnrollment() {
+        return new UpdateEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteTask }
+     * 
+     */
+    public DeleteTask createDeleteTask() {
+        return new DeleteTask();
+    }
+
+    /**
+     * Create an instance of {@link CreateTask }
+     * 
+     */
+    public CreateTask createCreateTask() {
+        return new CreateTask();
+    }
+
+    /**
+     * Create an instance of {@link CreateQuestResponse }
+     * 
+     */
+    public CreateQuestResponse createCreateQuestResponse() {
+        return new CreateQuestResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCourseResponse }
+     * 
+     */
+    public UpdateCourseResponse createUpdateCourseResponse() {
+        return new UpdateCourseResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAssignment }
+     * 
+     */
+    public DeleteAssignment createDeleteAssignment() {
+        return new DeleteAssignment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteQuest }
+     * 
+     */
+    public DeleteQuest createDeleteQuest() {
+        return new DeleteQuest();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnrollment }
+     * 
+     */
+    public DeleteEnrollment createDeleteEnrollment() {
+        return new DeleteEnrollment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAssignmentResponse }
+     * 
+     */
+    public DeleteAssignmentResponse createDeleteAssignmentResponse() {
+        return new DeleteAssignmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUsersResponse }
+     * 
+     */
+    public GetUsersResponse createGetUsersResponse() {
+        return new GetUsersResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCourses }
+     * 
+     */
+    public GetCourses createGetCourses() {
+        return new GetCourses();
+    }
+
+    /**
+     * Create an instance of {@link GetCoursesResponse }
+     * 
+     */
+    public GetCoursesResponse createGetCoursesResponse() {
+        return new GetCoursesResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAssignment }
+     * 
+     */
+    public UpdateAssignment createUpdateAssignment() {
+        return new UpdateAssignment();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCourse }
+     * 
+     */
+    public DeleteCourse createDeleteCourse() {
+        return new DeleteCourse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnrollmentResponse }
+     * 
+     */
+    public DeleteEnrollmentResponse createDeleteEnrollmentResponse() {
+        return new DeleteEnrollmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteTaskResponse }
+     * 
+     */
+    public DeleteTaskResponse createDeleteTaskResponse() {
+        return new DeleteTaskResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateQuestResponse }
+     * 
+     */
+    public UpdateQuestResponse createUpdateQuestResponse() {
+        return new UpdateQuestResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCoursesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCoursesResponse")
+    public JAXBElement<GetCoursesResponse> createGetCoursesResponse(GetCoursesResponse value) {
+        return new JAXBElement<GetCoursesResponse>(_GetCoursesResponse_QNAME, GetCoursesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteCourseResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteCourseResponse")
+    public JAXBElement<DeleteCourseResponse> createDeleteCourseResponse(DeleteCourseResponse value) {
+        return new JAXBElement<DeleteCourseResponse>(_DeleteCourseResponse_QNAME, DeleteCourseResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateCourseResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateCourseResponse")
+    public JAXBElement<UpdateCourseResponse> createUpdateCourseResponse(UpdateCourseResponse value) {
+        return new JAXBElement<UpdateCourseResponse>(_UpdateCourseResponse_QNAME, UpdateCourseResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUser")
+    public JAXBElement<GetUser> createGetUser(GetUser value) {
+        return new JAXBElement<GetUser>(_GetUser_QNAME, GetUser.class, null, value);
     }
 
     /**
@@ -484,183 +567,345 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProgressResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateEnrollment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProgressResponse")
-    public JAXBElement<GetMyProgressResponse> createGetMyProgressResponse(GetMyProgressResponse value) {
-        return new JAXBElement<GetMyProgressResponse>(_GetMyProgressResponse_QNAME, GetMyProgressResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createEnrollment")
+    public JAXBElement<CreateEnrollment> createCreateEnrollment(CreateEnrollment value) {
+        return new JAXBElement<CreateEnrollment>(_CreateEnrollment_QNAME, CreateEnrollment.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetRememberMeToken }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsers }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getRememberMeToken")
-    public JAXBElement<GetRememberMeToken> createGetRememberMeToken(GetRememberMeToken value) {
-        return new JAXBElement<GetRememberMeToken>(_GetRememberMeToken_QNAME, GetRememberMeToken.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUsers")
+    public JAXBElement<GetUsers> createGetUsers(GetUsers value) {
+        return new JAXBElement<GetUsers>(_GetUsers_QNAME, GetUsers.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetDefaultTitleResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAssignment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "setDefaultTitleResponse")
-    public JAXBElement<SetDefaultTitleResponse> createSetDefaultTitleResponse(SetDefaultTitleResponse value) {
-        return new JAXBElement<SetDefaultTitleResponse>(_SetDefaultTitleResponse_QNAME, SetDefaultTitleResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteAssignment")
+    public JAXBElement<DeleteAssignment> createDeleteAssignment(DeleteAssignment value) {
+        return new JAXBElement<DeleteAssignment>(_DeleteAssignment_QNAME, DeleteAssignment.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetProfileImage }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAssignmentResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "setProfileImage")
-    public JAXBElement<SetProfileImage> createSetProfileImage(SetProfileImage value) {
-        return new JAXBElement<SetProfileImage>(_SetProfileImage_QNAME, SetProfileImage.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createAssignmentResponse")
+    public JAXBElement<CreateAssignmentResponse> createCreateAssignmentResponse(CreateAssignmentResponse value) {
+        return new JAXBElement<CreateAssignmentResponse>(_CreateAssignmentResponse_QNAME, CreateAssignmentResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateUserResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMeResponse")
-    public JAXBElement<GetMeResponse> createGetMeResponse(GetMeResponse value) {
-        return new JAXBElement<GetMeResponse>(_GetMeResponse_QNAME, GetMeResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateUserResponse")
+    public JAXBElement<UpdateUserResponse> createUpdateUserResponse(UpdateUserResponse value) {
+        return new JAXBElement<UpdateUserResponse>(_UpdateUserResponse_QNAME, UpdateUserResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEnrollments }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateAssignment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getEnrollments")
-    public JAXBElement<GetEnrollments> createGetEnrollments(GetEnrollments value) {
-        return new JAXBElement<GetEnrollments>(_GetEnrollments_QNAME, GetEnrollments.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateAssignment")
+    public JAXBElement<UpdateAssignment> createUpdateAssignment(UpdateAssignment value) {
+        return new JAXBElement<UpdateAssignment>(_UpdateAssignment_QNAME, UpdateAssignment.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MarkTaskCompleted }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuest }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "markTaskCompleted")
-    public JAXBElement<MarkTaskCompleted> createMarkTaskCompleted(MarkTaskCompleted value) {
-        return new JAXBElement<MarkTaskCompleted>(_MarkTaskCompleted_QNAME, MarkTaskCompleted.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createQuest")
+    public JAXBElement<CreateQuest> createCreateQuest(CreateQuest value) {
+        return new JAXBElement<CreateQuest>(_CreateQuest_QNAME, CreateQuest.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllAchievements }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateCourse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAllAchievements")
-    public JAXBElement<GetAllAchievements> createGetAllAchievements(GetAllAchievements value) {
-        return new JAXBElement<GetAllAchievements>(_GetAllAchievements_QNAME, GetAllAchievements.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateCourse")
+    public JAXBElement<UpdateCourse> createUpdateCourse(UpdateCourse value) {
+        return new JAXBElement<UpdateCourse>(_UpdateCourse_QNAME, UpdateCourse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProfileImage }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateTaskResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProfileImage")
-    public JAXBElement<GetMyProfileImage> createGetMyProfileImage(GetMyProfileImage value) {
-        return new JAXBElement<GetMyProfileImage>(_GetMyProfileImage_QNAME, GetMyProfileImage.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createTaskResponse")
+    public JAXBElement<CreateTaskResponse> createCreateTaskResponse(CreateTaskResponse value) {
+        return new JAXBElement<CreateTaskResponse>(_CreateTaskResponse_QNAME, CreateTaskResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMe }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetEnrollmentsFor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMe")
-    public JAXBElement<GetMe> createGetMe(GetMe value) {
-        return new JAXBElement<GetMe>(_GetMe_QNAME, GetMe.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getEnrollmentsFor")
+    public JAXBElement<GetEnrollmentsFor> createGetEnrollmentsFor(GetEnrollmentsFor value) {
+        return new JAXBElement<GetEnrollmentsFor>(_GetEnrollmentsFor_QNAME, GetEnrollmentsFor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SetDefaultTitle }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUsersResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "setDefaultTitle")
-    public JAXBElement<SetDefaultTitle> createSetDefaultTitle(SetDefaultTitle value) {
-        return new JAXBElement<SetDefaultTitle>(_SetDefaultTitle_QNAME, SetDefaultTitle.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUsersResponse")
+    public JAXBElement<GetUsersResponse> createGetUsersResponse(GetUsersResponse value) {
+        return new JAXBElement<GetUsersResponse>(_GetUsersResponse_QNAME, GetUsersResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyTitlesResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateCourseResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyTitlesResponse")
-    public JAXBElement<GetMyTitlesResponse> createGetMyTitlesResponse(GetMyTitlesResponse value) {
-        return new JAXBElement<GetMyTitlesResponse>(_GetMyTitlesResponse_QNAME, GetMyTitlesResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createCourseResponse")
+    public JAXBElement<CreateCourseResponse> createCreateCourseResponse(CreateCourseResponse value) {
+        return new JAXBElement<CreateCourseResponse>(_CreateCourseResponse_QNAME, CreateCourseResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAssignmentsForResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateAssignment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAssignmentsForResponse")
-    public JAXBElement<GetAssignmentsForResponse> createGetAssignmentsForResponse(GetAssignmentsForResponse value) {
-        return new JAXBElement<GetAssignmentsForResponse>(_GetAssignmentsForResponse_QNAME, GetAssignmentsForResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createAssignment")
+    public JAXBElement<CreateAssignment> createCreateAssignment(CreateAssignment value) {
+        return new JAXBElement<CreateAssignment>(_CreateAssignment_QNAME, CreateAssignment.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllQuests }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateQuestResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAllQuests")
-    public JAXBElement<GetAllQuests> createGetAllQuests(GetAllQuests value) {
-        return new JAXBElement<GetAllQuests>(_GetAllQuests_QNAME, GetAllQuests.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateQuestResponse")
+    public JAXBElement<UpdateQuestResponse> createUpdateQuestResponse(UpdateQuestResponse value) {
+        return new JAXBElement<UpdateQuestResponse>(_UpdateQuestResponse_QNAME, UpdateQuestResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProgress }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateTask }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProgress")
-    public JAXBElement<GetMyProgress> createGetMyProgress(GetMyProgress value) {
-        return new JAXBElement<GetMyProgress>(_GetMyProgress_QNAME, GetMyProgress.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateTask")
+    public JAXBElement<UpdateTask> createUpdateTask(UpdateTask value) {
+        return new JAXBElement<UpdateTask>(_UpdateTask_QNAME, UpdateTask.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEnrollmentsResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateEnrollment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getEnrollmentsResponse")
-    public JAXBElement<GetEnrollmentsResponse> createGetEnrollmentsResponse(GetEnrollmentsResponse value) {
-        return new JAXBElement<GetEnrollmentsResponse>(_GetEnrollmentsResponse_QNAME, GetEnrollmentsResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateEnrollment")
+    public JAXBElement<UpdateEnrollment> createUpdateEnrollment(UpdateEnrollment value) {
+        return new JAXBElement<UpdateEnrollment>(_UpdateEnrollment_QNAME, UpdateEnrollment.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyAchievementsResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteUserResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyAchievementsResponse")
-    public JAXBElement<GetMyAchievementsResponse> createGetMyAchievementsResponse(GetMyAchievementsResponse value) {
-        return new JAXBElement<GetMyAchievementsResponse>(_GetMyAchievementsResponse_QNAME, GetMyAchievementsResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteUserResponse")
+    public JAXBElement<DeleteUserResponse> createDeleteUserResponse(DeleteUserResponse value) {
+        return new JAXBElement<DeleteUserResponse>(_DeleteUserResponse_QNAME, DeleteUserResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAssignmentsFor }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuest }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAssignmentsFor")
-    public JAXBElement<GetAssignmentsFor> createGetAssignmentsFor(GetAssignmentsFor value) {
-        return new JAXBElement<GetAssignmentsFor>(_GetAssignmentsFor_QNAME, GetAssignmentsFor.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteQuest")
+    public JAXBElement<DeleteQuest> createDeleteQuest(DeleteQuest value) {
+        return new JAXBElement<DeleteQuest>(_DeleteQuest_QNAME, DeleteQuest.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetProfileImage }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteTask }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getProfileImage")
-    public JAXBElement<GetProfileImage> createGetProfileImage(GetProfileImage value) {
-        return new JAXBElement<GetProfileImage>(_GetProfileImage_QNAME, GetProfileImage.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteTask")
+    public JAXBElement<DeleteTask> createDeleteTask(DeleteTask value) {
+        return new JAXBElement<DeleteTask>(_DeleteTask_QNAME, DeleteTask.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProgressForResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateQuest }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProgressForResponse")
-    public JAXBElement<GetMyProgressForResponse> createGetMyProgressForResponse(GetMyProgressForResponse value) {
-        return new JAXBElement<GetMyProgressForResponse>(_GetMyProgressForResponse_QNAME, GetMyProgressForResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateQuest")
+    public JAXBElement<UpdateQuest> createUpdateQuest(UpdateQuest value) {
+        return new JAXBElement<UpdateQuest>(_UpdateQuest_QNAME, UpdateQuest.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCourseResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCourseResponse")
+    public JAXBElement<GetCourseResponse> createGetCourseResponse(GetCourseResponse value) {
+        return new JAXBElement<GetCourseResponse>(_GetCourseResponse_QNAME, GetCourseResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteCourse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteCourse")
+    public JAXBElement<DeleteCourse> createDeleteCourse(DeleteCourse value) {
+        return new JAXBElement<DeleteCourse>(_DeleteCourse_QNAME, DeleteCourse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateEnrollmentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateEnrollmentResponse")
+    public JAXBElement<UpdateEnrollmentResponse> createUpdateEnrollmentResponse(UpdateEnrollmentResponse value) {
+        return new JAXBElement<UpdateEnrollmentResponse>(_UpdateEnrollmentResponse_QNAME, UpdateEnrollmentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateQuestResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createQuestResponse")
+    public JAXBElement<CreateQuestResponse> createCreateQuestResponse(CreateQuestResponse value) {
+        return new JAXBElement<CreateQuestResponse>(_CreateQuestResponse_QNAME, CreateQuestResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateUser")
+    public JAXBElement<UpdateUser> createUpdateUser(UpdateUser value) {
+        return new JAXBElement<UpdateUser>(_UpdateUser_QNAME, UpdateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteEnrollmentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteEnrollmentResponse")
+    public JAXBElement<DeleteEnrollmentResponse> createDeleteEnrollmentResponse(DeleteEnrollmentResponse value) {
+        return new JAXBElement<DeleteEnrollmentResponse>(_DeleteEnrollmentResponse_QNAME, DeleteEnrollmentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteUser")
+    public JAXBElement<DeleteUser> createDeleteUser(DeleteUser value) {
+        return new JAXBElement<DeleteUser>(_DeleteUser_QNAME, DeleteUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateAssignmentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateAssignmentResponse")
+    public JAXBElement<UpdateAssignmentResponse> createUpdateAssignmentResponse(UpdateAssignmentResponse value) {
+        return new JAXBElement<UpdateAssignmentResponse>(_UpdateAssignmentResponse_QNAME, UpdateAssignmentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetEnrollmentsForResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getEnrollmentsForResponse")
+    public JAXBElement<GetEnrollmentsForResponse> createGetEnrollmentsForResponse(GetEnrollmentsForResponse value) {
+        return new JAXBElement<GetEnrollmentsForResponse>(_GetEnrollmentsForResponse_QNAME, GetEnrollmentsForResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createUser")
+    public JAXBElement<CreateUser> createCreateUser(CreateUser value) {
+        return new JAXBElement<CreateUser>(_CreateUser_QNAME, CreateUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCourses }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCourses")
+    public JAXBElement<GetCourses> createGetCourses(GetCourses value) {
+        return new JAXBElement<GetCourses>(_GetCourses_QNAME, GetCourses.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createUserResponse")
+    public JAXBElement<CreateUserResponse> createCreateUserResponse(CreateUserResponse value) {
+        return new JAXBElement<CreateUserResponse>(_CreateUserResponse_QNAME, CreateUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCourse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getCourse")
+    public JAXBElement<GetCourse> createGetCourse(GetCourse value) {
+        return new JAXBElement<GetCourse>(_GetCourse_QNAME, GetCourse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateCourse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createCourse")
+    public JAXBElement<CreateCourse> createCreateCourse(CreateCourse value) {
+        return new JAXBElement<CreateCourse>(_CreateCourse_QNAME, CreateCourse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getUserResponse")
+    public JAXBElement<GetUserResponse> createGetUserResponse(GetUserResponse value) {
+        return new JAXBElement<GetUserResponse>(_GetUserResponse_QNAME, GetUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteTaskResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteTaskResponse")
+    public JAXBElement<DeleteTaskResponse> createDeleteTaskResponse(DeleteTaskResponse value) {
+        return new JAXBElement<DeleteTaskResponse>(_DeleteTaskResponse_QNAME, DeleteTaskResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteAssignmentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteAssignmentResponse")
+    public JAXBElement<DeleteAssignmentResponse> createDeleteAssignmentResponse(DeleteAssignmentResponse value) {
+        return new JAXBElement<DeleteAssignmentResponse>(_DeleteAssignmentResponse_QNAME, DeleteAssignmentResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateTask }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createTask")
+    public JAXBElement<CreateTask> createCreateTask(CreateTask value) {
+        return new JAXBElement<CreateTask>(_CreateTask_QNAME, CreateTask.class, null, value);
     }
 
     /**
@@ -673,57 +918,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MarkTaskCompletedResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteQuestResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "markTaskCompletedResponse")
-    public JAXBElement<MarkTaskCompletedResponse> createMarkTaskCompletedResponse(MarkTaskCompletedResponse value) {
-        return new JAXBElement<MarkTaskCompletedResponse>(_MarkTaskCompletedResponse_QNAME, MarkTaskCompletedResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteQuestResponse")
+    public JAXBElement<DeleteQuestResponse> createDeleteQuestResponse(DeleteQuestResponse value) {
+        return new JAXBElement<DeleteQuestResponse>(_DeleteQuestResponse_QNAME, DeleteQuestResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProgressFor }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteEnrollment }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProgressFor")
-    public JAXBElement<GetMyProgressFor> createGetMyProgressFor(GetMyProgressFor value) {
-        return new JAXBElement<GetMyProgressFor>(_GetMyProgressFor_QNAME, GetMyProgressFor.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllAchievementsResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAllAchievementsResponse")
-    public JAXBElement<GetAllAchievementsResponse> createGetAllAchievementsResponse(GetAllAchievementsResponse value) {
-        return new JAXBElement<GetAllAchievementsResponse>(_GetAllAchievementsResponse_QNAME, GetAllAchievementsResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyTitles }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyTitles")
-    public JAXBElement<GetMyTitles> createGetMyTitles(GetMyTitles value) {
-        return new JAXBElement<GetMyTitles>(_GetMyTitles_QNAME, GetMyTitles.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetQuestsForResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getQuestsForResponse")
-    public JAXBElement<GetQuestsForResponse> createGetQuestsForResponse(GetQuestsForResponse value) {
-        return new JAXBElement<GetQuestsForResponse>(_GetQuestsForResponse_QNAME, GetQuestsForResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetLevelResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getLevelResponse")
-    public JAXBElement<GetLevelResponse> createGetLevelResponse(GetLevelResponse value) {
-        return new JAXBElement<GetLevelResponse>(_GetLevelResponse_QNAME, GetLevelResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "deleteEnrollment")
+    public JAXBElement<DeleteEnrollment> createDeleteEnrollment(DeleteEnrollment value) {
+        return new JAXBElement<DeleteEnrollment>(_DeleteEnrollment_QNAME, DeleteEnrollment.class, null, value);
     }
 
     /**
@@ -736,30 +945,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllQuestsResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateTaskResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getAllQuestsResponse")
-    public JAXBElement<GetAllQuestsResponse> createGetAllQuestsResponse(GetAllQuestsResponse value) {
-        return new JAXBElement<GetAllQuestsResponse>(_GetAllQuestsResponse_QNAME, GetAllQuestsResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "updateTaskResponse")
+    public JAXBElement<UpdateTaskResponse> createUpdateTaskResponse(UpdateTaskResponse value) {
+        return new JAXBElement<UpdateTaskResponse>(_UpdateTaskResponse_QNAME, UpdateTaskResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetMyProfileImageResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateEnrollmentResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getMyProfileImageResponse")
-    public JAXBElement<GetMyProfileImageResponse> createGetMyProfileImageResponse(GetMyProfileImageResponse value) {
-        return new JAXBElement<GetMyProfileImageResponse>(_GetMyProfileImageResponse_QNAME, GetMyProfileImageResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetRememberMeTokenResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "getRememberMeTokenResponse")
-    public JAXBElement<GetRememberMeTokenResponse> createGetRememberMeTokenResponse(GetRememberMeTokenResponse value) {
-        return new JAXBElement<GetRememberMeTokenResponse>(_GetRememberMeTokenResponse_QNAME, GetRememberMeTokenResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://server.halo.psl.cs.columbia.edu/", name = "createEnrollmentResponse")
+    public JAXBElement<CreateEnrollmentResponse> createCreateEnrollmentResponse(CreateEnrollmentResponse value) {
+        return new JAXBElement<CreateEnrollmentResponse>(_CreateEnrollmentResponse_QNAME, CreateEnrollmentResponse.class, null, value);
     }
 
 }

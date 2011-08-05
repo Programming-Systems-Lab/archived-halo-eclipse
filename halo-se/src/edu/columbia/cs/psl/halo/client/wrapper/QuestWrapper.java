@@ -40,7 +40,8 @@ public class QuestWrapper implements IAdaptable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String getDueStrHuman() {
+	public static String getDueStrHuman(Assignment assignment)
+	{
 		if(assignment.getDueOn() != null)
 		{
 			boolean past = false;
@@ -91,6 +92,9 @@ public class QuestWrapper implements IAdaptable{
 			return ret;
 		}
 		return "N/A";
+	}
+	public String getDueStrHuman() {
+		return getDueStrHuman(assignment);
 	}
 	private static final long MONTH_SECS = 2629743;
 	private static final long WEEK_SECS = 604800;

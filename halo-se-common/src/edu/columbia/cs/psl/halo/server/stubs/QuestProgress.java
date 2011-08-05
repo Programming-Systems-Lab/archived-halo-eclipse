@@ -1,11 +1,13 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -41,8 +43,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "updated",
     "user"
 })
-public class QuestProgress {
+public class QuestProgress
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     protected boolean completed;
     protected int id;
     protected Quest quest;

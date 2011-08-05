@@ -1,9 +1,11 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -29,8 +31,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getEnrollmentsForCourse", propOrder = {
     "arg0"
 })
-public class GetEnrollmentsForCourse {
+public class GetEnrollmentsForCourse
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     protected Course arg0;
 
     /**

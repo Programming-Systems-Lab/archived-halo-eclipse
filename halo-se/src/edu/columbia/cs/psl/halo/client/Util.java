@@ -3,7 +3,6 @@ package edu.columbia.cs.psl.halo.client;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 

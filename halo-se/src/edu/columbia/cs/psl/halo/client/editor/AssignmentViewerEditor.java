@@ -1,7 +1,5 @@
 package edu.columbia.cs.psl.halo.client.editor;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -13,9 +11,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
-
-import edu.columbia.cs.psl.halo.server.stubs.Assignment;
-import edu.columbia.cs.psl.halo.server.stubs.Quest;
 
 public class AssignmentViewerEditor extends EditorPart {
 	public static final String ID="edu.columbia.cs.psl.halo.client.editor.AssignmentViewerEditor";

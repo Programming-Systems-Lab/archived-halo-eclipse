@@ -12,11 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="studentAsisgnment")
-public class Assignment implements Serializable {
+public class Assignment extends LazyCycleBreaker implements Serializable {
 	private static final long serialVersionUID = -5087782653671688079L;
 	private int id;
 	private String title;
@@ -26,9 +27,9 @@ public class Assignment implements Serializable {
 	private Course course;
 	private List<Quest> quests;
 	
+	@XmlElement
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	public int getId() {
 		return id;
 	}
@@ -62,7 +63,6 @@ public class Assignment implements Serializable {
 		this.assignedOn = assignedOn;
 	}
 
-	@XmlTransient
 	public Course getCourse() {
 		return course;
 	}
@@ -70,7 +70,6 @@ public class Assignment implements Serializable {
 		this.course = course;
 	}
 	
-	@XmlTransient
 	@OneToMany(mappedBy="assignment")
 	public List<Quest> getQuests() {
 		return quests;

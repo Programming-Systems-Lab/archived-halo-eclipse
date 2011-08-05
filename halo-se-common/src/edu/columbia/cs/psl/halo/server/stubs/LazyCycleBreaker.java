@@ -1,6 +1,7 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -42,15 +44,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     Enrollment.class,
     User.class,
     Task.class,
-    Quest.class
+    Quest.class,
+    Assignment.class
 })
-public abstract class LazyCycleBreaker {
+public abstract class LazyCycleBreaker
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String idstr;
-    @XmlAttribute(name = "ref")
+    @XmlAttribute
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Object ref;

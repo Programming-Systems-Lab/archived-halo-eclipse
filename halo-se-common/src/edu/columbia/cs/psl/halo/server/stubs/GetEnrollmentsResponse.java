@@ -1,12 +1,14 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -32,8 +34,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "getEnrollmentsResponse", propOrder = {
     "_return"
 })
-public class GetEnrollmentsResponse {
+public class GetEnrollmentsResponse
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     @XmlElement(name = "return")
     protected List<Enrollment> _return;
 

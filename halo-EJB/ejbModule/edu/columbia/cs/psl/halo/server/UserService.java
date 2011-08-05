@@ -196,6 +196,8 @@ public class UserService extends AbstractFacade<User>  {
     }
     public List<Assignment> getAssignmentsFor(Course c)
     {
+		getEntityManager().getEntityManagerFactory().getCache().evictAll();
+
     	c = getEntityManager().find(Course.class, c.getId());
     	return c.getAssignments();
     }

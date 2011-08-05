@@ -1,9 +1,11 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -35,8 +37,12 @@ import javax.xml.bind.annotation.XmlType;
     "xpMax",
     "xpRequired"
 })
-public class Level {
+public class Level
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     protected int id;
     protected int level;
     protected int xpMax;

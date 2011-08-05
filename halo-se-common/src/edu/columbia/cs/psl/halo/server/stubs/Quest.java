@@ -1,6 +1,7 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,8 +47,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Quest
     extends LazyCycleBreaker
+    implements Serializable
 {
 
+    private final static long serialVersionUID = 100L;
     protected Assignment assignment;
     @XmlElement(nillable = true)
     protected List<Quest> children;

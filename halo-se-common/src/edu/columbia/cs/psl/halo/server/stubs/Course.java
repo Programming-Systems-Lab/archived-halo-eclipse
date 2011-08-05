@@ -1,6 +1,7 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -33,8 +34,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Course
     extends LazyCycleBreaker
+    implements Serializable
 {
 
+    private final static long serialVersionUID = 100L;
     protected int id;
     protected String name;
 

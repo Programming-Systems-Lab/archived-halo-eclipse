@@ -7,8 +7,11 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.criteria.CriteriaQuery;
 
+import edu.columbia.cs.psl.halo.entity.Assignment;
 import edu.columbia.cs.psl.halo.entity.Course;
 import edu.columbia.cs.psl.halo.entity.Enrollment;
+import edu.columbia.cs.psl.halo.entity.Quest;
+import edu.columbia.cs.psl.halo.entity.Task;
 import edu.columbia.cs.psl.halo.entity.User;
 
 @Stateless
@@ -114,4 +117,99 @@ public class AdminService extends AbstractFacade<User> {
     {
     	return getEntityManager().find(User.class, id);
     }
+    public Assignment createAssignment(Assignment a)
+	{
+		getEntityManager().persist(a);
+//		getEntityManager().getEntityManagerFactory().getCache().evictAll();
+		return a;
+//		return getEntityManager().find(Assignment.class, a.getId());
+	}
+	public Assignment updateAssignment(Assignment a)
+	{
+		if(a.getId() == 0)
+			return createAssignment(a);
+		getEntityManager().merge(a);
+		return a;
+	}
+	public boolean deleteAssignment(Assignment a)
+	{
+		try
+		{
+			getEntityManager().remove(a);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		return true;
+	}
+	public Task createTask(Task t)
+	{
+		getEntityManager().persist(t);
+		return t;
+	}
+	public Task updateTask(Task t)
+	{
+		t.setQuest(getEntityManager().find(Quest.class, t.getQuest().getId()));
+
+		if(t.getId() == 0)
+			return createTask(t);
+		getEntityManager().merge(t);
+		getEntityManager().getEntityManagerFactory().getCache().evictAll();
+
+		return t;
+	}
+	public boolean deleteTask(Task t)
+	{
+		try
+		{
+			getEntityManager().remove(t);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		return true;
+	}
+	public Quest createQuest(Quest q)
+	{
+		if(q.getTasks() != null)
+		for(Task t : q.getTasks())
+		{
+			getEntityManager().persist(t);
+		}
+		getEntityManager().persist(q);
+		return q;
+	}
+	public Quest updateQuest(Quest q)
+	{
+		q.setAssignment(getEntityManager().find(Assignment.class, q.getAssignment().getId()));
+		if(q.getId() == 0)
+			return createQuest(q);
+		Quest original = getEntityManager().find(Quest.class, q.getId());
+		if(q.getTasks() != null)
+		for(Task t : q.getTasks())
+		{
+			t.setQuest(q); 
+			if(t.getId() > 0)
+				getEntityManager().merge(t);
+			else
+				getEntityManager().persist(t);
+		}
+		getEntityManager().merge(q);
+		getEntityManager().getEntityManagerFactory().getCache().evictAll();
+		return q;
+	}
+	public boolean deleteQuest(Quest q)
+	{
+		try
+		{
+			getEntityManager().remove(q);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		return true;
+	}
 }

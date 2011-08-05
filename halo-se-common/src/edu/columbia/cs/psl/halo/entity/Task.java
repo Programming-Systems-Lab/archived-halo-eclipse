@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
@@ -24,9 +25,9 @@ public class Task extends LazyCycleBreaker implements Serializable {
 	private List<Task> children;
 	private Quest quest;
 	
+	@XmlElement
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	public int getId() {
 		return id;
 	}

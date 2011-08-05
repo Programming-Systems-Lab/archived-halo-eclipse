@@ -64,7 +64,28 @@
                   commandId="org.eclipse.ui.file.exit"
                   label="Exit">
             </command>
+            <command
+                  commandId="org.eclipse.ui.file.save"
+                  id="Save"
+                  style="push">
+            </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="halo-se-admin.toolbar1"
+               label="Test Toolbar">
+            <command
+                  commandId="edu.columbia.cs.psl.halo.admin.command.NewAssignment"
+                  style="push">
+            </command>
+            <command
+                  commandId="edu.columbia.cs.psl.halo.admin.command.NewQuest"
+                  style="push">
+            </command>
+         </toolbar>
       </menuContribution>
    </extension>
    <extension
@@ -73,6 +94,16 @@
             defaultHandler="edu.columbia.cs.psl.halo.admin.handler.CallEditor"
             id="edu.columbia.cs.psl.halo.admin.openEditor"
             name="Open Editor">
+      </command>
+      <command
+            defaultHandler="edu.columbia.cs.psl.halo.admin.handler.NewAssignment"
+            id="edu.columbia.cs.psl.halo.admin.command.NewAssignment"
+            name="New Assignment">
+      </command>
+      <command
+            defaultHandler="edu.columbia.cs.psl.halo.admin.handler.NewQuest"
+            id="edu.columbia.cs.psl.halo.admin.command.NewQuest"
+            name="New Quest">
       </command>
    </extension>
    <extension
@@ -117,6 +148,33 @@
             id="edu.columbia.cs.psl.halo.admin.editor.UserEditor"
             name="User Editor">
       </editor>
+      <editor
+            class="edu.columbia.cs.psl.halo.admin.editor.CourseEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.admin.editor.CourseEditor"
+            name="Course Editor">
+      </editor>
+      <editor
+            class="edu.columbia.cs.psl.halo.admin.editor.AssignmentEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.admin.editor.AssignmentEditor"
+            name="Assignment Editor">
+      </editor>
+      <editor
+            class="edu.columbia.cs.psl.halo.admin.editor.QuestEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.admin.editor.QuestEditor"
+            name="Quest Editor">
+      </editor>
+      <editor
+            class="edu.columbia.cs.psl.halo.admin.editor.TaskEditor"
+            default="false"
+            id="edu.columbia.cs.psl.halo.admin.editor.TaskEditor"
+            name="Task Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
    </extension>
 
 </plugin>

@@ -1,11 +1,13 @@
 
 package edu.columbia.cs.psl.halo.server.stubs;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+import edu.columbia.cs.psl.halo.server.wrapper.EqualsHashCodeProvider;
 
 
 /**
@@ -37,8 +39,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "id",
     "user"
 })
-public class AchievementRecord {
+public class AchievementRecord
+    extends EqualsHashCodeProvider
+    implements Serializable
+{
 
+    private final static long serialVersionUID = 100L;
     protected Achievement achievement;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar completionTime;
