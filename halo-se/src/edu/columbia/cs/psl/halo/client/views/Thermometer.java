@@ -125,7 +125,6 @@ class Thermometer extends Canvas {
 		value = Math.min(
 				Math.max(((maximum - minimum) > 0.0) ? (n - minimum)
 						/ (maximum - minimum) : 0.0, minimum), maximum);
-
 		gc = new GC(this);
 		text = s;
 		textSize = gc.stringExtent(s);

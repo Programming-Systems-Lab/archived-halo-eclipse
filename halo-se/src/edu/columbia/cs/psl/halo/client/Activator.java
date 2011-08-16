@@ -1,5 +1,14 @@
 package edu.columbia.cs.psl.halo.client;
 
+import java.io.File;
+import java.net.URL;
+import java.util.Scanner;
+
+import javax.security.auth.login.LoginContext;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.equinox.security.auth.ILoginContext;
+import org.eclipse.equinox.security.auth.LoginContextFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -20,7 +29,11 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public Activator() {
 	}
-
+	private ILoginContext secureCtx;
+	
+	public ILoginContext getSecureCtx() {
+		return secureCtx;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -31,6 +44,11 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		   URL configUrl = getBundle().getEntry("login.conf");
+		   URL fileURL = FileLocator.toFileURL(configUrl);
+
+		secureCtx = LoginContextFactory.createContext("HALOLogin",fileURL, new LoginCallbackHandler());
+		secureCtx.login();
 	}
 
 	/*

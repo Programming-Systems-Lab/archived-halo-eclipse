@@ -77,5 +77,27 @@
             name="Open Editor">
       </command>
    </extension>
+   <extension
+         id="edu.columbia.cs.psl.halo.client.HALOLoginModule"
+         point="org.eclipse.equinox.security.loginModule">
+      <loginModule
+            class="edu.columbia.cs.psl.halo.client.HALOLoginModule">
+      </loginModule>
+   </extension>
+   <extension
+         id="edu.columbia.cs.psl.halo.client.LoginCallbackHandler"
+         point="org.eclipse.equinox.security.callbackHandler">
+      <callbackHandler
+            class="edu.columbia.cs.psl.halo.client.LoginCallbackHandler">
+      </callbackHandler>
+   </extension>
+   <extension
+         id="edu.columbia.cs.psl.halo.client.LoginCallbackHandler"
+         point="org.eclipse.equinox.security.callbackHandlerMapping">
+      <callbackHandlerMapping
+            callbackHandlerId="edu.columbia.cs.psl.halo.client.LoginCallbackHandler"
+            configName="HALOLogin">
+      </callbackHandlerMapping>
+   </extension>
 
 </plugin>

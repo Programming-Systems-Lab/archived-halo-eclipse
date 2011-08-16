@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.NoResultException;
@@ -30,7 +31,7 @@ import edu.columbia.cs.psl.halo.entity.User;
  */
 @Stateless
 @WebService
-//@RolesAllowed("USER") 
+@RolesAllowed("USER") 
 public class UserService extends AbstractFacade<User>  {
 	
     /**
@@ -40,6 +41,13 @@ public class UserService extends AbstractFacade<User>  {
         super(User.class);
     }
 
+    public void setPassword(String s)
+    {
+    	User me = getUser();
+    	me.setPassword(s);
+    	getEntityManager().merge(me);
+    }
+    
     /**
      * If completing this task completes a quest, this returns any results
      * @param t
@@ -210,6 +218,19 @@ public class UserService extends AbstractFacade<User>  {
     	q.setParameter(2, a.getId());
     	return q.getResultList();
     }
+    @SuppressWarnings("unchecked")
+   	public List<Quest> getAllQuestsFor(Assignment a)
+    {
+       	getEntityManager().getEntityManagerFactory().getCache().evictAll();
+       	Query q = getEntityManager().createNativeQuery("select q.* FROM quest q where q.assignment_id = ?", Quest.class);
+       	q.setParameter(1, a.getId());
+       	return q.getResultList();
+    }
+    public int getMaxAchievementPts()
+    {
+    	Query q= getEntityManager().createNativeQuery("SELECT sum(points) from achievement");
+    	return Integer.parseInt(((java.math.BigDecimal) q.getSingleResult()).toBigInteger().toString());
+    }
     public List<QuestProgress> getMyProgress()
     {
     	User u = getUser();
@@ -250,7 +271,7 @@ public class UserService extends AbstractFacade<User>  {
 	{
 		User u = getUser();
     	String r = "<" + getEncryptedPassword(u.getEmail() + System.currentTimeMillis() + "frakuyeDR6p87r");
-    	Query q = getEntityManager().createNativeQuery("UPDATE h_user SET REMEMBERME=? WHERE id=?");
+    	Query q = getEntityManager().createNativeQuery("UPDATE h_user SET REMEMBERME=?, REMEMBERMEEXP=CURRENT_TIMESTAMP() WHERE id=?");
     	q.setParameter(1, r);
     	q.setParameter(2, u.getId());
     	q.executeUpdate();
@@ -268,7 +289,7 @@ public class UserService extends AbstractFacade<User>  {
     {
     	String r;
     	User u = getUser();
-    	Query q = getEntityManager().createNativeQuery("select REMEMBERME from h_user where remembermeexp > date_add(current_timestamp(),interval -10 day) and id=?", String.class);
+    	Query q = getEntityManager().createNativeQuery("select REMEMBERME from h_user where remembermeexp > date_add(current_timestamp(),interval -10 day) and id=?");
     	q.setParameter(1, u.getId());
     	try{
     		r = (String) q.getSingleResult();

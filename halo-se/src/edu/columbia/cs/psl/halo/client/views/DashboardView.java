@@ -5,7 +5,9 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -34,14 +36,15 @@ public class DashboardView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
+        parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 		parentLayout = new StackLayout();
 		parent.setLayout(parentLayout);
 		loginComposite = new LoginComposite(parent, SWT.NONE, this);
 
-		dashboardScroller = new ScrolledComposite(parent, SWT.V_SCROLL
-				| SWT.H_SCROLL);
+		dashboardScroller = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
 		dashboardComposite = new DashboardComposite(dashboardScroller,
 				SWT.NONE, this);
+		
 		dashboardScroller.setContent(dashboardComposite);
 		dashboardScroller.setExpandHorizontal(true);
 		dashboardScroller.setExpandVertical(true);
@@ -60,10 +63,13 @@ public class DashboardView extends ViewPart {
 
 	void loggedIn() {
 		parentLayout.topControl = dashboardScroller;
-		parent.pack();
-		dashboardScroller.layout(true);
+		parent.layout();
 		dashboardComposite.updateWindow();
-		parent.layout(true);
+		dashboardScroller.layout(true);
+		Rectangle r = dashboardScroller.getClientArea();
+		dashboardScroller.setMinSize(dashboardComposite.computeSize(
+				r.width, SWT.DEFAULT));
+
 	}
 
 	void loggedOut() {
@@ -71,6 +77,10 @@ public class DashboardView extends ViewPart {
 		parent.layout(true);
 	}
 
+	public void updateWindow()
+	{
+		dashboardComposite.updateWindow();
+	}
 	@Override
 	public void setFocus() {
 		// TODO Auto-generated method stub
@@ -78,16 +88,19 @@ public class DashboardView extends ViewPart {
 	}
 
 	public static void main(String[] args) {
-		HALOServiceFactory.getInstance().login("jon", "test123");
-
+//		HALOServiceFactory.getInstance().login("jon", "test123");
+		
+		
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		shell.setBounds(200, 200, 1000, 300);
+		shell.open();
+		
 		DashboardView s = new DashboardView();
 		s.createPartControl(shell);
-		s.loggedIn();
+		
+//		s.loggedIn();
 
-		shell.open();
 
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())

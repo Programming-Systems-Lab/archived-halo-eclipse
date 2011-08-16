@@ -125,7 +125,6 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 	}
 	
 	protected void authenticateUser() throws LoginException {
-System.out.println("Login from " + _username +", " + _password);
             if(!loginByRememberMe())
             	if(!loginByPassword())
                     throw new LoginException("Login Failed for user " + _username);

@@ -53,6 +53,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
+import edu.columbia.cs.psl.halo.client.Activator;
 import edu.columbia.cs.psl.halo.client.Util;
 import edu.columbia.cs.psl.halo.client.wrapper.QuestWrapper;
 import edu.columbia.cs.psl.halo.server.stubs.Assignment;
@@ -249,20 +250,20 @@ public class QuestHUD extends ViewPart {
 		private Image unCheckedImage;
 
 		public ViewLabelProvider() {
-			// ImageDescriptor desc =
-			// Activator.getImageDescriptor("icons/checkedBox.png");
-			File f = new File("icons/checkedBox.png");
-			ImageDescriptor desc;
-			try {
-				desc = ImageDescriptor.createFromURL(f.toURL());
+			 ImageDescriptor desc = Activator.getImageDescriptor("icons/checkedBox.png");
+//			File f = new File("icons/checkedBox.png");
+//			ImageDescriptor desc;
+//			try {
+//				desc = ImageDescriptor.createFromURL(f.toURL());
 				checkedImage = desc.createImage();
-				f = new File("icons/uncheckedBox.png");
-				desc = ImageDescriptor.createFromURL(f.toURL());
+//				f = new File("icons/uncheckedBox.png");
+//				desc = ImageDescriptor.createFromURL(f.toURL());
+				desc = Activator.getImageDescriptor("icons/uncheckedBox.png");
 				unCheckedImage = desc.createImage();
-			} catch (MalformedURLException e) {
+//			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//				e.printStackTrace();
+//			}
 		}
 
 		@Override
@@ -554,19 +555,25 @@ public class QuestHUD extends ViewPart {
 
 	void loggedIn() {
 		this.layout.topControl = loggedInPanel;
+		parent.layout(true);
 
 		updateQuests();
-		parent.layout();
-		updateQuests();
+		parent.layout(true);
+		isShowingLoggedIn=true;
 	}
 
 	void loggedOut() {
-		questsTree.dispose();
-		createNeedLoginPanel();
+		this.layout.topControl = needToLogin;
+		parent.layout(true);
+		isShowingLoggedIn=false;
 	}
-
+	private boolean isShowingLoggedIn = false;
 	@Override
 	public void setFocus() {
+		if (HALOServiceFactory.getInstance().isLoggedIn() && !isShowingLoggedIn)
+			loggedIn();
+		else if(!HALOServiceFactory.getInstance().isLoggedIn() && isShowingLoggedIn)
+			loggedOut();
 		updateQuests();
 	}
 

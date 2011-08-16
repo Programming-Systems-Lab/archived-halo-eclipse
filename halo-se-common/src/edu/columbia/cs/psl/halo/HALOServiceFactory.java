@@ -1,5 +1,16 @@
 package edu.columbia.cs.psl.halo;
 
+import java.io.IOException;
+import java.security.AccessController;
+
+import javassist.expr.Handler;
+
+import javax.security.auth.Subject;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
 import javax.xml.ws.BindingProvider;
 
 import edu.columbia.cs.psl.halo.server.stubs.AdminService;
@@ -61,7 +72,22 @@ public class HALOServiceFactory {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean loginFromRememberMe(String username, String password)
+	{
+		this.username = username;
+		this.password = password;
+		clearCache();
+		try
+		{
+			me = getUserSvc().getMe();
+		}
+		catch(Exception e)
+		{
 			return false;
 		}
 		return true;
