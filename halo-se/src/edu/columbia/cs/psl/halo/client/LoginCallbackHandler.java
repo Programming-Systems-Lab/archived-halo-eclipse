@@ -17,7 +17,6 @@ public class LoginCallbackHandler implements CallbackHandler {
 	public void handle(Callback[] callbacks) throws IOException,
 			UnsupportedCallbackException {
 		// TODO Auto-generated method stub
-		System.out.println("Asked to handle");
 		
 	}
 

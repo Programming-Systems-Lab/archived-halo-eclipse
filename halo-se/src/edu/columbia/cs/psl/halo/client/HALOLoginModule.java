@@ -11,7 +11,6 @@ public class HALOLoginModule implements LoginModule {
 
 	public HALOLoginModule() {
 		// TODO Auto-generated constructor stub
-		System.out.println("Created");
 	}
 
 	@Override
@@ -36,7 +35,6 @@ public class HALOLoginModule implements LoginModule {
 	@Override
 	public boolean login() throws LoginException {
 		// TODO Auto-generated method stub
-		System.out.println("Login called");
 		return true;
 	}
 

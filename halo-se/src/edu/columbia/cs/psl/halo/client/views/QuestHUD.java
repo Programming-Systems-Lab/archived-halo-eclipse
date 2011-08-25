@@ -326,11 +326,11 @@ public class QuestHUD extends ViewPart {
 			objectivesBody.setLayoutData(new TableWrapData());
 			setLayout(new TableWrapLayout());
 			parent.notifyListeners(SWT.Resize, new Event());
-
-			getParent().layout(true);
 			Rectangle r = questDetailsScroller.getClientArea();
 			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
 					SWT.DEFAULT));
+			getParent().layout(true);
+			
 		}
 		public void setAssignment(Assignment w) {
 			questTitle.setText(w.getTitle());
@@ -566,9 +566,7 @@ public class QuestHUD extends ViewPart {
 				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
-					System.out.println("Marking as done");
 					HALOServiceFactory.getInstance().getUserSvc().markTaskCompleted(t);
-					System.out.println("Marked completed");
 					Display.getDefault().syncExec(new Runnable() {
 						
 						@Override
@@ -625,13 +623,10 @@ public class QuestHUD extends ViewPart {
 							if ((e.y > item.getImageBounds(0).y)
 									&& (e.y < (item.getImageBounds(0).y + item
 											.getImage().getBounds().height))) {
-								System.out.println("Clicked item");
 								if (item.getData() instanceof Task) {
-									System.out.println("Task clicked");
 									Task t = (Task) item.getData();
 									if(!cachedProgress.containsKey(t))
 									{
-										System.out.println("Error: no progress for this task");
 										completeTask(t);
 									}
 									else if(!cachedProgress.get(t).isCompleted())

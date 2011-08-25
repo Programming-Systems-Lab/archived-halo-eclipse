@@ -23,7 +23,6 @@ public class Util {
 		{
 			boolean past = false;
 			long time_til = (dueDate.toGregorianCalendar().getTimeInMillis() - System.currentTimeMillis())/1000;
-			System.out.println(time_til);
 			String ret = "";
 			ArrayList<String> times = new ArrayList<String>();
 			if(time_til < 0)

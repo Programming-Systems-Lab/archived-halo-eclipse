@@ -46,7 +46,6 @@ public class QuestWrapper implements IAdaptable{
 		{
 			boolean past = false;
 			long time_til = (assignment.getDueOn().toGregorianCalendar().getTimeInMillis() - System.currentTimeMillis())/1000;
-			System.out.println(time_til);
 			String ret = "";
 			ArrayList<String> times = new ArrayList<String>();
 			if(time_til < 0)
