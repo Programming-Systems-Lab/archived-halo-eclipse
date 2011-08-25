@@ -3,6 +3,8 @@ package edu.columbia.cs.psl.halo.client.views;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,6 +52,8 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.forms.widgets.TableWrapData;
+import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
@@ -67,6 +71,163 @@ public class QuestHUD extends ViewPart {
 	private HashMap<Task, QuestProgress> cachedProgress = new HashMap<Task, QuestProgress>();
 
 	class NameSorter extends ViewerSorter {
+		@Override
+		public int compare(Viewer viewer, Object e1, Object e2) {
+			if(e1 instanceof Assignment)
+			{
+				Assignment o1 = (Assignment) e1;
+				Assignment o2 = (Assignment) e2;
+				boolean o1Done = assignmentCompleted(o1);
+				boolean o2Done = assignmentCompleted(o2);
+				
+				if(o1Done && ! o2Done)
+					return 1;
+				else if(o2Done && ! o1Done)
+					return -1;
+				else if(o1.getDueOn() != null && o2.getDueOn() != null)
+					return o1.getDueOn().compare(o2.getDueOn());
+				else
+					return (o1.getId() < o2.getId() ? -1 : 1);
+			}
+			else if(e1 instanceof Quest)
+			{
+				Quest o1 = (Quest) e1;
+				Quest o2 = (Quest) e2;
+				boolean o1Done = questCompleted(o1);
+				boolean o2Done = questCompleted(o2);
+				
+				if(o1Done && ! o2Done)
+					return 1;
+				else if(o2Done && ! o1Done)
+					return -1;
+				else
+					return (o1.getId() < o2.getId() ? -1 : 1);
+			}
+			else if(e1 instanceof Task)
+			{
+				Task o1 = (Task) e1;
+				Task o2 = (Task) e2;
+				if(!cachedProgress.containsKey(o1) || !cachedProgress.containsKey(o2))
+					return 0;
+				boolean o1Done = cachedProgress.get(o1).isCompleted();
+				boolean o2Done = cachedProgress.get(o2).isCompleted();
+				
+				if(o1Done && ! o2Done)
+					return 1;
+				else if(o2Done && ! o1Done)
+					return -1;
+				else
+					return (o1.getId() < o2.getId() ? -1 : 1);
+			}
+			return super.compare(viewer, e1, e2);
+		}
+		private boolean assignmentCompleted(Assignment o1)
+		{
+			for(Quest q : o1.getQuests())
+			{
+				for(Task t : q.getTasks())
+				{
+					if(!cachedProgress.containsKey(t))
+						return false;
+					else if(!cachedProgress.get(t).isCompleted())
+						return false;
+				}
+			}
+			return true;
+		}
+		private boolean questCompleted(Quest q)
+		{
+				for(Task t : q.getTasks())
+				{
+					if(!cachedProgress.containsKey(t))
+						return false;
+					else if(!cachedProgress.get(t).isCompleted())
+						return false;
+				}
+			return true;
+		}
+//		@Override
+//		public void sort(Viewer viewer, Object[] elements) {
+//			System.out.println("running sort");
+//			if(elements.length > 0)
+//			{
+//				if(elements[0] instanceof Assignment)
+//				{
+//					ArrayList<Assignment> sorted = new ArrayList<Assignment>(elements.length);
+//					for(Object o : elements)
+//						sorted.add((Assignment) o);
+//					Collections.sort(sorted, new Comparator<Assignment>() {
+//
+//						@Override
+//						public int compare(Assignment o1, Assignment o2) {
+//							boolean o1Done = assignmentCompleted(o1);
+//							boolean o2Done = assignmentCompleted(o2);
+//							
+//							if(o1Done && ! o2Done)
+//								return 1;
+//							else if(o2Done && ! o1Done)
+//								return -1;
+//							else if(o1.getDueOn() != null && o2.getDueOn() != null)
+//								return o1.getDueOn().compare(o2.getDueOn());
+//							else
+//								return (o1.getId() < o2.getId() ? -1 : 1);
+//						}
+//					});
+//					for(Assignment a : sorted)
+//					{
+//						System.out.println(a.getTitle());
+//					}
+//					elements = sorted.toArray();
+//				}
+//				else if (elements[0] instanceof Quest) {
+//					ArrayList<Quest> sorted = new ArrayList<Quest>(elements.length);
+//					for(Object o : elements)
+//						sorted.add((Quest) o);
+//					Collections.sort(sorted, new Comparator<Quest>() {
+//
+//						@Override
+//						public int compare(Quest o1, Quest o2) {
+//							boolean o1Done = questCompleted(o1);
+//							boolean o2Done = questCompleted(o2);
+//							
+//							if(o1Done && ! o2Done)
+//								return 1;
+//							else if(o2Done && ! o1Done)
+//								return -1;
+//							else
+//								return (o1.getId() < o2.getId() ? -1 : 1);
+//						}
+//					});
+//					System.out.println(sorted);
+//					elements = sorted.toArray();
+//				}
+//				else if(elements[0] instanceof Task)
+//				{
+//					ArrayList<Task> sorted = new ArrayList<Task>(elements.length);
+//					for(Object o : elements)
+//						sorted.add((Task) o);
+//					Collections.sort(sorted, new Comparator<Task>() {
+//
+//						@Override
+//						public int compare(Task o1, Task o2) {
+//							if(!cachedProgress.containsKey(o1) || !cachedProgress.containsKey(o2))
+//								return 0;
+//							boolean o1Done = cachedProgress.get(o1).isCompleted();
+//							boolean o2Done = cachedProgress.get(o2).isCompleted();
+//							
+//							if(o1Done && ! o2Done)
+//								return -1;
+//							else if(o2Done && ! o1Done)
+//								return 1;
+//							else
+//								return (o1.getId() < o2.getId() ? -1 : 1);
+//						}
+//					});
+//					System.out.println(sorted);
+//					elements = sorted.toArray();
+//				}
+//			}
+//		}
 	}
 
 	class QuestDetails extends Composite {
@@ -81,7 +242,7 @@ public class QuestHUD extends ViewPart {
 		public QuestDetails(Composite parent, int style) {
 			super(parent, style);
 
-			this.setLayout(new GridLayout(1, true));
+			this.setLayout(new TableWrapLayout());
 			questTitle = new Label(this, SWT.NONE);
 			questTitle.setText("Batman's Quest");
 			FontData[] fD = questTitle.getFont().getFontData();
@@ -92,8 +253,8 @@ public class QuestHUD extends ViewPart {
 			this.pack();
 			questDueDate = new Label(this, SWT.WRAP);
 			questDueDate.setText("For Assignment 1, due in 3 days");
-			GridData data = new GridData();
-			data.widthHint = this.getBounds().width - 20;
+			TableWrapData data = new TableWrapData();
+//			data.widthHint = this.getBounds().width - 20;
 			questDueDate.setLayoutData(data);
 			fD[0].setHeight(16);
 			fD[0].setStyle(SWT.BOLD);
@@ -110,8 +271,8 @@ public class QuestHUD extends ViewPart {
 			questBackground = new Label(this, SWT.WRAP);
 			questBackground
 					.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
-			data = new GridData();
-			data.widthHint = this.getBounds().width - 20;
+			data = new TableWrapData();
+//			data.widthHint = this.getBounds().width - 20;
 			fD[0].setHeight(11);
 			questBackground.setLayoutData(data);
 			fD[0].setStyle(SWT.NORMAL);
@@ -126,27 +287,27 @@ public class QuestHUD extends ViewPart {
 			objectivesBody = new Label(this, SWT.WRAP);
 			objectivesBody
 					.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget libero urna, eu rhoncus nisi. Suspendisse vel tortor in nibh accumsan facilisis et a diam. Suspendisse in lacus eget turpis dignissim rutrum nec sit amet mi. Praesent neque dui, lobortis vel dapibus ac, rhoncus in quam. Proin tempus volutpat imperdiet. Ut sit amet tortor consectetur velit condimentum sollicitudin. In tempus fringilla augue. Nulla facilisi. Sed et augue sit amet ante facilisis porttitor. Phasellus sed velit nibh. Integer eget metus quam, at dictum mi. Etiam fermentum vulputate tellus vel faucibus. In non quam eget augue luctus fermentum in sed nunc. Sed eget neque neque, quis tristique tortor. Mauris ultricies dignissim justo quis condimentum. Cras pellentesque, sapien et tincidunt bibendum, elit elit vehicula dolor, a ultricies turpis mauris iaculis nisl. ");
-			data = new GridData();
-			data.widthHint = this.getBounds().width - 20;
+			data = new TableWrapData();
+//			data.widthHint = this.getBounds().width - 20;
 			fD[0].setHeight(11);
 			objectivesBody.setLayoutData(data);
 			fD[0].setStyle(SWT.NORMAL);
 			objectivesBody.setFont(new Font(parent.getDisplay(), fD[0]));
 
-			parent.addListener(SWT.Resize, new Listener() {
-				public void handleEvent(Event event) {
-					int prefWidth = getShell().getBounds().width - 40;
-					// System.out.println("Pref is " + prefWidth);
-					GridData data = (GridData) questBackground.getLayoutData();
-					data.widthHint = prefWidth;
-					questBackground.setLayoutData(data);
-					objectivesBody.setLayoutData(data);
-					data = (GridData) questDueDate.getLayoutData();
-					data.widthHint = prefWidth;
-					questDueDate.setLayoutData(data);
-					pack();
-				}
-			});
+//			parent.addListener(SWT.Resize, new Listener() {
+//				public void handleEvent(Event event) {
+//					int prefWidth = getShell().getBounds().width - 40;
+//					// System.out.println("Pref is " + prefWidth);
+////					TableWrapData data = (TableWrapData) questBackground.getLayoutData();
+////					data.widthHint = prefWidth;
+////					questBackground.setLayoutData(data);
+////					objectivesBody.setLayoutData(data);
+////					data = (GridData) questDueDate.getLayoutData();
+////					data.widthHint = prefWidth;
+////					questDueDate.setLayoutData(data);
+//					getShell().layout(true);
+//				}
+//			});
 		}
 
 		public void setQuest(QuestWrapper w) {
@@ -162,11 +323,14 @@ public class QuestHUD extends ViewPart {
 			}
 			objectivesHeader.setText("Objectives");
 			objectivesBody.setText(objectives);
-			pack();
+			objectivesBody.setLayoutData(new TableWrapData());
+			setLayout(new TableWrapLayout());
+			parent.notifyListeners(SWT.Resize, new Event());
+
+			getParent().layout(true);
 			Rectangle r = questDetailsScroller.getClientArea();
 			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
 					SWT.DEFAULT));
-			parent.notifyListeners(SWT.Resize, new Event());
 		}
 		public void setAssignment(Assignment w) {
 			questTitle.setText(w.getTitle());
@@ -286,8 +450,7 @@ public class QuestHUD extends ViewPart {
 		public String getText(Object obj) {
 			if (obj instanceof Quest) {
 				Quest w = (Quest) obj;
-				return w.getName() + " (due " + QuestWrapper.getDueStrHuman(w.getAssignment())
-						+ ")";
+				return w.getName();
 			}
 			else if(obj instanceof Assignment)
 			{
@@ -403,7 +566,9 @@ public class QuestHUD extends ViewPart {
 				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
+					System.out.println("Marking as done");
 					HALOServiceFactory.getInstance().getUserSvc().markTaskCompleted(t);
+					System.out.println("Marked completed");
 					Display.getDefault().syncExec(new Runnable() {
 						
 						@Override
@@ -460,9 +625,16 @@ public class QuestHUD extends ViewPart {
 							if ((e.y > item.getImageBounds(0).y)
 									&& (e.y < (item.getImageBounds(0).y + item
 											.getImage().getBounds().height))) {
+								System.out.println("Clicked item");
 								if (item.getData() instanceof Task) {
+									System.out.println("Task clicked");
 									Task t = (Task) item.getData();
-									if(!cachedProgress.get(t).isCompleted())
+									if(!cachedProgress.containsKey(t))
+									{
+										System.out.println("Error: no progress for this task");
+										completeTask(t);
+									}
+									else if(!cachedProgress.get(t).isCompleted())
 									{
 										completeTask(t);
 									}

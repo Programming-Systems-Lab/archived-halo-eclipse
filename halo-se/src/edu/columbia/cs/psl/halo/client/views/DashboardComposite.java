@@ -34,6 +34,7 @@ import edu.columbia.cs.psl.halo.server.stubs.EnrollmentType;
 import edu.columbia.cs.psl.halo.server.stubs.Level;
 import edu.columbia.cs.psl.halo.server.stubs.Quest;
 import edu.columbia.cs.psl.halo.server.stubs.QuestProgress;
+import edu.columbia.cs.psl.halo.server.stubs.Task;
 
 public class DashboardComposite extends Composite {
 
@@ -359,10 +360,10 @@ public class DashboardComposite extends Composite {
 			assignmentsInfo.layout(true);
 			assignmentsInfo.setLayout(new GridLayout(3, false));
 
-			HashMap<Quest, QuestProgress> progress = new HashMap<Quest, QuestProgress>();
+			HashMap<Task, QuestProgress> progress = new HashMap<Task, QuestProgress>();
 			for (QuestProgress p : HALOServiceFactory.getInstance()
 					.getUserSvc().getMyProgress()) {
-				progress.put(p.getQuest(), p);
+				progress.put(p.getTask(), p);
 			}
 			int n_quests = 0;
 			int n_quests_done = 0;
@@ -371,7 +372,6 @@ public class DashboardComposite extends Composite {
 				if (e.getType().equals(EnrollmentType.STUDENT)) {
 					for (Assignment a : HALOServiceFactory.getInstance()
 							.getUserSvc().getAssignmentsFor(e.getCourse())) {
-
 						Label l = new Label(assignmentsInfo, SWT.NONE);
 						l.setText(a.getTitle());
 						Thermometer t = new Thermometer(assignmentsInfo,
@@ -380,8 +380,13 @@ public class DashboardComposite extends Composite {
 						int done = 0;
 						for (Quest q : HALOServiceFactory.getInstance()
 								.getUserSvc().getAllQuestsFor(a)) {
-							if (progress.containsKey(q)
-									&& progress.get(q).isCompleted()) {
+							boolean complete =true;
+							for(Task ta : q.getTasks())
+							{
+								if(!(progress.containsKey(ta) && progress.get(ta).isCompleted()))
+									complete = false;
+							}
+							if (complete) {
 								done++;
 								n_quests_done++;
 							}

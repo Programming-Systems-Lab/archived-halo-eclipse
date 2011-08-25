@@ -16,6 +16,8 @@ public class CausualRelation {
 	private Achievement achievementResult;
 	private Task taskResult;
 	
+	private int cardinality;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
@@ -54,7 +56,12 @@ public class CausualRelation {
 	public void setTaskResult(Task taskResult) {
 		this.taskResult = taskResult;
 	}
-
+	public int getCardinality() {
+		return cardinality;
+	}
+	public void setCardinality(int cardinality) {
+		this.cardinality = cardinality;
+	}
 	
 	
 }

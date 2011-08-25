@@ -23,7 +23,7 @@ public class Quest extends LazyCycleBreaker implements Serializable {
 	private List<Task> tasks;
 	private Assignment assignment;
 	private int experiencePoints;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@XmlElement
