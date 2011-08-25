@@ -1,1 +1,6 @@
 .class
+halo-EJB/build/
+halo-auth/bin/
+halo-se-admin/bin/
+halo-se-common/bin/
+halo-se/bin/
