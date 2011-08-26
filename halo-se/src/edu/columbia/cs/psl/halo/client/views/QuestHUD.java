@@ -343,7 +343,6 @@ public class QuestHUD extends ViewPart {
 				objectives += t.getName() + "\n";
 			}
 			objectivesBody.setText(objectives);
-			pack();
 			Rectangle r = questDetailsScroller.getClientArea();
 			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
 					SWT.DEFAULT));
@@ -687,30 +686,20 @@ public class QuestHUD extends ViewPart {
 							else if((selection.getFirstElement()) instanceof Assignment) {
 								Assignment a = ((Assignment) selection.getFirstElement());
 								detailsLayout.topControl = questDetailsScroller;
-								detailsArea.layout(true);
-								detailsArea.pack();
-								questDetailsScroller.pack();
 								questDetails.setAssignment(a);
 								detailsArea.layout(true);
-								detailsArea.pack();
 								parent.notifyListeners(SWT.Resize, new Event());
 								parent.layout(true);
 								detailsArea.layout(true);
-								detailsArea.pack();
 								questDetailsScroller.layout(true);
 							}
 							if(qw != null){
 								detailsLayout.topControl = questDetailsScroller;
-								detailsArea.layout(true);
-								detailsArea.pack();
-								questDetailsScroller.pack();
 								questDetails.setQuest(qw);
 								detailsArea.layout(true);
-								detailsArea.pack();
 								parent.notifyListeners(SWT.Resize, new Event());
 								parent.layout(true);
 								detailsArea.layout(true);
-								detailsArea.pack();
 								questDetailsScroller.layout(true);
 							}
 						}
