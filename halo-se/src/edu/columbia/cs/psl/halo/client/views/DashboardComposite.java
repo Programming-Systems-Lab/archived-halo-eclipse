@@ -332,6 +332,7 @@ public class DashboardComposite extends Composite {
 					"Level " + (uw.getLevel().getLevel() + 1)))
 				nextLevel.setText("Level " + (uw.getLevel().getLevel() + 1));
 
+			expProgress.setMaximum(nextLevelLvl.getXpRequired());
 			if (expProgress.getValue() != uw.getXp())
 				expProgress.setSelection(uw.getXp(), uw.getXp() + " of "
 						+ nextLevelLvl.getXpRequired());
