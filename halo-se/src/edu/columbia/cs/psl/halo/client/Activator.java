@@ -7,11 +7,17 @@ import java.util.Scanner;
 import javax.security.auth.login.LoginContext;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.equinox.security.auth.ILoginContext;
 import org.eclipse.equinox.security.auth.LoginContextFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import edu.columbia.cs.psl.halo.HALOServiceFactory;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -82,5 +88,20 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+	
+	public static void logBackground(final String action, final String params)
+	{
+		Job j = new Job("") {
+			
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				HALOServiceFactory.getInstance().log(action, params);
+					return Status.OK_STATUS;
+			}
+		};
+		j.setUser(false);
+		j.setSystem(true);
+		j.schedule();
 	}
 }

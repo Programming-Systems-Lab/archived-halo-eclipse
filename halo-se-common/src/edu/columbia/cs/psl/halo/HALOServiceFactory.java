@@ -37,10 +37,7 @@ public class HALOServiceFactory {
 			instance = new HALOServiceFactory();
 		return instance;
 	}
-	public void log(String action)
-	{
-		
-	}
+
 	private void clearCache()
 	{
 

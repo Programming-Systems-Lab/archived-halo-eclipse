@@ -281,19 +281,19 @@ public class LoginComposite extends Composite {
 				protected IStatus run(IProgressMonitor monitor) {
 					boolean res = false;
 					if(password.substring(0, 1).equals("<"))
+					{
 						res = HALOServiceFactory.getInstance().loginFromRememberMe(username,password);
+						if(res)
+							HALOServiceFactory.getInstance().log("LoginFromRememberMe", null);
+					}
 					else
 					{
 						try {
-							res = Subject.doAs(Activator.getDefault().getSecureCtx().getSubject(), new PrivilegedAction<Boolean>() {
-
-								@Override
-								public Boolean run() {
-									return HALOServiceFactory.getInstance().login(username,
+							res = HALOServiceFactory.getInstance().login(username,
 											password);
-								}
-							});
-						} catch (LoginException e) {
+							if(res)
+								HALOServiceFactory.getInstance().log("LoginFromUsernamePassword", null);
+						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
