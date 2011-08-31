@@ -561,6 +561,7 @@ public class QuestHUD extends ViewPart {
 	{
 		if(MessageDialog.openConfirm(parent.getShell(), "Complete task", "Are you sure you would like to mark this task as completed?\nYou can not reverse this action"))
 		{
+			Activator.logBackground("TaskCompleteConfirmed", "" + t.getId());
 			Job j = new Job("Marking task completed") {
 				
 				@Override
@@ -580,6 +581,8 @@ public class QuestHUD extends ViewPart {
 			j.schedule();
 
 		}
+		else
+			Activator.logBackground("TaskCompleteNotConfirmed", "" + t.getId());
 	}
 	
 	private StackLayout detailsLayout;
@@ -684,7 +687,9 @@ public class QuestHUD extends ViewPart {
 								qw = quests.get(((Quest) ((Task) selection.getFirstElement()).getQuest().getRef()));
 							}
 							else if((selection.getFirstElement()) instanceof Assignment) {
+
 								Assignment a = ((Assignment) selection.getFirstElement());
+								Activator.logBackground("QuestHUDAssignmentSelected", "" + a.getId());
 								detailsLayout.topControl = questDetailsScroller;
 								questDetails.setAssignment(a);
 								detailsArea.layout(true);
@@ -694,6 +699,7 @@ public class QuestHUD extends ViewPart {
 								questDetailsScroller.layout(true);
 							}
 							if(qw != null){
+								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + qw.getQuest().getId());
 								detailsLayout.topControl = questDetailsScroller;
 								questDetails.setQuest(qw);
 								detailsArea.layout(true);
@@ -726,6 +732,7 @@ public class QuestHUD extends ViewPart {
 	private boolean isShowingLoggedIn = false;
 	@Override
 	public void setFocus() {
+		Activator.logBackground("QuestHUDSetFocus", null);
 		if (HALOServiceFactory.getInstance().isLoggedIn() && !isShowingLoggedIn)
 			loggedIn();
 		else if(!HALOServiceFactory.getInstance().isLoggedIn() && isShowingLoggedIn)

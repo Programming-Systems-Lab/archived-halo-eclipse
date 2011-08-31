@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
+import edu.columbia.cs.psl.halo.client.Activator;
 
 public class DashboardView extends ViewPart {
 
@@ -83,8 +84,7 @@ public class DashboardView extends ViewPart {
 	}
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
-
+		Activator.logBackground("DashboardViewSetFocus", null);
 	}
 
 	public static void main(String[] args) {
