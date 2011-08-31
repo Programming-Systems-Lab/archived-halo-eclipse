@@ -17,15 +17,15 @@ import edu.columbia.cs.psl.halo.server.stubs.AdminService;
 import edu.columbia.cs.psl.halo.server.stubs.AdminServiceService;
 import edu.columbia.cs.psl.halo.server.stubs.CourseService;
 import edu.columbia.cs.psl.halo.server.stubs.CourseServiceService;
+import edu.columbia.cs.psl.halo.server.stubs.LogService;
+import edu.columbia.cs.psl.halo.server.stubs.LogServiceService;
 import edu.columbia.cs.psl.halo.server.stubs.User;
 import edu.columbia.cs.psl.halo.server.stubs.UserService;
 import edu.columbia.cs.psl.halo.server.stubs.UserServiceService;
 import edu.columbia.cs.psl.halo.server.wrapper.UserWrapper;
 
 public class HALOServiceFactory {
-	private UserService userSvc = null;
-	private CourseService courseSvc = null;
-	private AdminService adminSvc = null;
+
 	
 	private String username = null;
 	private String password = null;
@@ -37,11 +37,13 @@ public class HALOServiceFactory {
 			instance = new HALOServiceFactory();
 		return instance;
 	}
+	public void log(String action)
+	{
+		
+	}
 	private void clearCache()
 	{
-		userSvc  = null;
-		courseSvc = null;
-		adminSvc= null;
+
 	}
 	private void addCrendentials(BindingProvider svc)
 	{
@@ -105,29 +107,26 @@ public class HALOServiceFactory {
 	}
 	
 	public UserService getUserSvc() {
-		if(userSvc == null)
-		{
-			userSvc = (new UserServiceService()).getUserServicePort();
+		UserService	userSvc = (new UserServiceService()).getUserServicePort();
 			addCrendentials((BindingProvider) userSvc);
-		}
 		return userSvc;
 	}
 	
 	public CourseService getCourseSvc() {
-		if(courseSvc == null)
-		{
-			courseSvc = (new CourseServiceService()).getCourseServicePort();
+		CourseService courseSvc = (new CourseServiceService()).getCourseServicePort();
 			addCrendentials((BindingProvider) courseSvc);
-		}
 		return courseSvc;
 	}
 	
 	public AdminService getAdminSvc() {
-		if(adminSvc == null)
-		{
-			adminSvc = (new AdminServiceService()).getAdminServicePort();
+			AdminService adminSvc = (new AdminServiceService()).getAdminServicePort();
 			addCrendentials((BindingProvider) adminSvc);
-		}
 		return adminSvc;
+	}
+	public void log(String action, String params)
+	{
+		LogService logSvc = (new LogServiceService()).getLogServicePort();
+		addCrendentials((BindingProvider) logSvc);
+		logSvc.log(action, params);
 	}
 }
