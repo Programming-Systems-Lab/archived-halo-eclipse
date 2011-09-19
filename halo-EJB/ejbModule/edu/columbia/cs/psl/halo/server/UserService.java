@@ -31,7 +31,7 @@ import edu.columbia.cs.psl.halo.entity.User;
  */
 @Stateless
 @WebService
-@RolesAllowed("USER") 
+//@RolesAllowed("USER") 
 public class UserService extends AbstractFacade<User>  {
 	
     /**
