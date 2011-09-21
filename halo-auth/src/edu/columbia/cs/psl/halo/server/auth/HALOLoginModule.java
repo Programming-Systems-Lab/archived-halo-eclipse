@@ -78,7 +78,7 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 			}
 			
 		}
-		return false;
+		throw new LoginException("Failed to login");
 	}
 	
 	private boolean loginByPassword() throws LoginException
@@ -109,6 +109,8 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				if(rs.getInt("admin") == 1)
 					groups.add("ADMIN");
 				String[] gret = new String[groups.size()];
+				System.out.println("Set groups: " + gret);
+
 				System.out.println(_username + " " + gret);
 				commitUserAuthentication(groups.toArray(gret));
 				conn.close();
@@ -121,7 +123,7 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				throw ex;
 			}
 
-		return false;
+		throw new LoginException("Failed to login");
 	}
 	
 	protected void authenticateUser() throws LoginException {
