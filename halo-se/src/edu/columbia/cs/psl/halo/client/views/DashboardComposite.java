@@ -1,11 +1,13 @@
 package edu.columbia.cs.psl.halo.client.views;
 
+import java.net.URL;
 import java.util.HashMap;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -56,6 +58,7 @@ public class DashboardComposite extends Composite {
 		this.dashboard = dashboard;
 		initGUI();
 		setLayout(new GridLayout(1, true));
+		
 		// this.addFocusListener(new FocusAdapter() {
 		// @Override
 		// public void focusGained(FocusEvent e) {

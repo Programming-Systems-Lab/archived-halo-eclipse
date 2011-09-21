@@ -6,12 +6,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+
+import com.google.code.facebookapi.FacebookException;
+import com.google.code.facebookapi.FacebookJsonRestClient;
 
 import edu.columbia.cs.psl.halo.entity.Achievement;
 import edu.columbia.cs.psl.halo.entity.AchievementRecord;
@@ -32,7 +36,7 @@ import edu.columbia.cs.psl.halo.entity.User;
 @Stateless
 @WebService
 //@RolesAllowed("USER") 
-public class UserService extends AbstractFacade<User>  {
+public class UserService extends AbstractFacade<User> implements UserServiceRemote {
 	
     /**
      * Default constructor. 
@@ -164,6 +168,7 @@ public class UserService extends AbstractFacade<User>  {
     {
     	//TODO
     }
+
     public Level getLevel(int i)
     {
     	Query q = getEntityManager().createNativeQuery("select * FROM level where level=?", Level.class);
@@ -304,4 +309,59 @@ public class UserService extends AbstractFacade<User>  {
     	
     	return r;
     }
+    
+    public boolean postQuestCompletionToFacebook(Quest q)
+    {
+    	User me = getUser();
+    	
+    	 String FB_APP_API_KEY = new String("191177150954478");
+    	 String FB_APP_SECRET = new String("ecd307ec8c6fc5531b44c4f0d20f00e6");
+    	    String FB_SESSION_KEY = new String(me.getFacebookSessionKey());
+    	FacebookJsonRestClient facebook = new FacebookJsonRestClient( FB_APP_API_KEY, FB_APP_SECRET, FB_SESSION_KEY );
+    	 	        FacebookJsonRestClient facebookClient = (FacebookJsonRestClient)facebook;
+    	 	try {
+    	 		String msg = "I just completed the " + q.getName() + " Quest on HALO-SE.";
+    	 		String fbResult = facebookClient.stream_publish(msg, null, null, null, null);
+    	 		System.out.println("fb response: " + fbResult);
+			} catch (FacebookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	 	 
+    	System.out.println("successfully updated");
+    	return true;
+    }
+    
+    public boolean postTaskCompletionToFacebook(Task t)
+    {
+    	User me = getUser();
+    	
+    	 String FB_APP_API_KEY = new String("191177150954478");
+    	 String FB_APP_SECRET = new String("ecd307ec8c6fc5531b44c4f0d20f00e6");
+    	    String FB_SESSION_KEY = new String(me.getFacebookSessionKey());
+    	FacebookJsonRestClient facebook = new FacebookJsonRestClient( FB_APP_API_KEY, FB_APP_SECRET, FB_SESSION_KEY );
+    	 	        FacebookJsonRestClient facebookClient = (FacebookJsonRestClient)facebook;
+    	 	try {
+    	 		String msg = "I just completed the " + t.getName() + " Task on HALO-SE.";
+    	 		String fbResult = facebookClient.stream_publish(msg, null, null, null, null);
+    	 		System.out.println("fb response: " + fbResult);
+			} catch (FacebookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	 	 
+    	System.out.println("successfully updated");
+    	return true;
+    }
+    
+    @PermitAll
+	@Override
+	public void setFBToken(int userid, String token, String webSecret) {
+		if(webSecret.equals("WrAse3RAFRa86zUdafRupRatEwUBecEzadUpRenuMAXebrubuphaCeCHuGed5eru"))
+		{
+			User u = getEntityManager().find(User.class, userid);
+			u.setFacebookSessionKey(token);
+			getEntityManager().merge(u);
+		}
+	}
 }

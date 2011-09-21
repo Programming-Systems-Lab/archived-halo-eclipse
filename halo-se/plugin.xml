@@ -8,13 +8,6 @@
             name="HALO SE"
             id="edu.columbia.cs.psl.halo.client">
       </category>
-      <view
-            name="Sample View"
-            icon="icons/sample.gif"
-            category="edu.columbia.cs.psl.halo.client"
-            class="edu.columbia.cs.psl.halo.client.views.SampleView"
-            id="edu.columbia.cs.psl.halo.client.views.SampleView">
-      </view>
       <stickyView
             id="edu.columbia.cs.psl.halo.client.views.DashboardView">
       </stickyView>

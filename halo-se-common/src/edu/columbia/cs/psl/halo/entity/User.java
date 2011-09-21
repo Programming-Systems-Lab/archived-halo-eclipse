@@ -42,6 +42,7 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private Title activeTitle;
 	private byte[] thumbnail;
 	private List<QuestProgress> progress;
+	private String facebookSessionKey;
 	
 	public User() {
 		
@@ -165,5 +166,12 @@ public class User extends LazyCycleBreaker implements Serializable {
 	}
 	public void setProgress(List<QuestProgress> progress) {
 		this.progress = progress;
+	}
+	@XmlTransient
+	public String getFacebookSessionKey() {
+		return facebookSessionKey;
+	}
+	public void setFacebookSessionKey(String facebookSessionKey) {
+		this.facebookSessionKey = facebookSessionKey;
 	}
 }

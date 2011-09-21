@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IFontProvider;
@@ -66,6 +67,8 @@ import edu.columbia.cs.psl.halo.server.stubs.EnrollmentType;
 import edu.columbia.cs.psl.halo.server.stubs.Quest;
 import edu.columbia.cs.psl.halo.server.stubs.QuestProgress;
 import edu.columbia.cs.psl.halo.server.stubs.Task;
+import edu.columbia.cs.psl.halo.server.stubs.UserService;
+import edu.columbia.cs.psl.halo.server.stubs.UserServiceService;
 
 public class QuestHUD extends ViewPart {
 	private HashMap<Task, QuestProgress> cachedProgress = new HashMap<Task, QuestProgress>();
@@ -559,8 +562,13 @@ public class QuestHUD extends ViewPart {
 
 	private void completeTask(final Task t)
 	{
-		if(MessageDialog.openConfirm(parent.getShell(), "Complete task", "Are you sure you would like to mark this task as completed?\nYou can not reverse this action"))
-		{
+		MessageDialogWithToggle dlg = MessageDialogWithToggle.openOkCancelConfirm(parent.getShell(), "Confirm completion", "Complete "+ t.getName(), "Post to Facebook", true, null, null);
+		System.out.println("Done with box");
+		
+		if (dlg.getReturnCode() == dlg.OK) {
+			if (dlg.getToggleState() == true) {
+				HALOServiceFactory.getInstance().getUserSvc().postTaskCompletionToFacebook(t);
+			}
 			Activator.logBackground("TaskCompleteConfirmed", "" + t.getId());
 			Job j = new Job("Marking task completed") {
 				
@@ -581,10 +589,7 @@ public class QuestHUD extends ViewPart {
 			j.schedule();
 
 		}
-		else
-			Activator.logBackground("TaskCompleteNotConfirmed", "" + t.getId());
 	}
-	
 	private StackLayout detailsLayout;
 	private Label noQuestSelected;
 

@@ -265,4 +265,49 @@ public interface UserService {
     @ResponseWrapper(localName = "getRememberMeTokenResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetRememberMeTokenResponse")
     public String getRememberMeToken();
 
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "postQuestCompletionToFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostQuestCompletionToFacebook")
+    @ResponseWrapper(localName = "postQuestCompletionToFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostQuestCompletionToFacebookResponse")
+    public boolean postQuestCompletionToFacebook(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Quest arg0);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "setFBToken", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.SetFBToken")
+    @ResponseWrapper(localName = "setFBTokenResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.SetFBTokenResponse")
+    public void setFBToken(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "postTaskCompletionToFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebook")
+    @ResponseWrapper(localName = "postTaskCompletionToFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebookResponse")
+    public boolean postTaskCompletionToFacebook(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Task arg0);
+
 }

@@ -23,7 +23,7 @@
        </login-config>
      </webservice-endpoint>
    </ejb>
-   <ejb>
+   <ejb>	
      <ejb-name>AdminService</ejb-name>
      <webservice-endpoint>
        <port-component-name>AdminService</port-component-name>

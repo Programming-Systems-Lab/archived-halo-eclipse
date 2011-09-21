@@ -5,6 +5,7 @@
 	<projects>
 		<project>halo-se-common</project>
 		<project>halo-se-EJB</project>
+		<project>halo-se-web</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
