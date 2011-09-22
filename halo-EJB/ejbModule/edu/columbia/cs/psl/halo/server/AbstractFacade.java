@@ -71,11 +71,11 @@ public abstract class AbstractFacade<T> {
     {
 //    	if(cachedUser != null)
 //    		return cachedUser;
-    	System.out.println("Req from " + ctx.getCallerPrincipal().getName());
+//    	System.out.println("Req from " + ctx.getCallerPrincipal().getName());
     	if(ctx.getCallerPrincipal().getName().equalsIgnoreCase("anonymous"))
     		return null;
     	Query q = getEntityManager().createQuery("select object(c) from User as c where c.email=:user");
-		q.setParameter("user", "jon");//ctx.getCallerPrincipal().getName());
+		q.setParameter("user", ctx.getCallerPrincipal().getName());
 		User r = null;
 		try
 		{

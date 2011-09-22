@@ -1,5 +1,6 @@
 package edu.columbia.cs.psl.halo.client.views;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -7,7 +8,8 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.SWTError;
+import org.eclipse.swt.browser.*;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -19,10 +21,20 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ProgressBar;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.osgi.service.prefs.BackingStoreException;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
@@ -77,6 +89,7 @@ public class DashboardComposite extends Composite {
 	private Button logout;
 	private Composite assignmentsInfo;
 	private Button changePassword;
+	private Button facebookLogin;
 	
 	private Label recentAchievements;
 
@@ -237,9 +250,12 @@ public class DashboardComposite extends Composite {
 		data = new GridData(GridData.FILL, GridData.FILL, true, true);
 		spacer.setLayoutData(data);
 
-		Composite buttons = new Composite(this, SWT.NONE);
+		final Composite buttons = new Composite(this, SWT.NONE);
 		buttons.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false));
 		buttons.setLayout(new FillLayout());
+		
+		facebookLogin = new Button(buttons, SWT.PUSH);
+		facebookLogin.setText("Log in to Facebook");
 		
 		changePassword = new Button(buttons,SWT.PUSH);
 		changePassword.setText("Change Password");
@@ -280,6 +296,35 @@ public class DashboardComposite extends Composite {
 				
 			}
 		});
+	
+		facebookLogin.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+				IWebBrowser browser;
+				try {
+					browser = support.createBrowser("someId");
+					browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
+				} catch (PartInitException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (MalformedURLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				};
+				facebookLogin.setText("Log out of Facebook");
+				// TODO enable logout from facebook - talk to Jon
+			
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		
 		changePassword.addSelectionListener(new SelectionListener() {
 			
