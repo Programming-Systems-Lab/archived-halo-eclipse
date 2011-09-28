@@ -9,9 +9,5 @@
         <dependent-module archiveName="halo-se-common.jar" deploy-path="/lib" handle="module:/resource/halo-se-common/halo-se-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="halo-se-web.war" deploy-path="/" handle="module:/resource/halo-se-web/halo-se-web">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
     </wb-module>
 </project-modules>

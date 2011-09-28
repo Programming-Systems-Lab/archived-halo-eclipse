@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>halo_se_web</name>
+	<comment></comment>
+	<projects>
+		<project>halo-eclipse-EAR</project>
+		<project>halo-se</project>
+		<project>halo-se-admin</project>
+		<project>halo-se-common</project>
+		<project>halo-se-EJB</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.python.pydev.PyDevBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.python.pydev.django.djangoNature</nature>
+	</natures>
+</projectDescription>

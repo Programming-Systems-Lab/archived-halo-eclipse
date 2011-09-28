@@ -4,12 +4,6 @@
   <module>
     <ejb>halo-se-EJB.jar</ejb>
   </module>
-  <module>
-    <web>
-      <web-uri>halo-se-web.war</web-uri>
-      <context-root>halo-se-web</context-root>
-    </web>
-  </module>
   <persistence-context-ref>
     <persistence-context-ref-name>halo_persist</persistence-context-ref-name>
     <persistence-unit-name>halo_persist</persistence-unit-name>
