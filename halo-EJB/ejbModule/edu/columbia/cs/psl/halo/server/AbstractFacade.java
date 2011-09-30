@@ -80,6 +80,7 @@ public abstract class AbstractFacade<T> {
 		try
 		{
 		r = (User) q.getSingleResult();
+		r.setFBKeyFlag(r.getFacebookSessionKey() != null);
 		}
 		catch(NoResultException e)
 		{

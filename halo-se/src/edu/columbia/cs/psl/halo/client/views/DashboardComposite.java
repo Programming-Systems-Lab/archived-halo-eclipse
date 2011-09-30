@@ -2,7 +2,17 @@ package edu.columbia.cs.psl.halo.client.views;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -39,8 +49,10 @@ import org.osgi.service.prefs.BackingStoreException;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
 import edu.columbia.cs.psl.halo.client.Activator;
+import edu.columbia.cs.psl.halo.client.FBTokenChecker;
 import edu.columbia.cs.psl.halo.client.Util;
 import edu.columbia.cs.psl.halo.client.wrapper.UserWrapper;
+import edu.columbia.cs.psl.halo.entity.User;
 import edu.columbia.cs.psl.halo.server.stubs.AchievementRecord;
 import edu.columbia.cs.psl.halo.server.stubs.Assignment;
 import edu.columbia.cs.psl.halo.server.stubs.Enrollment;
@@ -106,6 +118,24 @@ public class DashboardComposite extends Composite {
 
 	}
 
+	public void setFBButtonText(boolean loggedIn) {
+		String buttonText = facebookLogin.getText();
+		boolean buttonSaysLoggedIn = (buttonText == "Log out of Facebook");
+		if (loggedIn == false && buttonSaysLoggedIn)
+			facebookLogin.setText("Log out of Facebook");
+		if (buttonSaysLoggedIn ^ loggedIn) {
+			// if the fast checker exists, kill it
+			System.out.println("This is where I should kill the fast fb checker.");
+		}
+		if (loggedIn) {
+			facebookLogin.setText("Log out of Facebook");
+		} else if (facebookLogin.getText() != "Log in to Facebook"){
+			facebookLogin.setText("Log in to Facebook");
+		}
+		facebookLogin.getShell().layout(true);
+	}
+	
+	
 	private void initGUI() {
 		GridData d = new GridData();
 		d.grabExcessHorizontalSpace = true;
@@ -255,7 +285,7 @@ public class DashboardComposite extends Composite {
 		buttons.setLayout(new FillLayout());
 		
 		facebookLogin = new Button(buttons, SWT.PUSH);
-		facebookLogin.setText("Log in to Facebook");
+		facebookLogin.setText("Log in to The Facebook");
 		
 		changePassword = new Button(buttons,SWT.PUSH);
 		changePassword.setText("Change Password");
@@ -297,6 +327,7 @@ public class DashboardComposite extends Composite {
 			}
 		});
 	
+		
 		facebookLogin.addSelectionListener(new SelectionListener() {
 			
 			@Override
@@ -304,18 +335,20 @@ public class DashboardComposite extends Composite {
 				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 				IWebBrowser browser;
 				try {
-					browser = support.createBrowser("someId");
-					browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
+					browser = support.createBrowser("halo-fb");
+					boolean loggedIn = HALOServiceFactory.getInstance().getUserSvc().getMe().isFBKeyFlag();
+					if (loggedIn==false) {
+						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
+						FBTokenChecker fastfbChecker = new FBTokenChecker(5, dashboard);
+					}
+					else
+						System.out.println("This is where I should log out of Facebook");
+						// TODO log out of facebook - consult with Jon
 				} catch (PartInitException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (MalformedURLException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
-				};
-				facebookLogin.setText("Log out of Facebook");
-				// TODO enable logout from facebook - talk to Jon
-			
+				};			
 			}
 			
 			@Override
@@ -463,5 +496,5 @@ public class DashboardComposite extends Composite {
 					.getBounds().width;
 		}
 	}
-
+	
 }

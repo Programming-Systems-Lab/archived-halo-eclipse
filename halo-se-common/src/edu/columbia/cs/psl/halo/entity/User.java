@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,6 +44,7 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private byte[] thumbnail;
 	private List<QuestProgress> progress;
 	private String facebookSessionKey;
+	private boolean hasFBkey;
 	
 	public User() {
 		
@@ -57,6 +59,17 @@ public class User extends LazyCycleBreaker implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	@Transient
+	public boolean getFBKeyFlag() {
+		return hasFBkey;
+	}
+	
+	@Transient
+	public void setFBKeyFlag(boolean loggedIn) {
+		this.hasFBkey = loggedIn;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

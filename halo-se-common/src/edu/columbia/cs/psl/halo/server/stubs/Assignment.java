@@ -23,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
  *         &lt;element name="assignedOn" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="course" type="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
+ *         &lt;element ref="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="dueOn" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
@@ -55,6 +55,7 @@ public class Assignment
     private final static long serialVersionUID = 100L;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar assignedOn;
+    @XmlElement(namespace = "http://server.halo.psl.cs.columbia.edu/")
     protected Course course;
     protected String description;
     @XmlSchemaType(name = "dateTime")

@@ -15,11 +15,17 @@ import org.eclipse.ui.part.ViewPart;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
 import edu.columbia.cs.psl.halo.client.Activator;
+import edu.columbia.cs.psl.halo.client.FBTokenChecker;
 
 public class DashboardView extends ViewPart {
 
 	public static final String ID = "edu.columbia.cs.psl.halo.client.views.DashboardView";
-
+	public FBTokenChecker fbChecker;
+	public void facebookLoginUpdated(boolean loggedIn)
+	{
+		dashboardComposite.setFBButtonText(loggedIn);
+	}
+	
 	public DashboardView() {
 		// TODO Auto-generated constructor stub
 	}
@@ -64,6 +70,7 @@ public class DashboardView extends ViewPart {
 
 	void loggedIn() {
 		parentLayout.topControl = dashboardScroller;
+		fbChecker = new FBTokenChecker(60,this);
 		parent.layout();
 		dashboardComposite.updateWindow();
 		dashboardScroller.layout(true);
@@ -75,6 +82,7 @@ public class DashboardView extends ViewPart {
 
 	void loggedOut() {
 		parentLayout.topControl = loginComposite;
+		fbChecker.stop();
 		parent.layout(true);
 	}
 

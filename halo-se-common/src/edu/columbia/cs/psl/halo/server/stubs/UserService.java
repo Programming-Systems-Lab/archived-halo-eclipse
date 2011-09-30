@@ -281,6 +281,20 @@ public interface UserService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "postTaskCompletionToFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebook")
+    @ResponseWrapper(localName = "postTaskCompletionToFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebookResponse")
+    public boolean postTaskCompletionToFacebook(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Task arg0);
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
@@ -295,19 +309,5 @@ public interface UserService {
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "postTaskCompletionToFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebook")
-    @ResponseWrapper(localName = "postTaskCompletionToFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.PostTaskCompletionToFacebookResponse")
-    public boolean postTaskCompletionToFacebook(
-        @WebParam(name = "arg0", targetNamespace = "")
-        Task arg0);
 
 }

@@ -4,6 +4,7 @@ package edu.columbia.cs.psl.halo.server.stubs;
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -20,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="achievementPoints" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="activeTitle" type="{http://server.halo.psl.cs.columbia.edu/}title" minOccurs="0"/>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="FBKeyFlag" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="lastName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -40,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "achievementPoints",
     "activeTitle",
     "email",
+    "fbKeyFlag",
     "firstName",
     "id",
     "lastName",
@@ -57,6 +60,8 @@ public class User
     protected int achievementPoints;
     protected Title activeTitle;
     protected String email;
+    @XmlElement(name = "FBKeyFlag")
+    protected boolean fbKeyFlag;
     protected String firstName;
     protected int id;
     protected String lastName;
@@ -127,6 +132,22 @@ public class User
      */
     public void setEmail(String value) {
         this.email = value;
+    }
+
+    /**
+     * Gets the value of the fbKeyFlag property.
+     * 
+     */
+    public boolean isFBKeyFlag() {
+        return fbKeyFlag;
+    }
+
+    /**
+     * Sets the value of the fbKeyFlag property.
+     * 
+     */
+    public void setFBKeyFlag(boolean value) {
+        this.fbKeyFlag = value;
     }
 
     /**
