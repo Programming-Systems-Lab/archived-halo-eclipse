@@ -102,6 +102,9 @@ public class DashboardComposite extends Composite {
 	private Composite assignmentsInfo;
 	private Button changePassword;
 	private Button facebookLogin;
+	private FBTokenChecker fastFBChecker;
+	IWebBrowser browser;
+
 	
 	private Label recentAchievements;
 
@@ -122,14 +125,16 @@ public class DashboardComposite extends Composite {
 		String buttonText = facebookLogin.getText();
 		boolean buttonSaysLoggedIn = (buttonText == "Log out of Facebook");
 		if (loggedIn == false && buttonSaysLoggedIn)
-			facebookLogin.setText("Log out of Facebook");
+			facebookLogin.setText("Log in to Facebook");
 		if (buttonSaysLoggedIn ^ loggedIn) {
-			// if the fast checker exists, kill it
-			System.out.println("This is where I should kill the fast fb checker.");
+			if (fastFBChecker != null)
+				fastFBChecker.stop();
+			if (browser != null)
+				browser.close();
 		}
 		if (loggedIn) {
 			facebookLogin.setText("Log out of Facebook");
-		} else if (facebookLogin.getText() != "Log in to Facebook"){
+		} else if (buttonText != "Log in to Facebook"){
 			facebookLogin.setText("Log in to Facebook");
 		}
 		facebookLogin.getShell().layout(true);
@@ -333,17 +338,15 @@ public class DashboardComposite extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
-				IWebBrowser browser;
 				try {
 					browser = support.createBrowser("halo-fb");
 					boolean loggedIn = HALOServiceFactory.getInstance().getUserSvc().getMe().isFBKeyFlag();
 					if (loggedIn==false) {
 						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
-						FBTokenChecker fastfbChecker = new FBTokenChecker(5, dashboard);
+						fastFBChecker = new FBTokenChecker(5, dashboard);
 					}
 					else
-						System.out.println("This is where I should log out of Facebook");
-						// TODO log out of facebook - consult with Jon
+						dashboard.facebookLoginUpdated(false);
 				} catch (PartInitException e1) {
 					e1.printStackTrace();
 				} catch (MalformedURLException e2) {

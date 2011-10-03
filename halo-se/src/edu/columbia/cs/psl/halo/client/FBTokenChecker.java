@@ -39,10 +39,9 @@ public class FBTokenChecker {
 					System.out.println("running FBCheckTask at "+ now.toString());
 					try {
 						if (u.isFBKeyFlag())
-
-						parentView.facebookLoginUpdated(true);
-					else
-						parentView.facebookLoginUpdated(false);
+							parentView.facebookLoginUpdated(true);
+						else
+							parentView.facebookLoginUpdated(false);
 					} catch (NullPointerException npe) {
 						npe.printStackTrace();
 					}

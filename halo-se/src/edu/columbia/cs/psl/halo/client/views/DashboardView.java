@@ -24,6 +24,9 @@ public class DashboardView extends ViewPart {
 	public void facebookLoginUpdated(boolean loggedIn)
 	{
 		dashboardComposite.setFBButtonText(loggedIn);
+		if (loggedIn == false) {
+			HALOServiceFactory.getInstance().getUserSvc().logoutOfFacebook();
+		}
 	}
 	
 	public DashboardView() {

@@ -354,6 +354,15 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	return true;
     }
     
+    public void logoutOfFacebook()
+    {
+    	User me = getUser();
+    	int uid = me.getId();
+    	User u = getEntityManager().find(User.class, uid);
+    	u.setFacebookSessionKey(null);
+    	getEntityManager().merge(me);
+    }
+    
     @PermitAll
 	@Override
 	public void setFBToken(int userid, String token, String webSecret) {

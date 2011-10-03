@@ -310,4 +310,12 @@ public interface UserService {
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
 
+    /**
+     * 
+     */
+    @WebMethod
+    @RequestWrapper(localName = "logoutOfFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebook")
+    @ResponseWrapper(localName = "logoutOfFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebookResponse")
+    public void logoutOfFacebook();
+
 }
