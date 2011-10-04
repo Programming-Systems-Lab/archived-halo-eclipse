@@ -295,6 +295,14 @@ public interface UserService {
 
     /**
      * 
+     */
+    @WebMethod
+    @RequestWrapper(localName = "logoutOfFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebook")
+    @ResponseWrapper(localName = "logoutOfFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebookResponse")
+    public void logoutOfFacebook();
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
@@ -309,13 +317,5 @@ public interface UserService {
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
-
-    /**
-     * 
-     */
-    @WebMethod
-    @RequestWrapper(localName = "logoutOfFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebook")
-    @ResponseWrapper(localName = "logoutOfFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebookResponse")
-    public void logoutOfFacebook();
 
 }
