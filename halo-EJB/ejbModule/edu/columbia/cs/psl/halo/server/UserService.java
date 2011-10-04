@@ -209,8 +209,9 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     }
     public List<Assignment> getAssignmentsFor(Course c)
     {
-		getEntityManager().getEntityManagerFactory().getCache().evictAll();
-
+    	getEntityManager().getEntityManagerFactory().getCache().evictAll();
+    	System.out.println(c);
+    	System.out.println(c.getId());
     	c = getEntityManager().find(Course.class, c.getId());
     	return c.getAssignments();
     }
@@ -322,13 +323,10 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	 	try {
     	 		String msg = "I just completed the " + q.getName() + " Quest on HALO-SE.";
     	 		String fbResult = facebookClient.stream_publish(msg, null, null, null, null);
-    	 		System.out.println("fb response: " + fbResult);
 			} catch (FacebookException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	 	 
-    	System.out.println("successfully updated");
     	return true;
     }
     
@@ -344,13 +342,10 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	 	try {
     	 		String msg = "I just completed the " + t.getName() + " Task on HALO-SE.";
     	 		String fbResult = facebookClient.stream_publish(msg, null, null, null, null);
-    	 		System.out.println("fb response: " + fbResult);
 			} catch (FacebookException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	 	 
-    	System.out.println("successfully updated");
     	return true;
     }
     

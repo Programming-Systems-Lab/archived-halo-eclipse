@@ -1,7 +1,6 @@
 package edu.columbia.cs.psl.halo.client;
 
 import java.awt.Toolkit;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,9 +19,8 @@ public class FBTokenChecker {
 	public FBTokenChecker(int seconds, DashboardView parentView) {
 		toolkit = Toolkit.getDefaultToolkit();
 		timer = new Timer();
-		seconds = 2;
-		u= HALOServiceFactory.getInstance().getMe();
-		timer.schedule(new FBCheckTask(), seconds * 1000);
+		
+		timer.schedule(new FBCheckTask(), 0 ,seconds * 1000);
 		this.parentView=parentView;
 	}
 	public void stop()
@@ -35,9 +33,8 @@ public class FBTokenChecker {
 				
 				@Override
 				public void run() {
-					Date now = new Date();
-					System.out.println("running FBCheckTask at "+ now.toString());
 					try {
+						u= HALOServiceFactory.getInstance().getUserSvc().getMe();
 						if (u.isFBKeyFlag())
 							parentView.facebookLoginUpdated(true);
 						else

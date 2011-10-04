@@ -55,6 +55,7 @@ import edu.columbia.cs.psl.halo.client.wrapper.UserWrapper;
 import edu.columbia.cs.psl.halo.entity.User;
 import edu.columbia.cs.psl.halo.server.stubs.AchievementRecord;
 import edu.columbia.cs.psl.halo.server.stubs.Assignment;
+import edu.columbia.cs.psl.halo.server.stubs.Course;
 import edu.columbia.cs.psl.halo.server.stubs.Enrollment;
 import edu.columbia.cs.psl.halo.server.stubs.EnrollmentType;
 import edu.columbia.cs.psl.halo.server.stubs.Level;
@@ -121,23 +122,29 @@ public class DashboardComposite extends Composite {
 
 	}
 
-	public void setFBButtonText(boolean loggedIn) {
-		String buttonText = facebookLogin.getText();
-		boolean buttonSaysLoggedIn = (buttonText == "Log out of Facebook");
-		if (loggedIn == false && buttonSaysLoggedIn)
-			facebookLogin.setText("Log in to Facebook");
-		if (buttonSaysLoggedIn ^ loggedIn) {
-			if (fastFBChecker != null)
+	private boolean wasLoggedIn = false;
+	/**
+	 * Do not call this directly. It is called from DashboardView.facebookLoginUpdated
+	 * @param nowLoggedIn
+	 */
+	public void setFBButtonText(boolean nowLoggedIn) {
+		System.out.println("wasLoggedIn: "+wasLoggedIn+", nowLoggedIn: "+nowLoggedIn);
+		if (wasLoggedIn ^ nowLoggedIn) {
+			if (fastFBChecker != null) {
 				fastFBChecker.stop();
-			if (browser != null)
+			}
+			if (browser != null) {
 				browser.close();
+			}
 		}
-		if (loggedIn) {
+		if (nowLoggedIn) {
 			facebookLogin.setText("Log out of Facebook");
-		} else if (buttonText != "Log in to Facebook"){
+			facebookLogin.getShell().layout(true);
+		} else if (facebookLogin.getText() != "Log in to Facebook"){
 			facebookLogin.setText("Log in to Facebook");
+			facebookLogin.getShell().layout(true);
 		}
-		facebookLogin.getShell().layout(true);
+		wasLoggedIn = nowLoggedIn;
 	}
 	
 	
@@ -341,7 +348,7 @@ public class DashboardComposite extends Composite {
 				try {
 					browser = support.createBrowser("halo-fb");
 					boolean loggedIn = HALOServiceFactory.getInstance().getUserSvc().getMe().isFBKeyFlag();
-					if (loggedIn==false) {
+					if (!loggedIn) {
 						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
 						fastFBChecker = new FBTokenChecker(5, dashboard);
 					}
@@ -452,9 +459,12 @@ public class DashboardComposite extends Composite {
 			}
 			int n_quests = 0;
 			int n_quests_done = 0;
+			//Update the facebook login stuff
+			dashboard.facebookLoginUpdated(uw.isFBKeyFlag());
+			
 			for (Enrollment e : HALOServiceFactory.getInstance().getUserSvc()
 					.getEnrollments()) {
-				if (e.getType().equals(EnrollmentType.STUDENT)) {
+				if (e.getCourse() != null && e.getType().equals(EnrollmentType.STUDENT)) {
 					for (Assignment a : HALOServiceFactory.getInstance()
 							.getUserSvc().getAssignmentsFor(e.getCourse())) {
 						Label l = new Label(assignmentsInfo, SWT.NONE);
@@ -491,6 +501,8 @@ public class DashboardComposite extends Composite {
 			questProgressBar.setMaximum(n_quests);
 			questProgressBar.setSelection(n_quests_done, n_quests_done + " of " + n_quests);
 			
+
+				
 			pack(true);
 			this.getShell().layout(true);
 			((GridData) topRow.getLayoutData()).widthHint = getParent()
