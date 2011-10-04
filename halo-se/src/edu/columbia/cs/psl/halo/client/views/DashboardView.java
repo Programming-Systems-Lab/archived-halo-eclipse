@@ -20,13 +20,15 @@ import edu.columbia.cs.psl.halo.client.FBTokenChecker;
 public class DashboardView extends ViewPart {
 
 	public static final String ID = "edu.columbia.cs.psl.halo.client.views.DashboardView";
-	public FBTokenChecker fbChecker;
-	public void facebookLoginUpdated(boolean loggedIn)
+	private boolean wasLoggedIn = false;
+	public void facebookLoginUpdated(boolean nowLoggedIn)
 	{
-		dashboardComposite.setFBButtonText(loggedIn);
-		if (loggedIn == false) {
+		System.out.println("fbLoginUpdated: wasLoggedIn: "+wasLoggedIn+", nowLoggedIn: "+nowLoggedIn);
+		if ((wasLoggedIn == true) && (nowLoggedIn == false)) {
 			HALOServiceFactory.getInstance().getUserSvc().logoutOfFacebook();
 		}
+		wasLoggedIn = nowLoggedIn;
+		dashboardComposite.setFBButtonText(nowLoggedIn);
 	}
 	
 	public DashboardView() {
@@ -73,7 +75,6 @@ public class DashboardView extends ViewPart {
 
 	void loggedIn() {
 		parentLayout.topControl = dashboardScroller;
-		fbChecker = new FBTokenChecker(60,this);
 		parent.layout();
 		dashboardComposite.updateWindow();
 		dashboardScroller.layout(true);
@@ -85,7 +86,6 @@ public class DashboardView extends ViewPart {
 
 	void loggedOut() {
 		parentLayout.topControl = loginComposite;
-		fbChecker.stop();
 		parent.layout(true);
 	}
 

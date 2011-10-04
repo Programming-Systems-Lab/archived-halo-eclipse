@@ -159,4 +159,8 @@ public class UserWrapper {
 		return u.toString();
 	}
 	
+	public boolean isFBKeyFlag()
+	{
+		return u.isFBKeyFlag();
+	}
 }
