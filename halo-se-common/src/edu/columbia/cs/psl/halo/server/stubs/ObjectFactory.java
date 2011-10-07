@@ -35,19 +35,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LogResponse }
-     * 
-     */
-    public LogResponse createLogResponse() {
-        return new LogResponse();
-    }
-
-    /**
      * Create an instance of {@link Log }
      * 
      */
     public Log createLog() {
         return new Log();
+    }
+
+    /**
+     * Create an instance of {@link LogResponse }
+     * 
+     */
+    public LogResponse createLogResponse() {
+        return new LogResponse();
     }
 
     /**

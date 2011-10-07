@@ -349,7 +349,7 @@ public class DashboardComposite extends Composite {
 					browser = support.createBrowser("halo-fb");
 					boolean loggedIn = HALOServiceFactory.getInstance().getUserSvc().getMe().isFBKeyFlag();
 					if (!loggedIn) {
-						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://ase.cs.columbia.edu/halo/%3Fuid=3&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
+						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://amos.cs.columbia.edu:18585/halo-se-web/FacebookCallback%3Fuid="+HALOServiceFactory.getInstance().getMe().getId()+"&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
 						fastFBChecker = new FBTokenChecker(5, dashboard);
 					}
 					else
