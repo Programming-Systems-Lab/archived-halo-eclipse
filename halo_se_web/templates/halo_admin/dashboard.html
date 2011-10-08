@@ -1,0 +1,53 @@
+{% if admin_courses %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>HALO SE Admin</title>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/dashboard.css" type="text/css" />
+</head>
+<body class="admin-dashboard">
+	<div class="header">
+		<div class="title">HALO SE Administration</div> <div class="welcome" >Welcome, {{ user }}. <a href="/logout">Logout</a></div>
+	</div>
+	<br/>
+Please select a class to administer.
+	<ul class="admin-course-list">
+		{% for course in admin_courses %}
+			<li class="list-course"> <a href="/admin/{{ course.id }}/assignments">{{ course.name }} </a> </li>
+			<ul>
+			{% for cid, asmtset in assignment_list %}
+				{% for asmt in asmtset %}
+				<li class="list-assignment"><a href="/admin/{{course.id}}/{{ asmt.id }}/quests">{{ asmt }}</a></li>
+				<ul>
+					{% for aid, questset in quest_list %}
+						{% if asmt.id == aid %}
+							{% for quest in questset %}
+								<li class="list-quest"><a href="/admin/{{course.id}}/{{asmt.id}}/{{quest.id}}/tasks">{{ quest.name }}</a></li>
+								<ul>
+									{% for qid, taskset in task_list %}
+										{% if quest.id == qid %}
+											{% for task in taskset %}
+												<li class="list-task">{{ task.name }}</li>
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+								</ul>
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+					
+				</ul>
+				{% endfor %}
+			{% endfor %}
+			</ul>
+		{% endfor %} 
+	</ul>
+	
+</body>
+</html>
+
+{% else %}
+Sorry, you do not have permission to see this page.
+
+{% endif %}

@@ -1,0 +1,9 @@
+{% if quest_list %}
+	<ul>
+	{% for quest in quest_list %}
+		<li>{{ quest }}</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No quests are available.</p>
+{% endif %}
