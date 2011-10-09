@@ -87,7 +87,7 @@ public class QuestWrapper implements IAdaptable{
 			if(times.size() == 1)
 				ret += " ";
 			if(past)
-				ret += "ago";
+				ret += " ago";
 			else
 				ret = "in " + ret;
 			return ret;

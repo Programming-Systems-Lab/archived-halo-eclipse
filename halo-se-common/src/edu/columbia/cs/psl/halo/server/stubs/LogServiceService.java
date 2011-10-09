@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "LogServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://amos.cs.columbia.edu:18585/LogServiceService/LogService?wsdl")
+@WebServiceClient(name = "LogServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://127.0.0.1:8080/LogServiceService/LogService?wsdl")
 public class LogServiceService
     extends Service
 {
@@ -30,9 +30,9 @@ public class LogServiceService
         try {
             URL baseUrl;
             baseUrl = edu.columbia.cs.psl.halo.server.stubs.LogServiceService.class.getResource(".");
-            url = new URL(baseUrl, "http://amos.cs.columbia.edu:18585/LogServiceService/LogService?wsdl");
+            url = new URL(baseUrl, "http://127.0.0.1:8080/LogServiceService/LogService?wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'http://amos.cs.columbia.edu:18585/LogServiceService/LogService?wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'http://127.0.0.1:8080/LogServiceService/LogService?wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         LOGSERVICESERVICE_WSDL_LOCATION = url;

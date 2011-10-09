@@ -23,7 +23,6 @@ public class DashboardView extends ViewPart {
 	private boolean wasLoggedIn = false;
 	public void facebookLoginUpdated(boolean nowLoggedIn)
 	{
-		System.out.println("fbLoginUpdated: wasLoggedIn: "+wasLoggedIn+", nowLoggedIn: "+nowLoggedIn);
 		if ((wasLoggedIn == true) && (nowLoggedIn == false)) {
 			HALOServiceFactory.getInstance().getUserSvc().logoutOfFacebook();
 		}

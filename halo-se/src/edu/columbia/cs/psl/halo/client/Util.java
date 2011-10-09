@@ -65,7 +65,7 @@ public class Util {
 				ret +=" and ";
 			}
 			if(past)
-				ret += "ago";
+				ret += " ago";
 			else
 				ret = "in " + ret;
 			return ret;

@@ -247,7 +247,8 @@ public class QuestHUD extends ViewPart {
 
 			this.setLayout(new TableWrapLayout());
 			questTitle = new Label(this, SWT.NONE);
-			questTitle.setText("Batman's Quest");
+			questTitle.setText("Batman's Quest, the really long one.");
+			questTitle.setLayoutData(new TableWrapData());
 			FontData[] fD = questTitle.getFont().getFontData();
 			fD[0].setHeight(24);
 			fD[0].setStyle(SWT.BOLD);
@@ -562,11 +563,22 @@ public class QuestHUD extends ViewPart {
 
 	private void completeTask(final Task t)
 	{
-		MessageDialogWithToggle dlg = MessageDialogWithToggle.openOkCancelConfirm(parent.getShell(), "Confirm completion", "Complete "+ t.getName(), "Post to Facebook", true, null, null);
-		System.out.println("Done with box");
-		
-		if (dlg.getReturnCode() == dlg.OK) {
-			if (dlg.getToggleState() == true) {
+		boolean ok = false;
+		boolean postToFB = false;
+		if(HALOServiceFactory.getInstance().getMe().isFBKeyFlag())
+		{
+			MessageDialogWithToggle dlg = MessageDialogWithToggle.openOkCancelConfirm(parent.getShell(), "Complete Task", "Are you sure you would like to mark this task as completed?\nYou can not reverse this action", "Post to Facebook", true, null, null);
+			ok = dlg.getReturnCode() == dlg.OK;
+			postToFB = dlg.getToggleState();
+		}
+		else
+		{
+			ok = MessageDialog.openConfirm(parent.getShell(), "Complete task", "Are you sure you would like to mark this task as completed?\nYou can not reverse this action");	
+		}
+
+
+		if (ok) {
+			if (postToFB) {
 				HALOServiceFactory.getInstance().getUserSvc().postTaskCompletionToFacebook(t);
 			}
 			Activator.logBackground("TaskCompleteConfirmed", "" + t.getId());

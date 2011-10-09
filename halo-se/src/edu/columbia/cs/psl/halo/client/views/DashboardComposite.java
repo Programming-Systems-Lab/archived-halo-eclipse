@@ -2,6 +2,7 @@ package edu.columbia.cs.psl.halo.client.views;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,10 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -51,6 +56,7 @@ import edu.columbia.cs.psl.halo.HALOServiceFactory;
 import edu.columbia.cs.psl.halo.client.Activator;
 import edu.columbia.cs.psl.halo.client.FBTokenChecker;
 import edu.columbia.cs.psl.halo.client.Util;
+import edu.columbia.cs.psl.halo.client.wrapper.QuestWrapper;
 import edu.columbia.cs.psl.halo.client.wrapper.UserWrapper;
 import edu.columbia.cs.psl.halo.entity.User;
 import edu.columbia.cs.psl.halo.server.stubs.AchievementRecord;
@@ -128,7 +134,6 @@ public class DashboardComposite extends Composite {
 	 * @param nowLoggedIn
 	 */
 	public void setFBButtonText(boolean nowLoggedIn) {
-		System.out.println("wasLoggedIn: "+wasLoggedIn+", nowLoggedIn: "+nowLoggedIn);
 		if (wasLoggedIn ^ nowLoggedIn) {
 			if (fastFBChecker != null) {
 				fastFBChecker.stop();
@@ -156,7 +161,7 @@ public class DashboardComposite extends Composite {
 		topRow.setLayout(new GridLayout(3, false));
 
 		nameLabel = new Label(topRow, SWT.None);
-		nameLabel.setText("Your name here!");
+		nameLabel.setText("Loading...");
 		setFontSize(nameLabel, H1_SIZE, true);
 
 		Canvas spacer = new Canvas(topRow, SWT.NONE);
@@ -210,7 +215,7 @@ public class DashboardComposite extends Composite {
 		expProgress.setLayoutData(data);
 		expProgress.setMinimum(0);
 		expProgress.setMaximum(1000);
-		expProgress.setSelection(700, "Partway there");
+		expProgress.setSelection(700, "Loading...");
 
 		bottomRow = new Composite(this, SWT.None);
 		d = new GridData();
@@ -254,7 +259,7 @@ public class DashboardComposite extends Composite {
 
 		recentAchievements = new Label(achievementsArea, SWT.NONE);
 		recentAchievements
-				.setText("Flash's quest - super long thing here\nWelcome aboard! - 3/5/11");
+				.setText("Loading... Loading.... Loading...");
 		setFontSize(recentAchievements, H3_SIZE, false);
 
 		data = new GridData();
@@ -278,7 +283,7 @@ public class DashboardComposite extends Composite {
 		questProgressBar = new Thermometer(questBar, SWT.NULL);
 		questProgressBar.setMinimum(0);
 		questProgressBar.setMaximum(1000);
-		questProgressBar.setSelection(700, "Foobar");
+		questProgressBar.setSelection(700, "Loading...");
 		// questBar.setBackground(new Color(getDisplay(),0,255,0));
 
 		assignmentsInfo = new Composite(questBar, SWT.NONE);
@@ -347,7 +352,8 @@ public class DashboardComposite extends Composite {
 				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 				try {
 					browser = support.createBrowser("halo-fb");
-					boolean loggedIn = HALOServiceFactory.getInstance().getUserSvc().getMe().isFBKeyFlag();
+					HALOServiceFactory.getInstance().refreshMe();
+					boolean loggedIn = HALOServiceFactory.getInstance().getMe().isFBKeyFlag();
 					if (!loggedIn) {
 						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://amos.cs.columbia.edu:18585/halo-se-web/FacebookCallback%3Fuid="+HALOServiceFactory.getInstance().getMe().getId()+"&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
 						fastFBChecker = new FBTokenChecker(5, dashboard);
@@ -416,99 +422,141 @@ public class DashboardComposite extends Composite {
 			if (!curLevel.getText().equals("Level " + uw.getLevel().getLevel()))
 				curLevel.setText("Level " + uw.getLevel().getLevel());
 
-			Level nextLevelLvl = HALOServiceFactory.getInstance().getUserSvc()
-					.getLevel(uw.getLevel().getLevel() + 1);
-
-			if (!nextLevel.getText().equals(
-					"Level " + (uw.getLevel().getLevel() + 1)))
-				nextLevel.setText("Level " + (uw.getLevel().getLevel() + 1));
-
-			expProgress.setMaximum(nextLevelLvl.getXpRequired());
-			if (expProgress.getValue() != uw.getXp())
-				expProgress.setSelection(uw.getXp(), uw.getXp() + " of "
-						+ nextLevelLvl.getXpRequired());
-
-			int maxAchievement = HALOServiceFactory.getInstance().getUserSvc().getMaxAchievementPts();
-			achievementsProgress.setMaximum(maxAchievement);
-
-			if (achievementsProgress.getValue() != uw.getAchievementPoints())
-				achievementsProgress.setSelection(uw.getAchievementPoints(),
-						uw.getAchievementPoints() + " points of " + maxAchievement);
-			// achievementsStatus.setText("3 achievements completed of 15");
-			String recentAchievemntsTxt = "";
-
-			for (AchievementRecord a : HALOServiceFactory.getInstance()
-					.getUserSvc().getMyAchievements()) {
-				recentAchievemntsTxt += a.getAchievement().getName() + " - "
-						+ Util.formatDate(a.getCompletionTime()) + "\n";
-			}
-			if (!recentAchievements.getText().equals(recentAchievemntsTxt))
-			{
-				recentAchievements.setText(recentAchievemntsTxt);
-			}
 			
-			for (Control c : assignmentsInfo.getChildren())
-				c.dispose();
-			assignmentsInfo.layout(true);
-			assignmentsInfo.setLayout(new GridLayout(3, false));
 
-			HashMap<Task, QuestProgress> progress = new HashMap<Task, QuestProgress>();
-			for (QuestProgress p : HALOServiceFactory.getInstance()
-					.getUserSvc().getMyProgress()) {
-				progress.put(p.getTask(), p);
-			}
-			int n_quests = 0;
-			int n_quests_done = 0;
+
+
+
+			// achievementsStatus.setText("3 achievements completed of 15");
+
+
 			//Update the facebook login stuff
 			dashboard.facebookLoginUpdated(uw.isFBKeyFlag());
-			
-			for (Enrollment e : HALOServiceFactory.getInstance().getUserSvc()
-					.getEnrollments()) {
-				if (e.getCourse() != null && e.getType().equals(EnrollmentType.STUDENT)) {
-					for (Assignment a : HALOServiceFactory.getInstance()
-							.getUserSvc().getAssignmentsFor(e.getCourse())) {
-						Label l = new Label(assignmentsInfo, SWT.NONE);
-						l.setText(a.getTitle());
-						Thermometer t = new Thermometer(assignmentsInfo,
-								SWT.NONE);
-						int max = 0;
-						int done = 0;
-						for (Quest q : HALOServiceFactory.getInstance()
-								.getUserSvc().getAllQuestsFor(a)) {
-							boolean complete =true;
-							for(Task ta : q.getTasks())
-							{
-								if(!(progress.containsKey(ta) && progress.get(ta).isCompleted()))
-									complete = false;
-							}
-							if (complete) {
-								done++;
-								n_quests_done++;
-							}
-							n_quests++;
-							max++;
-						}
-						t.setMinimum(0);
-						t.setMaximum(max);
-						t.setSelection(done, done + " of " + max + " quests");
 
-						Label ll = new Label(assignmentsInfo, SWT.NONE);
-						ll.setText("Due " + Util.getDueStrHuman(a.getDueOn()));
-					}
-				}
-			}
-			questProgressBar.setMinimum(0);
-			questProgressBar.setMaximum(n_quests);
-			questProgressBar.setSelection(n_quests_done, n_quests_done + " of " + n_quests);
-			
-
+Job j = new Job("Updating Dashboard Display") {
 				
-			pack(true);
-			this.getShell().layout(true);
-			((GridData) topRow.getLayoutData()).widthHint = getParent()
-					.getBounds().width;
-			((GridData) bottomRow.getLayoutData()).widthHint = getParent()
-					.getBounds().width;
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+
+					final UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance()
+							.getMe());
+					final Level nextLevelLvl = HALOServiceFactory.getInstance().getUserSvc()
+							.getLevel(uw.getLevel().getLevel() + 1);
+//					final ArrayList<Thermometer> ts = new ArrayList<Thermometer>();
+					final HashMap<Task, QuestProgress> progress = new HashMap<Task, QuestProgress>();
+					for (QuestProgress p : HALOServiceFactory.getInstance()
+							.getUserSvc().getMyProgress()) {
+						progress.put(p.getTask(), p);
+					}
+					final HashMap<Assignment,ArrayList<Quest>> quests = new HashMap<Assignment, ArrayList<Quest>>();
+					for (Enrollment e : HALOServiceFactory.getInstance().getUserSvc()
+							.getEnrollments()) {
+						if (e.getCourse() != null && e.getType().equals(EnrollmentType.STUDENT)) {
+							for (Assignment a : HALOServiceFactory.getInstance()
+									.getUserSvc().getAssignmentsFor(e.getCourse())) {
+								quests.put(a, new ArrayList<Quest>());
+
+								for (Quest q : HALOServiceFactory.getInstance()
+										.getUserSvc().getAllQuestsFor(a)) {
+									quests.get(a).add(q);
+								}
+							}
+						}
+					}
+					
+					String recentAchievemntsTxt = "";
+
+					for (AchievementRecord a : HALOServiceFactory.getInstance()
+							.getUserSvc().getMyAchievements()) {
+						recentAchievemntsTxt += a.getAchievement().getName() + " - "
+								+ Util.formatDate(a.getCompletionTime()) + "\n";
+					}
+
+					final String achvTxt = recentAchievemntsTxt;
+					final int maxAchievement = HALOServiceFactory.getInstance().getUserSvc().getMaxAchievementPts();
+
+					Display.getDefault().syncExec(new Runnable() {
+						
+						@Override
+						public void run() {
+							achievementsProgress.setMaximum(maxAchievement);
+							
+							for (Control c : assignmentsInfo.getChildren())
+								c.dispose();
+							int n_quests = 0;
+							int n_quests_done = 0;
+							for(Assignment a : quests.keySet())
+							{
+								Label l = new Label(assignmentsInfo, SWT.NONE);
+								l.setText(a.getTitle());
+								int max = 0;
+								int done = 0;
+								for(Quest q : quests.get(a))
+								{
+									boolean complete =true;
+									for(Task ta : q.getTasks())
+									{
+										if(!(progress.containsKey(ta) && progress.get(ta).isCompleted()))
+											complete = false;
+									}
+									if (complete) {
+										done++;
+										n_quests_done++;
+									}
+									n_quests++;
+									max++;
+								}
+								Thermometer t = new Thermometer(assignmentsInfo,
+										SWT.NONE);
+								t.setMinimum(0);
+								t.setMaximum(max);
+								t.setSelection(done, done + " of " + max + " quests");
+//								ts.add(t);
+								
+								Label ll = new Label(assignmentsInfo, SWT.NONE);
+								ll.setText("Due " + Util.getDueStrHuman(a.getDueOn()));
+								
+							}
+							if (!nextLevel.getText().equals(
+									"Level " + (uw.getLevel().getLevel() + 1)))
+								nextLevel.setText("Level " + (uw.getLevel().getLevel() + 1));
+
+							expProgress.setMaximum(nextLevelLvl.getXpRequired());
+							if (expProgress.getValue() != uw.getXp())
+								expProgress.setSelection(uw.getXp(), uw.getXp() + " of "
+										+ nextLevelLvl.getXpRequired());
+							
+
+							questProgressBar.setMinimum(0);
+							questProgressBar.setMaximum(n_quests);
+							questProgressBar.setSelection(n_quests_done, n_quests_done + " of " + n_quests);
+							
+							if (!recentAchievements.getText().equals(achvTxt))
+							{
+								recentAchievements.setText(achvTxt);
+							}
+							
+							if (achievementsProgress.getValue() != uw.getAchievementPoints())
+								achievementsProgress.setSelection(uw.getAchievementPoints(),
+										uw.getAchievementPoints() + " points of " + maxAchievement);
+							
+							
+							assignmentsInfo.layout(true);
+							assignmentsInfo.setLayout(new GridLayout(3, false));
+
+							
+							pack(true);
+							getShell().layout(true);
+							((GridData) topRow.getLayoutData()).widthHint = getParent()
+									.getBounds().width;
+							((GridData) bottomRow.getLayoutData()).widthHint = getParent()
+									.getBounds().width;
+						}
+					});
+					return Status.OK_STATUS;
+				}
+			};
+			j.schedule();
 		}
 	}
 	

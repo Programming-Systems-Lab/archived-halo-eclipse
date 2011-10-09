@@ -11,8 +11,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.equinox.security.auth.ILoginContext;
-import org.eclipse.equinox.security.auth.LoginContextFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -35,11 +33,11 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public Activator() {
 	}
-	private ILoginContext secureCtx;
+//	private ILoginContext secureCtx;
 	
-	public ILoginContext getSecureCtx() {
-		return secureCtx;
-	}
+//	public ILoginContext getSecureCtx() {
+//		return secureCtx;
+//	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -53,8 +51,8 @@ public class Activator extends AbstractUIPlugin {
 		   URL configUrl = getBundle().getEntry("login.conf");
 		   URL fileURL = FileLocator.toFileURL(configUrl);
 
-		secureCtx = LoginContextFactory.createContext("HALOLogin",fileURL, new LoginCallbackHandler());
-		secureCtx.login();
+//		secureCtx = LoginContextFactory.createContext("HALOLogin",fileURL, new LoginCallbackHandler());
+//		secureCtx.login();
 	}
 
 	/*

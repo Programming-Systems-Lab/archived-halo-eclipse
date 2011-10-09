@@ -34,7 +34,8 @@ public class FBTokenChecker {
 				@Override
 				public void run() {
 					try {
-						u= HALOServiceFactory.getInstance().getUserSvc().getMe();
+						HALOServiceFactory.getInstance().refreshMe();
+						u= HALOServiceFactory.getInstance().getMe();
 						if (u.isFBKeyFlag())
 							parentView.facebookLoginUpdated(true);
 						else

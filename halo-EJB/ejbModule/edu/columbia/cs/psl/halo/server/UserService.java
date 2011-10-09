@@ -1,5 +1,9 @@
 package edu.columbia.cs.psl.halo.server;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,11 +13,23 @@ import java.util.Set;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.rpc.ServiceException;
 
+import org.eclipse.persistence.internal.sessions.UnitOfWorkImpl;
+
+import com.crowsoftware.jira.soap.JiraSoapService;
+import com.crowsoftware.jira.soap.JiraSoapServiceServiceLocator;
+import com.crowsoftware.jira.soap.RemoteAuthenticationException;
+import com.crowsoftware.jira.soap.RemoteComponent;
+import com.crowsoftware.jira.soap.RemoteIssue;
 import com.google.code.facebookapi.FacebookException;
 import com.google.code.facebookapi.FacebookJsonRestClient;
 
@@ -29,6 +45,7 @@ import edu.columbia.cs.psl.halo.entity.QuestProgress;
 import edu.columbia.cs.psl.halo.entity.Task;
 import edu.columbia.cs.psl.halo.entity.Title;
 import edu.columbia.cs.psl.halo.entity.User;
+import com.crowsoftware.jira.soap.RemoteException;
 
 /**
  * Session Bean implementation class UserService
@@ -44,7 +61,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     public UserService() {
         super(User.class);
     }
-
+    @WebMethod
     public void setPassword(String s)
     {
     	User me = getUser();
@@ -57,6 +74,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
      * @param t
      * @return
      */
+    @WebMethod
     public void markTaskCompleted(Task pT)
     {
     	Task t = getEntityManager().find(Task.class, pT.getId());
@@ -73,6 +91,8 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	}
     	getEntityManager().merge(me);
     }
+    
+    @WebMethod
     public Set<QuestProgress> getMyProgressFor(Quest q)
     {
     	User me = getUser();
@@ -145,6 +165,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	}
     }
 
+    @WebMethod
     public boolean setDefaultTitle(Title t)
     {
     	User u = getUser();
@@ -156,19 +177,26 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	}
     	return false;
     }
+    
+    @WebMethod
     public Byte[] getMyProfileImage()
     {
     	return null; //TODO
     }
+    
+    @WebMethod
     public Byte[] getProfileImage(User u)
     {
     	return null; //TODO
     }
+    
+    @WebMethod
     public void setProfileImage(Byte[] img)
     {
     	//TODO
     }
-
+    
+    @WebMethod
     public Level getLevel(int i)
     {
     	Query q = getEntityManager().createNativeQuery("select * FROM level where level=?", Level.class);
@@ -182,6 +210,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	}
     }
     
+    @WebMethod
 	@SuppressWarnings({ "rawtypes", "unchecked" })
     public List<Achievement> getAllAchievements()
     {
@@ -189,7 +218,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
         cq.select(cq.from(Achievement.class));
         return getEntityManager().createQuery(cq).getResultList();
     }
-	
+    @WebMethod
 	@SuppressWarnings({ "rawtypes", "unchecked" })
     public List<Quest> getAllQuests()
     {
@@ -197,16 +226,19 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
         cq.select(cq.from(Quest.class));
         return getEntityManager().createQuery(cq).getResultList();
     }
+    @WebMethod
     public List<Title> getMyTitles()
     {
     	User u = getUser();
     	return u.getTitles();
     }
+    @WebMethod
     public List<AchievementRecord> getMyAchievements()
     {
     	User u = getUser();
     	return u.getAchievements();
     }
+    @WebMethod
     public List<Assignment> getAssignmentsFor(Course c)
     {
     	getEntityManager().getEntityManagerFactory().getCache().evictAll();
@@ -215,6 +247,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	c = getEntityManager().find(Course.class, c.getId());
     	return c.getAssignments();
     }
+    @WebMethod
     @SuppressWarnings("unchecked")
 	public List<Quest> getQuestsFor(Assignment a)
     {
@@ -224,6 +257,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	q.setParameter(2, a.getId());
     	return q.getResultList();
     }
+    @WebMethod
     @SuppressWarnings("unchecked")
    	public List<Quest> getAllQuestsFor(Assignment a)
     {
@@ -232,24 +266,28 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
        	q.setParameter(1, a.getId());
        	return q.getResultList();
     }
+    @WebMethod
     public int getMaxAchievementPts()
     {
     	Query q= getEntityManager().createNativeQuery("SELECT sum(points) from achievement");
     	return Integer.parseInt(((java.math.BigDecimal) q.getSingleResult()).toBigInteger().toString());
     }
+    
+    @WebMethod
     public List<QuestProgress> getMyProgress()
     {
     	User u = getUser();
     	return u.getProgress();
     }
     
-    
+    @WebMethod
     public List<Enrollment> getEnrollments()
     {
     	User u = getUser();
     	return u.getEnrollments();
     }    
 
+    @WebMethod
     public User getMe()
     {
     	return getUser();
@@ -291,6 +329,8 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	q.executeUpdate();
     	
 	}
+	
+    @WebMethod
     public String getRememberMeToken()
     {
     	String r;
@@ -311,6 +351,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	return r;
     }
     
+    @WebMethod
     public boolean postQuestCompletionToFacebook(Quest q)
     {
     	User me = getUser();
@@ -330,6 +371,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	return true;
     }
     
+    @WebMethod
     public boolean postTaskCompletionToFacebook(Task t)
     {
     	User me = getUser();
@@ -349,6 +391,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	return true;
     }
     
+    @WebMethod
     public void logoutOfFacebook()
     {
     	User me = getUser();
@@ -366,6 +409,65 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
 			User u = getEntityManager().find(User.class, userid);
 			u.setFacebookSessionKey(token);
 			getEntityManager().merge(u);
+		}
+	}
+    
+
+    @WebMethod(exclude=true)
+    @AroundInvoke
+    public Object handleException(InvocationContext ctx) throws Exception {
+    	try{
+          return ctx.proceed( );
+    	}
+    	catch(Exception ex)
+    	{
+    		reportError(ex);
+    		throw ex;
+    	}
+    }
+    public static void reportError(Exception ex)
+	{
+		reportError(ex,null);
+	}
+	private static JiraSoapService svc = null;
+
+	public static void reportError(Exception ex, String message)
+	{
+		if(svc == null)
+		{
+			try {
+				svc = new JiraSoapServiceServiceLocator().getJirasoapserviceV2(new URL("http://ase.cs.columbia.edu/jira/rpc/soap/jirasoapservice-v2?wsdl"));
+			} catch (ServiceException e) {
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			String token = svc.login("rpc", "3uJaMaYefradR6s3T97vare");
+			RemoteIssue issue = new RemoteIssue();
+			
+			StringWriter stackTrace = new StringWriter();
+		    ex.printStackTrace(new PrintWriter(stackTrace));
+		    issue.setSummary("HALO: " + (ex.getMessage() == null ? "" : ex.getMessage().substring(0, (ex.getMessage().length() > 150 ? 150 : ex.getMessage().length()))));
+			issue.setDescription("Error from HALO: " +"\n"+stackTrace.getBuffer() + (message == null ? "" : "\nState: "+message));
+			issue.setProject("OPS");
+			issue.setType("1");
+			RemoteComponent[] p = new RemoteComponent[1];
+			p[0] = new RemoteComponent();
+			p[0].setId(""+10100);
+			issue.setComponents(p);
+			svc.createIssue(token, issue);
+			svc.logout(token);
+		} catch (RemoteAuthenticationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.rmi.RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

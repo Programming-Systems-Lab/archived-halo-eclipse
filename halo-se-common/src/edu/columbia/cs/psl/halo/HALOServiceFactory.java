@@ -104,6 +104,11 @@ public class HALOServiceFactory {
 	}
 	
 	public UserService getUserSvc() {
+		if(Thread.currentThread().getName().contains("Thread-"))
+		{
+		Exception ex = new Exception();
+		ex.printStackTrace();
+		}
 		UserService	userSvc = (new UserServiceService()).getUserServicePort();
 			addCrendentials((BindingProvider) userSvc);
 		return userSvc;
