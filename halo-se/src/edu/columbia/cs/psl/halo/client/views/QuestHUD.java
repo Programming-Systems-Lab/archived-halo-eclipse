@@ -251,7 +251,7 @@ public class QuestHUD extends ViewPart {
 			questTitle.setText("Batman's Quest, the really long one.");
 			questTitle.setLayoutData(new TableWrapData());
 			FontData[] fD = questTitle.getFont().getFontData();
-			fD[0].setHeight(24);
+			fD[0].setHeight(16);
 			fD[0].setStyle(SWT.BOLD);
 			questTitle.setFont(new Font(parent.getDisplay(), fD[0]));
 
@@ -261,13 +261,13 @@ public class QuestHUD extends ViewPart {
 			TableWrapData data = new TableWrapData();
 //			data.widthHint = this.getBounds().width - 20;
 			questDueDate.setLayoutData(data);
-			fD[0].setHeight(16);
+			fD[0].setHeight(12);
 			fD[0].setStyle(SWT.BOLD);
 			questDueDate.setFont(new Font(parent.getDisplay(), fD[0]));
 
 			backgroundHeader = new Label(this, SWT.NONE);
 			backgroundHeader.setText("Background");
-			fD[0].setHeight(16);
+			fD[0].setHeight(13);
 			fD[0].setStyle(SWT.BOLD);
 			backgroundHeader.setFont(new Font(parent.getDisplay(), fD[0]));
 
@@ -285,7 +285,7 @@ public class QuestHUD extends ViewPart {
 
 			objectivesHeader = new Label(this, SWT.NONE);
 			objectivesHeader.setText("Objectives");
-			fD[0].setHeight(16);
+			fD[0].setHeight(13);
 			fD[0].setStyle(SWT.BOLD);
 			objectivesHeader.setFont(new Font(parent.getDisplay(), fD[0]));
 
@@ -298,28 +298,33 @@ public class QuestHUD extends ViewPart {
 			objectivesBody.setLayoutData(data);
 			fD[0].setStyle(SWT.NORMAL);
 			objectivesBody.setFont(new Font(parent.getDisplay(), fD[0]));
-
-//			parent.addListener(SWT.Resize, new Listener() {
-//				public void handleEvent(Event event) {
-//					int prefWidth = getShell().getBounds().width - 40;
-//					// System.out.println("Pref is " + prefWidth);
-////					TableWrapData data = (TableWrapData) questBackground.getLayoutData();
-////					data.widthHint = prefWidth;
-////					questBackground.setLayoutData(data);
-////					objectivesBody.setLayoutData(data);
-////					data = (GridData) questDueDate.getLayoutData();
-////					data.widthHint = prefWidth;
-////					questDueDate.setLayoutData(data);
-//					getShell().layout(true);
-//				}
-//			});
 		}
-
+		public void setTask(Task t)
+		{
+			questTitle.setText(t.getName());
+			questBackground.setText(t.getDescription());
+			backgroundHeader.setText("Task Details");
+			questDueDate.setText("(Part of " + ((Quest) t.getQuest().getRef()).getName() +")");
+			
+			String objectives = "";
+			objectivesHeader.setText("Quest Background");
+			objectivesBody.setText(((Quest) t.getQuest().getRef()).getDescription());
+			refreshLayout();
+		}
+		private void refreshLayout()
+		{
+			setLayout(new TableWrapLayout());
+			Rectangle r = questDetailsScroller.getClientArea();
+			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
+					SWT.DEFAULT));
+			getParent().layout(true,true);
+		}
 		public void setQuest(QuestWrapper w) {
 			questTitle.setText(w.getQuest().getName());
 			questDueDate.setText("(Part of " + w.getAssignment().getTitle()
 					+ ", due " + w.getDueStrHuman() + ")");
 			questBackground.setText(w.getQuest().getDescription());
+			backgroundHeader.setText("Background");
 
 			String objectives = "";
 
@@ -329,18 +334,14 @@ public class QuestHUD extends ViewPart {
 			objectivesHeader.setText("Objectives");
 			objectivesBody.setText(objectives);
 			objectivesBody.setLayoutData(new TableWrapData());
-			setLayout(new TableWrapLayout());
-			parent.notifyListeners(SWT.Resize, new Event());
-			Rectangle r = questDetailsScroller.getClientArea();
-			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
-					SWT.DEFAULT));
-			getParent().layout(true);
+			refreshLayout();
 			
 		}
 		public void setAssignment(Assignment w) {
 			questTitle.setText(w.getTitle());
 			questDueDate.setText("Due " + QuestWrapper.getDueStrHuman(w));
 			questBackground.setText(w.getDescription());
+			backgroundHeader.setText("Background");
 
 			String objectives = "";
 			objectivesHeader.setText("Quests");
@@ -348,10 +349,6 @@ public class QuestHUD extends ViewPart {
 				objectives += t.getName() + "\n";
 			}
 			objectivesBody.setText(objectives);
-			Rectangle r = questDetailsScroller.getClientArea();
-			questDetailsScroller.setMinSize(questDetails.computeSize(r.width,
-					SWT.DEFAULT));
-			parent.notifyListeners(SWT.Resize, new Event());
 		}
 	}
 
@@ -535,7 +532,7 @@ public class QuestHUD extends ViewPart {
 	private QuestDetails questDetails;
 	private ScrolledComposite questDetailsScroller;
 
-	HashMap<Quest, QuestWrapper> quests;
+	HashMap<Integer, QuestWrapper> quests;
 	Tree questsTree;
 	TreeViewer questsViewer;
 	private Boolean updatingFlag = Boolean.FALSE;
@@ -589,9 +586,9 @@ public class QuestHUD extends ViewPart {
 			qp.setUser(HALOServiceFactory.getInstance().getMe());
 			cachedProgress.put(t, qp);
 			
-			questsViewer.refresh();
+			questsViewer.refresh(true);
 			questsViewer.expandAll();
-			
+
 			Activator.logBackground("TaskCompleteConfirmed", "" + t.getId());
 			Job j = new Job("Marking task completed") {
 				
@@ -670,7 +667,6 @@ public class QuestHUD extends ViewPart {
 									{
 										completeTask(t);
 									}
-									questsViewer.refresh();
 								}
 							}
 						}
@@ -716,10 +712,25 @@ public class QuestHUD extends ViewPart {
 									.getSelection();
 							QuestWrapper qw = null;
 							if ((selection.getFirstElement()) instanceof Quest) {
-								qw = quests.get(((Quest) selection.getFirstElement()));
+//								System.out.println(((Quest) selection.getFirstElement()).getId());
+								qw = quests.get(((Quest) selection.getFirstElement()).getId());
+								if(qw == null)
+								{
+									questsViewer.setSelection(null);
+									return;
+								}
+								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + qw.getQuest().getId());
+								detailsLayout.topControl = questDetailsScroller;
+								questDetails.setQuest(qw);
+								refreshLayout();
 							}
 							else if((selection.getFirstElement()) instanceof Task) {
-								qw = quests.get(((Quest) ((Task) selection.getFirstElement()).getQuest().getRef()));
+//								qw = quests.get(((Quest) ((Task) selection.getFirstElement()).getQuest().getRef()));
+								Task t = ((Task) selection.getFirstElement());
+								Activator.logBackground("QuestHUDTaskSelected", "" + t.getId());
+								detailsLayout.topControl = questDetailsScroller;
+								questDetails.setTask(t);
+								refreshLayout();
 							}
 							else if((selection.getFirstElement()) instanceof Assignment) {
 
@@ -727,21 +738,7 @@ public class QuestHUD extends ViewPart {
 								Activator.logBackground("QuestHUDAssignmentSelected", "" + a.getId());
 								detailsLayout.topControl = questDetailsScroller;
 								questDetails.setAssignment(a);
-								detailsArea.layout(true);
-								parent.notifyListeners(SWT.Resize, new Event());
-								parent.layout(true);
-								detailsArea.layout(true);
-								questDetailsScroller.layout(true,true);
-							}
-							if(qw != null){
-								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + qw.getQuest().getId());
-								detailsLayout.topControl = questDetailsScroller;
-								questDetails.setQuest(qw);
-								detailsArea.layout(true);
-								parent.notifyListeners(SWT.Resize, new Event());
-								parent.layout(true);
-								detailsArea.layout(true);
-								questDetailsScroller.layout(true,true);
+								refreshLayout();
 							}
 						}
 					}
@@ -749,7 +746,14 @@ public class QuestHUD extends ViewPart {
 
 		updateQuests();
 	}
-
+	void refreshLayout()
+	{
+		detailsArea.layout(true,true);
+		parent.notifyListeners(SWT.Resize, new Event());
+		parent.layout(true,true);
+		detailsArea.layout(true,true);
+		questDetailsScroller.layout(true,true);
+	}
 	void loggedIn() {
 		this.layout.topControl = loggedInPanel;
 		parent.layout(true);
@@ -775,7 +779,7 @@ public class QuestHUD extends ViewPart {
 		updateQuests();
 	}
 
-	private void updateQuests() {
+	public void updateQuests() {
 		synchronized (updatingFlag) {
 			if (updatingFlag)
 				return;
@@ -787,13 +791,13 @@ public class QuestHUD extends ViewPart {
 
 					@Override
 					protected IStatus run(IProgressMonitor monitor) {
-						quests = new HashMap<Quest,QuestWrapper>();
-						HashMap<Quest, QuestProgress> progress = new HashMap<Quest, QuestProgress>();
+						quests = new HashMap<Integer,QuestWrapper>();
+						HashMap<Integer, QuestProgress> progress = new HashMap<Integer, QuestProgress>();
 						if (HALOServiceFactory.getInstance().getUserSvc()
 								.getMyProgress() != null)
 							for (QuestProgress p : HALOServiceFactory
 									.getInstance().getUserSvc().getMyProgress()) {
-								progress.put(p.getQuest(), p);
+								progress.put(p.getQuest().getId(), p);
 								cachedProgress.put(p.getTask(), p);
 							}
 						for (Enrollment e : HALOServiceFactory.getInstance()
@@ -807,8 +811,8 @@ public class QuestHUD extends ViewPart {
 											.getQuestsFor(a)) {
 										QuestWrapper qw = new QuestWrapper(q,
 												a, e.getCourse(),
-												progress.get(q));
-										quests.put(q,qw);
+												progress.get(q.getId()));
+										quests.put(q.getId(),qw);
 									}
 								}
 							}
@@ -817,7 +821,7 @@ public class QuestHUD extends ViewPart {
 
 							@Override
 							public void run() {
-								questsViewer.refresh();
+								questsViewer.refresh(true);
 								questsViewer.expandAll();
 								updatingFlag = false;
 							}

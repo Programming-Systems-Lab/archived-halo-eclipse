@@ -47,6 +47,14 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private String facebookSessionKey;
 	private boolean hasFBkey;
 	
+	@Override
+	public int hashCode() {
+		return new Integer(id).hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof User && ((User) obj).getId() == getId());
+	}
 	public User() {
 		
 	}
