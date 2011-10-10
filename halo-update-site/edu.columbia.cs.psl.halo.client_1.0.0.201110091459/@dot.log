@@ -1,0 +1,222 @@
+# 10/9/11 3:00:03 PM EDT
+# Eclipse Compiler for Java(TM) 0.B76_R37x, 3.7.1, Copyright IBM Corp 2000, 2011. All rights reserved.
+----------
+1. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Activator.java (at line 3)
+	import java.io.File;
+	       ^^^^^^^^^^^^
+The import java.io.File is never used
+----------
+2. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Activator.java (at line 4)
+	import java.net.URL;
+	       ^^^^^^^^^^^^
+The import java.net.URL is never used
+----------
+3. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Activator.java (at line 5)
+	import java.util.Scanner;
+	       ^^^^^^^^^^^^^^^^^
+The import java.util.Scanner is never used
+----------
+4. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Activator.java (at line 7)
+	import javax.security.auth.login.LoginContext;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import javax.security.auth.login.LoginContext is never used
+----------
+5. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Activator.java (at line 9)
+	import org.eclipse.core.runtime.FileLocator;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.core.runtime.FileLocator is never used
+----------
+----------
+6. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Util.java (at line 3)
+	import java.awt.Toolkit;
+	       ^^^^^^^^^^^^^^^^
+The import java.awt.Toolkit is never used
+----------
+7. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Util.java (at line 7)
+	import java.util.Timer;
+	       ^^^^^^^^^^^^^^^
+The import java.util.Timer is never used
+----------
+8. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/Util.java (at line 8)
+	import java.util.TimerTask;
+	       ^^^^^^^^^^^^^^^^^^^
+The import java.util.TimerTask is never used
+----------
+----------
+9. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/editor/AssignmentViewerInput.java (at line 29)
+	public Object getAdapter(Class adapter) {
+	                         ^^^^^
+Class is a raw type. References to generic type Class<T> should be parameterized
+----------
+----------
+10. ERROR in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/DashboardComposite.java (at line 1)
+	package edu.columbia.cs.psl.halo.client.views;
+	^
+The type javax.persistence.GenerationType cannot be resolved. It is indirectly referenced from required .class files
+----------
+11. ERROR in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/DashboardComposite.java (at line 1)
+	package edu.columbia.cs.psl.halo.client.views;
+	^
+The type javax.persistence.EnumType cannot be resolved. It is indirectly referenced from required .class files
+----------
+12. ERROR in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/DashboardComposite.java (at line 1)
+	package edu.columbia.cs.psl.halo.client.views;
+	^
+The type javax.persistence.FetchType cannot be resolved. It is indirectly referenced from required .class files
+----------
+----------
+13. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/DashboardView.java (at line 8)
+	import org.eclipse.swt.graphics.Color;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.swt.graphics.Color is never used
+----------
+14. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/DashboardView.java (at line 18)
+	import edu.columbia.cs.psl.halo.client.FBTokenChecker;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import edu.columbia.cs.psl.halo.client.FBTokenChecker is never used
+----------
+----------
+15. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 3)
+	import java.io.File;
+	       ^^^^^^^^^^^^
+The import java.io.File is never used
+----------
+16. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 4)
+	import java.net.MalformedURLException;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import java.net.MalformedURLException is never used
+----------
+17. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 5)
+	import java.security.PrivilegedAction;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import java.security.PrivilegedAction is never used
+----------
+18. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 7)
+	import javax.security.auth.Subject;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import javax.security.auth.Subject is never used
+----------
+19. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 8)
+	import javax.security.auth.login.LoginException;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import javax.security.auth.login.LoginException is never used
+----------
+20. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 16)
+	import org.eclipse.core.runtime.preferences.DefaultScope;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.core.runtime.preferences.DefaultScope is never used
+----------
+21. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 18)
+	import org.eclipse.core.runtime.preferences.IScopeContext;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.core.runtime.preferences.IScopeContext is never used
+----------
+22. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 21)
+	import org.eclipse.jface.resource.ImageDescriptor;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.jface.resource.ImageDescriptor is never used
+----------
+23. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 59)
+	private Button loginButton;
+	               ^^^^^^^^^^^
+The value of the field LoginComposite.loginButton is not used
+----------
+24. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 83)
+	private Image loginImage;
+	              ^^^^^^^^^^
+The value of the field LoginComposite.loginImage is not used
+----------
+25. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 95)
+	Label img = new Label(this, SWT.None);
+	      ^^^
+The value of the local variable img is not used
+----------
+26. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/LoginComposite.java (at line 191)
+	private void createUIButtonCancel() {
+	             ^^^^^^^^^^^^^^^^^^^^^^
+The method createUIButtonCancel() from the type LoginComposite is never used locally
+----------
+----------
+27. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 3)
+	import java.io.File;
+	       ^^^^^^^^^^^^
+The import java.io.File is never used
+----------
+28. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 4)
+	import java.net.MalformedURLException;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import java.net.MalformedURLException is never used
+----------
+29. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 5)
+	import java.util.ArrayList;
+	       ^^^^^^^^^^^^^^^^^^^
+The import java.util.ArrayList is never used
+----------
+30. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 6)
+	import java.util.Collections;
+	       ^^^^^^^^^^^^^^^^^^^^^
+The import java.util.Collections is never used
+----------
+31. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 7)
+	import java.util.Comparator;
+	       ^^^^^^^^^^^^^^^^^^^^
+The import java.util.Comparator is never used
+----------
+32. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 10)
+	import java.util.List;
+	       ^^^^^^^^^^^^^^
+The import java.util.List is never used
+----------
+33. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 45)
+	import org.eclipse.swt.layout.GridData;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.swt.layout.GridData is never used
+----------
+34. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 46)
+	import org.eclipse.swt.layout.GridLayout;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.swt.layout.GridLayout is never used
+----------
+35. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 51)
+	import org.eclipse.swt.widgets.Listener;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.swt.widgets.Listener is never used
+----------
+36. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 52)
+	import org.eclipse.swt.widgets.MessageBox;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import org.eclipse.swt.widgets.MessageBox is never used
+----------
+37. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 70)
+	import edu.columbia.cs.psl.halo.server.stubs.UserService;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import edu.columbia.cs.psl.halo.server.stubs.UserService is never used
+----------
+38. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 71)
+	import edu.columbia.cs.psl.halo.server.stubs.UserServiceService;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The import edu.columbia.cs.psl.halo.server.stubs.UserServiceService is never used
+----------
+39. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/QuestHUD.java (at line 571)
+	ok = dlg.getReturnCode() == dlg.OK;
+	                                ^^
+The static field Window.OK should be accessed in a static way
+----------
+----------
+40. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/views/Thermometer.java (at line 74)
+	GC gc;
+	   ^^
+The value of the local variable gc is not used
+----------
+----------
+41. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/wrapper/QuestWrapper.java (at line 4)
+	import java.util.Date;
+	       ^^^^^^^^^^^^^^
+The import java.util.Date is never used
+----------
+42. WARNING in /Users/jon/Documents/PSL/Projects/halo/halo-eclipse/halo-se/src/edu/columbia/cs/psl/halo/client/wrapper/QuestWrapper.java (at line 39)
+	public Object getAdapter(Class adapter) {
+	                         ^^^^^
+Class is a raw type. References to generic type Class<T> should be parameterized
+----------
+42 problems (3 errors, 39 warnings)
