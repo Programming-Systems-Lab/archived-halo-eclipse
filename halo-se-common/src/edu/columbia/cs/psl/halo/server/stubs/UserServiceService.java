@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "UserServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://127.0.0.1:8080/UserServiceService/UserService?wsdl")
+@WebServiceClient(name = "UserServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://amos.cs.columbia.edu:18585/UserServiceService/UserService?wsdl")
 public class UserServiceService
     extends Service
 {
@@ -30,9 +30,9 @@ public class UserServiceService
         try {
             URL baseUrl;
             baseUrl = edu.columbia.cs.psl.halo.server.stubs.UserServiceService.class.getResource(".");
-            url = new URL(baseUrl, "http://127.0.0.1:8080/UserServiceService/UserService?wsdl");
+            url = new URL(baseUrl, "http://amos.cs.columbia.edu:18585/UserServiceService/UserService?wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'http://127.0.0.1:8080/UserServiceService/UserService?wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'http://amos.cs.columbia.edu:18585/UserServiceService/UserService?wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         USERSERVICESERVICE_WSDL_LOCATION = url;

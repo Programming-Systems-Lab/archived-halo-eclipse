@@ -52,7 +52,7 @@ import com.crowsoftware.jira.soap.RemoteException;
  */
 @Stateless
 @WebService
-//@RolesAllowed("USER") 
+@RolesAllowed("USER") 
 public class UserService extends AbstractFacade<User> implements UserServiceRemote {
 	
     /**
@@ -75,21 +75,26 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
      * @return
      */
     @WebMethod
-    public void markTaskCompleted(Task pT)
+    public String markTaskCompleted(Task pT)
     {
     	Task t = getEntityManager().find(Task.class, pT.getId());
     	QuestProgress qp = getMyProgressFor(t);
     	qp.setUpdated(new Date());
     	qp.setCompleted(true);
     	getEntityManager().merge(qp);
-    	handleResults(t.getResultsIn());
+    	String ret = handleResults(t.getResultsIn());
     	User me = getUser();
     	me.setXp(me.getXp() + t.getQuest().getExperiencePoints());
+    	if(t.getQuest().getExperiencePoints() > 0)
+    		ret += "You've received " + t.getQuest().getExperiencePoints() + " XP\n";
     	if(me.getLevel().getXpMax() <= me.getXp())
     	{
     		me.setLevel(getLevel(me.getLevel().getLevel() + 1));
+    		ret += "You've reached level " + me.getLevel().getLevel()+", hooray!\n";
     	}
     	getEntityManager().merge(me);
+    	
+    	return ret;
     }
     
     @WebMethod
@@ -115,6 +120,23 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	
     	return progress;
     }
+    
+    private QuestProgress getMyProgressForNoCreate(Task t)
+    {
+    	User me = getUser();
+    	Query qu = getEntityManager().createNativeQuery("select * FROM questprogress where task_id=? and user_id=?",QuestProgress.class);
+    	qu.setParameter(1, t.getId());
+    	qu.setParameter(2, getUser().getId());
+
+    	try{
+    		return (QuestProgress) qu.getSingleResult();
+    	}
+    	catch(NoResultException ex)
+    	{
+    		return null;
+    	}
+    	
+    }
     private QuestProgress getMyProgressFor(Task t)
     {
     	User me = getUser();
@@ -138,8 +160,9 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	}
     	
     }
-    private void handleResults(List<CausualRelation> relations)
+    private String handleResults(List<CausualRelation> relations)
     {
+    	String ret ="";
     	for(CausualRelation r : relations)
     	{
     		if(r.getAchievementResult() != null)
@@ -149,33 +172,36 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     			rec.setUser(getUser());
     			rec.setCompletionTime(new Date());
     			getEntityManager().persist(rec);
-
+    			ret = ret + "Congratulations, you've unlocked the achievement \""+r.getAchievementResult().getName()+"\"!\n";
     			User me = getUser();
     			if(r.getAchievementResult().getResultTitle() != null)
     			{
     				me.getTitles().add(r.getAchievementResult().getResultTitle());
+    				if(me.getActiveTitle() == null)
+    					me.setActiveTitle(r.getAchievementResult().getResultTitle());
+    				ret = ret + "Congratulations, you've unlocked the title \""+r.getAchievementResult().getResultTitle().getTitle()+"\"!\n";
     			}
     			me.setAchievementPoints(me.getAchievementPoints() + r.getAchievementResult().getPoints());
     			getEntityManager().merge(me);
     		}
     		if(r.getTaskResult() != null)
     		{
+    			if(getMyProgressForNoCreate(r.getTaskResult()) == null)
+    				ret = ret + "You've unlocked the task \""+r.getTaskResult().getName()+"\", in the quest \""+r.getTaskResult().getQuest().getName()+"\"!\n";
     			getMyProgressFor(r.getTaskResult());
+
     		}
     	}
+    	return ret;
     }
 
     @WebMethod
     public boolean setDefaultTitle(Title t)
     {
     	User u = getUser();
-    	if(u.getTitles().contains(t))
-    	{
-    		u.setActiveTitle(t);
-    		getEntityManager().merge(u);
-    		return true;
-    	}
-    	return false;
+		u.setActiveTitle(t);
+		getEntityManager().merge(u);
+    	return true;
     }
     
     @WebMethod
@@ -287,6 +313,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	return u.getEnrollments();
     }    
 
+    @PermitAll
     @WebMethod
     public User getMe()
     {
@@ -375,14 +402,14 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     public boolean postTaskCompletionToFacebook(Task t)
     {
     	User me = getUser();
-    	
+    	t=getEntityManager().find(Task.class, t.getId());
     	 String FB_APP_API_KEY = new String("191177150954478");
     	 String FB_APP_SECRET = new String("ecd307ec8c6fc5531b44c4f0d20f00e6");
     	    String FB_SESSION_KEY = new String(me.getFacebookSessionKey());
     	FacebookJsonRestClient facebook = new FacebookJsonRestClient( FB_APP_API_KEY, FB_APP_SECRET, FB_SESSION_KEY );
     	 	        FacebookJsonRestClient facebookClient = (FacebookJsonRestClient)facebook;
     	 	try {
-    	 		String msg = "I just completed the " + t.getName() + " Task on HALO-SE.";
+    	 		String msg = "I just completed the task \"" + t.getName() + "\" (part of quest \""+t.getQuest().getName()+"\") on HALO-SE.";
     	 		String fbResult = facebookClient.stream_publish(msg, null, null, null, null);
 			} catch (FacebookException e) {
 				// TODO Auto-generated catch block
@@ -431,6 +458,11 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
 	}
 	private static JiraSoapService svc = null;
 
+	@WebMethod
+	public String getLeadersStr()
+	{
+		return "(By XP points; top 10)\n1. Jon Bell (300) \n2. Swapneel Sheth (200) \n3. Nipun Arora (150)";
+	}
 	public static void reportError(Exception ex, String message)
 	{
 		if(svc == null)

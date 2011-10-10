@@ -3,17 +3,8 @@ package edu.columbia.cs.psl.halo.client.views;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -22,13 +13,19 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTError;
-import org.eclipse.swt.browser.*;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -40,34 +37,28 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.ProgressBar;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
+import org.eclipse.ui.dialogs.ListDialog;
 import org.osgi.service.prefs.BackingStoreException;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
 import edu.columbia.cs.psl.halo.client.Activator;
 import edu.columbia.cs.psl.halo.client.FBTokenChecker;
 import edu.columbia.cs.psl.halo.client.Util;
-import edu.columbia.cs.psl.halo.client.wrapper.QuestWrapper;
 import edu.columbia.cs.psl.halo.client.wrapper.UserWrapper;
-import edu.columbia.cs.psl.halo.entity.User;
 import edu.columbia.cs.psl.halo.server.stubs.AchievementRecord;
 import edu.columbia.cs.psl.halo.server.stubs.Assignment;
-import edu.columbia.cs.psl.halo.server.stubs.Course;
 import edu.columbia.cs.psl.halo.server.stubs.Enrollment;
 import edu.columbia.cs.psl.halo.server.stubs.EnrollmentType;
 import edu.columbia.cs.psl.halo.server.stubs.Level;
 import edu.columbia.cs.psl.halo.server.stubs.Quest;
 import edu.columbia.cs.psl.halo.server.stubs.QuestProgress;
 import edu.columbia.cs.psl.halo.server.stubs.Task;
+import edu.columbia.cs.psl.halo.server.stubs.Title;
 
 public class DashboardComposite extends Composite {
 
@@ -89,7 +80,7 @@ public class DashboardComposite extends Composite {
 		this.dashboard = dashboard;
 		initGUI();
 		setLayout(new GridLayout(1, true));
-		
+
 		// this.addFocusListener(new FocusAdapter() {
 		// @Override
 		// public void focusGained(FocusEvent e) {
@@ -105,14 +96,19 @@ public class DashboardComposite extends Composite {
 	private Thermometer questProgressBar;
 	private Label curLevel;
 	private Label nextLevel;
+	private Label leaderLabel;
+	
 	private Button logout;
 	private Composite assignmentsInfo;
+	private Composite leaderInfo;
+
 	private Button changePassword;
 	private Button facebookLogin;
 	private FBTokenChecker fastFBChecker;
+	private Button changeTitle;
 	IWebBrowser browser;
 
-	
+
 	private Label recentAchievements;
 
 	Composite topRow;
@@ -151,8 +147,136 @@ public class DashboardComposite extends Composite {
 		}
 		wasLoggedIn = nowLoggedIn;
 	}
-	
-	
+
+	private void changeTitleSelected(SelectionEvent e)
+	{
+
+		List<Title> titles = HALOServiceFactory.getInstance().getUserSvc().getMyTitles();
+		if(titles.size() == 0)
+		{
+			MessageDialog.openError(getShell(), "Unable to select a title", "You have not unlocked any titles, so you may not select one to be displayed with your name");
+			return;
+		}
+		else if(titles.size() == 1)
+		{
+			MessageDialog.openError(getShell(), "Unable to select a title", "You have unlocked only one title, which will be displayed with your name. You can not change your selected title until you unlock more than one.");
+		}
+		ListDialog dlg = new ListDialog(getShell());
+		dlg.setTitle("Select a title to be displayed with your name");
+		dlg.setBlockOnOpen(true);
+		dlg.setContentProvider(new ArrayContentProvider());
+		dlg.setInput(titles.toArray());
+		dlg.setLabelProvider(new ILabelProvider() {
+			
+			@Override
+			public void removeListener(ILabelProviderListener listener) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public boolean isLabelProperty(Object element, String property) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public void dispose() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void addListener(ILabelProviderListener listener) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public String getText(Object element) {
+				return ((Title) element).getTitle();
+			}
+			
+			@Override
+			public Image getImage(Object element) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		dlg.open();
+		if(dlg.getResult() != null && dlg.getResult().length == 1)
+		{
+			HALOServiceFactory.getInstance().getUserSvc().setDefaultTitle(((Title) dlg.getResult()[0]));
+			UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance()
+					.getMe());
+			uw.setActiveTitle(((Title) dlg.getResult()[0]));
+			if (!nameLabel.getText().equals(uw.getFullName()))
+				nameLabel.setText(uw.getFullName());
+			forceRelayout();
+			updateWindow();
+			MessageDialog.openInformation(getShell(), "Success", "Your active title selection has been updated");
+		}
+	}
+
+	private void logoutButtonSelected(SelectionEvent e)
+	{
+		IEclipsePreferences node = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+
+		node.remove("username");
+		node.remove("password");
+		try {
+			node.flush();
+		}
+		catch(BackingStoreException ex)
+		{
+
+		}
+		HALOServiceFactory.getInstance().logout();
+		IWorkbenchPage page = dashboard.getSite()
+				.getPage();
+		QuestHUD view = (QuestHUD) page
+				.findView(QuestHUD.ID);
+		if(view != null)
+			view.loggedOut();
+		dashboard.loggedOut();
+	}
+	private void facebookLoginSelected(SelectionEvent e)
+	{
+		HALOServiceFactory.getInstance().refreshMe();
+
+		IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+		try {
+			browser = support.createBrowser("halo-fb");
+			boolean loggedIn = HALOServiceFactory.getInstance().getMe().isFBKeyFlag();
+			if (!loggedIn) {
+				browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://amos.cs.columbia.edu:18585/halo-se-web/FacebookCallback%3Fuid="+HALOServiceFactory.getInstance().getMe().getId()+"&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
+				fastFBChecker = new FBTokenChecker(5, dashboard);
+			}
+			else
+				dashboard.facebookLoginUpdated(false);
+		} catch (PartInitException e1) {
+			e1.printStackTrace();
+		} catch (MalformedURLException e2) {
+			e2.printStackTrace();
+		};			
+	}
+
+	private void changePasswordButtonSelected(SelectionEvent e)
+	{
+		// TODO Auto-generated method stub
+		PasswordChangeDialog newPassDlg = new PasswordChangeDialog(getShell());
+		newPassDlg.open();
+		String newPass = newPassDlg.getPassword();
+
+		if(newPass != null && !newPass.equals(""))
+		{
+			HALOServiceFactory.getInstance().getUserSvc().setPassword(UserWrapper.getEncryptedPassword(newPass));
+			HALOServiceFactory.getInstance().login(HALOServiceFactory.getInstance().getMe().getEmail(), newPass);
+
+			MessageDialog confDlg = new MessageDialog(getShell(), "Success", null, "Your password was successfully updated", SWT.None, new String[]{"OK"}, 0);
+			confDlg.open();
+		}
+	}
 	private void initGUI() {
 		GridData d = new GridData();
 		d.grabExcessHorizontalSpace = true;
@@ -160,9 +284,20 @@ public class DashboardComposite extends Composite {
 		topRow.setLayoutData(d);
 		topRow.setLayout(new GridLayout(3, false));
 
-		nameLabel = new Label(topRow, SWT.None);
+		Composite nameArea = new Composite(topRow, SWT.None);
+		nameArea.setLayout(new GridLayout(2, false));
+		nameLabel = new Label(nameArea, SWT.None);
 		nameLabel.setText("Loading...");
 		setFontSize(nameLabel, H1_SIZE, true);
+		changeTitle = new Button(nameArea, SWT.PUSH);
+		changeTitle.setText("Select Title");
+
+		changeTitle.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				changeTitleSelected(e);
+			}
+		});
 
 		Canvas spacer = new Canvas(topRow, SWT.NONE);
 		GridData data = new GridData(GridData.FILL, GridData.FILL, true, true);
@@ -223,7 +358,7 @@ public class DashboardComposite extends Composite {
 		d.grabExcessVerticalSpace = true;
 		d.horizontalAlignment = GridData.FILL;
 		bottomRow.setLayoutData(d);
-		bottomRow.setLayout(new GridLayout(5, false));
+		bottomRow.setLayout(new GridLayout(7, false));
 
 		spacer = new Canvas(bottomRow, SWT.NONE);
 		data = new GridData(GridData.FILL, GridData.FILL, true, true);
@@ -259,7 +394,7 @@ public class DashboardComposite extends Composite {
 
 		recentAchievements = new Label(achievementsArea, SWT.NONE);
 		recentAchievements
-				.setText("Loading... Loading.... Loading...");
+		.setText("Loading... Loading.... Loading...");
 		setFontSize(recentAchievements, H3_SIZE, false);
 
 		data = new GridData();
@@ -296,109 +431,62 @@ public class DashboardComposite extends Composite {
 		spacer = new Canvas(bottomRow, SWT.NONE);
 		data = new GridData(GridData.FILL, GridData.FILL, true, true);
 		spacer.setLayoutData(data);
+		
+		leaderInfo = new Composite(bottomRow, SWT.None);
+//		leaderLabel = new Label(bottomRow, SWT.None);
+
+		data = new GridData();
+		data.verticalAlignment = SWT.TOP;
+		leaderInfo.setLayoutData(data);
+		leaderInfo.setLayout(new GridLayout());
+		Label leaders = new Label(leaderInfo, SWT.None);
+		leaders.setText("Leaders");
+		setFontSize(leaders, H3_SIZE, true);
+		leaderLabel = new Label(leaderInfo, SWT.None);
+		leaderLabel.setText("Loading...\nLoading...\nLoading...");
+		
+		spacer = new Canvas(bottomRow, SWT.NONE);
+		data = new GridData(GridData.FILL, GridData.FILL, true, true);
+		spacer.setLayoutData(data);
 
 		final Composite buttons = new Composite(this, SWT.NONE);
 		buttons.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false));
 		buttons.setLayout(new FillLayout());
-		
+
 		facebookLogin = new Button(buttons, SWT.PUSH);
-		facebookLogin.setText("Log in to The Facebook");
-		
+		facebookLogin.setText("Log in to Facebook");
+
 		changePassword = new Button(buttons,SWT.PUSH);
 		changePassword.setText("Change Password");
-		
+
 		logout = new Button(buttons, SWT.PUSH);
 		logout.setText("Logout");
 
 
-		
-		logout.addSelectionListener(new SelectionListener() {
-			
+
+		logout.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IEclipsePreferences node = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
-				
-					node.remove("username");
-					node.remove("password");
-				try {
-					node.flush();
-				}
-				catch(BackingStoreException ex)
-				{
-					
-				}
-				HALOServiceFactory.getInstance().logout();
-				IWorkbenchPage page = dashboard.getSite()
-						.getPage();
-				QuestHUD view = (QuestHUD) page
-						.findView(QuestHUD.ID);
-				if(view != null)
-					view.loggedOut();
-				dashboard.loggedOut();				
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				
+				logoutButtonSelected(e);
 			}
 		});
-	
-		
-		facebookLogin.addSelectionListener(new SelectionListener() {
-			
+
+
+		facebookLogin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
-				try {
-					browser = support.createBrowser("halo-fb");
-					HALOServiceFactory.getInstance().refreshMe();
-					boolean loggedIn = HALOServiceFactory.getInstance().getMe().isFBKeyFlag();
-					if (!loggedIn) {
-						browser.openURL(new URL("http://www.facebook.com/login.php?api_key=191177150954478&connect_display=popup&v=1.0&next=http://amos.cs.columbia.edu:18585/halo-se-web/FacebookCallback%3Fuid="+HALOServiceFactory.getInstance().getMe().getId()+"&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream, publish_stream, offline_access"));
-						fastFBChecker = new FBTokenChecker(5, dashboard);
-					}
-					else
-						dashboard.facebookLoginUpdated(false);
-				} catch (PartInitException e1) {
-					e1.printStackTrace();
-				} catch (MalformedURLException e2) {
-					e2.printStackTrace();
-				};			
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				
+				facebookLoginSelected(e);
 			}
 		});
-		
-		
-		changePassword.addSelectionListener(new SelectionListener() {
-			
+
+
+		changePassword.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				PasswordChangeDialog newPassDlg = new PasswordChangeDialog(getShell());
-				newPassDlg.open();
-				String newPass = newPassDlg.getPassword();
-				
-				if(newPass != null && !newPass.equals(""))
-				{
-					HALOServiceFactory.getInstance().getUserSvc().setPassword(UserWrapper.getEncryptedPassword(newPass));
-					HALOServiceFactory.getInstance().login(HALOServiceFactory.getInstance().getMe().getEmail(), newPass);
-					
-					MessageDialog confDlg = new MessageDialog(getShell(), "Success", null, "Your password was successfully updated", SWT.None, new String[]{"OK"}, 0);
-					confDlg.open();
-				}
+				changePasswordButtonSelected(e);
 			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+
 		});
 		this.getParent().addListener(SWT.Resize, new Listener() {
 
@@ -413,36 +501,16 @@ public class DashboardComposite extends Composite {
 
 	public void updateWindow() {
 		if (HALOServiceFactory.getInstance().isLoggedIn()) {
-			UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance()
-					.getMe());
-			if (!nameLabel.getText().equals(uw.getFullName()))
-				nameLabel.setText(uw.getFullName());
 
-			topRow.layout(true);
-			if (!curLevel.getText().equals("Level " + uw.getLevel().getLevel()))
-				curLevel.setText("Level " + uw.getLevel().getLevel());
+			Job j = new Job("Updating Dashboard Display") {
 
-			
-
-
-
-
-			// achievementsStatus.setText("3 achievements completed of 15");
-
-
-			//Update the facebook login stuff
-			dashboard.facebookLoginUpdated(uw.isFBKeyFlag());
-
-Job j = new Job("Updating Dashboard Display") {
-				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
-
-					final UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance()
-							.getMe());
+					final String leaders = HALOServiceFactory.getInstance().getUserSvc().getLeadersStr();
+					HALOServiceFactory.getInstance().refreshMe();
 					final Level nextLevelLvl = HALOServiceFactory.getInstance().getUserSvc()
-							.getLevel(uw.getLevel().getLevel() + 1);
-//					final ArrayList<Thermometer> ts = new ArrayList<Thermometer>();
+							.getLevel(HALOServiceFactory.getInstance().getMe().getLevel().getLevel() + 1);
+					//					final ArrayList<Thermometer> ts = new ArrayList<Thermometer>();
 					final HashMap<Task, QuestProgress> progress = new HashMap<Task, QuestProgress>();
 					for (QuestProgress p : HALOServiceFactory.getInstance()
 							.getUserSvc().getMyProgress()) {
@@ -463,24 +531,42 @@ Job j = new Job("Updating Dashboard Display") {
 							}
 						}
 					}
-					
+
 					String recentAchievemntsTxt = "";
 
+					int n = 0;
 					for (AchievementRecord a : HALOServiceFactory.getInstance()
 							.getUserSvc().getMyAchievements()) {
 						recentAchievemntsTxt += a.getAchievement().getName() + " - "
 								+ Util.formatDate(a.getCompletionTime()) + "\n";
+						n++;
+						if(n > 5)
+							break;
 					}
 
 					final String achvTxt = recentAchievemntsTxt;
 					final int maxAchievement = HALOServiceFactory.getInstance().getUserSvc().getMaxAchievementPts();
 
 					Display.getDefault().syncExec(new Runnable() {
-						
+
 						@Override
 						public void run() {
-							achievementsProgress.setMaximum(maxAchievement);
+							leaderLabel.setText(leaders);
+							leaderInfo.layout(true);
+							UserWrapper uw = new UserWrapper(HALOServiceFactory.getInstance()
+									.getMe());
+							if (!nameLabel.getText().equals(uw.getFullName()))
+								nameLabel.setText(uw.getFullName());
+
+							topRow.layout(true);
+							if (!curLevel.getText().equals("Level " + uw.getLevel().getLevel()))
+								curLevel.setText("Level " + uw.getLevel().getLevel());
+
+							//Update the facebook login stuff
+							dashboard.facebookLoginUpdated(uw.isFBKeyFlag());
 							
+							achievementsProgress.setMaximum(maxAchievement);
+
 							for (Control c : assignmentsInfo.getChildren())
 								c.dispose();
 							int n_quests = 0;
@@ -511,11 +597,11 @@ Job j = new Job("Updating Dashboard Display") {
 								t.setMinimum(0);
 								t.setMaximum(max);
 								t.setSelection(done, done + " of " + max + " quests");
-//								ts.add(t);
-								
+								//								ts.add(t);
+
 								Label ll = new Label(assignmentsInfo, SWT.NONE);
 								ll.setText("Due " + Util.getDueStrHuman(a.getDueOn()));
-								
+
 							}
 							if (!nextLevel.getText().equals(
 									"Level " + (uw.getLevel().getLevel() + 1)))
@@ -525,32 +611,23 @@ Job j = new Job("Updating Dashboard Display") {
 							if (expProgress.getValue() != uw.getXp())
 								expProgress.setSelection(uw.getXp(), uw.getXp() + " of "
 										+ nextLevelLvl.getXpRequired());
-							
+
 
 							questProgressBar.setMinimum(0);
 							questProgressBar.setMaximum(n_quests);
 							questProgressBar.setSelection(n_quests_done, n_quests_done + " of " + n_quests);
-							
+
 							if (!recentAchievements.getText().equals(achvTxt))
 							{
 								recentAchievements.setText(achvTxt);
 							}
-							
+
 							if (achievementsProgress.getValue() != uw.getAchievementPoints())
 								achievementsProgress.setSelection(uw.getAchievementPoints(),
 										uw.getAchievementPoints() + " points of " + maxAchievement);
-							
-							
-							assignmentsInfo.layout(true);
-							assignmentsInfo.setLayout(new GridLayout(3, false));
 
+							forceRelayout();
 							
-							pack(true);
-							getShell().layout(true);
-							((GridData) topRow.getLayoutData()).widthHint = getParent()
-									.getBounds().width;
-							((GridData) bottomRow.getLayoutData()).widthHint = getParent()
-									.getBounds().width;
 						}
 					});
 					return Status.OK_STATUS;
@@ -559,5 +636,20 @@ Job j = new Job("Updating Dashboard Display") {
 			j.schedule();
 		}
 	}
-	
+	private void forceRelayout()
+	{
+//		pack(true);
+		dashboard.dashboardComposite.layout(true,true);
+		
+		((GridData) topRow.getLayoutData()).widthHint = getParent()
+				.getBounds().width;
+		((GridData) bottomRow.getLayoutData()).widthHint = getParent()
+				.getBounds().width;
+		
+		Rectangle r = dashboard.dashboardScroller.getClientArea();
+		dashboard.dashboardScroller.setMinSize(dashboard.dashboardComposite.computeSize(
+				r.width, SWT.DEFAULT));
+		
+	}
+
 }

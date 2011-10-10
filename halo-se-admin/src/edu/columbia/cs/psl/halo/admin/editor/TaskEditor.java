@@ -151,6 +151,7 @@ public class TaskEditor extends EditorPart {
 		questMap = new HashMap<String, Quest>();
 		int i = 0;
 		int s = 0;
+		try{
 		List<Quest> allquests =HALOServiceFactory.getInstance().getUserSvc().getAllQuests();
 		String[] ar = new String[allquests.size()];
 		for(Quest a : allquests)
@@ -161,9 +162,14 @@ public class TaskEditor extends EditorPart {
 				s = i;
 			i++;
 		}
-
 		assignedQuest.setItems(ar);
 		assignedQuest.select(s);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
 		
 //		lastName.setText(person.getLastName());
 	}

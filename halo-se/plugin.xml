@@ -8,16 +8,12 @@
             name="HALO SE"
             id="edu.columbia.cs.psl.halo.client">
       </category>
-      <stickyView
-            id="edu.columbia.cs.psl.halo.client.views.DashboardView"
-            location="BOTTOM">
-      </stickyView>
       <view
             allowMultiple="false"
             category="edu.columbia.cs.psl.halo.client"
             class="edu.columbia.cs.psl.halo.client.views.DashboardView"
             id="edu.columbia.cs.psl.halo.client.views.DashboardView"
-            name="Dashboard"
+            name="HALO Dashboard"
             restorable="true">
       </view>
       <view
@@ -25,7 +21,7 @@
             category="edu.columbia.cs.psl.halo.client"
             class="edu.columbia.cs.psl.halo.client.views.QuestHUD"
             id="edu.columbia.cs.psl.halo.client.views.QuestHUD"
-            name="Quests HUD"
+            name="HALO Quests"
             restorable="true">
       </view>
    </extension>
@@ -34,16 +30,18 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               ratio="0.5"
-               relative="org.eclipse.ui.views.TaskList"
-               relationship="right"
-               id="edu.columbia.cs.psl.halo.client.views.SampleView">
-         </view>
-         <view
                id="edu.columbia.cs.psl.halo.client.views.DashboardView"
                minimized="false"
-               relationship="right"
-               relative="org.eclipse.ui.views.TaskList">
+               relationship="stack"
+               relative="org.eclipse.ui.views.ProblemView"
+               visible="true">
+         </view>
+         <view
+               id="edu.columbia.cs.psl.halo.client.views.QuestHUD"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ContentOutline"
+               visible="true">
          </view>
       </perspectiveExtension>
    </extension>

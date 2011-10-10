@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.1
  * 
  */
-@WebServiceClient(name = "AdminServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://127.0.0.1:8080/AdminServiceService/AdminService?wsdl")
+@WebServiceClient(name = "AdminServiceService", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", wsdlLocation = "http://amos.cs.columbia.edu:18585/AdminServiceService/AdminService?wsdl")
 public class AdminServiceService
     extends Service
 {
@@ -30,9 +30,9 @@ public class AdminServiceService
         try {
             URL baseUrl;
             baseUrl = edu.columbia.cs.psl.halo.server.stubs.AdminServiceService.class.getResource(".");
-            url = new URL(baseUrl, "http://127.0.0.1:8080/AdminServiceService/AdminService?wsdl");
+            url = new URL(baseUrl, "http://amos.cs.columbia.edu:18585/AdminServiceService/AdminService?wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'http://127.0.0.1:8080/AdminServiceService/AdminService?wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'http://amos.cs.columbia.edu:18585/AdminServiceService/AdminService?wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         ADMINSERVICESERVICE_WSDL_LOCATION = url;

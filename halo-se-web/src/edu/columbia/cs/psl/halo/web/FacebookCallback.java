@@ -44,7 +44,7 @@ public class FacebookCallback extends HttpServlet {
 		String sess = request.getParameter("session");
 		String user = request.getParameter("uid");
 		Pattern p = Pattern.compile("\\{\"session_key\":\"([^\"]+)\"(.*)\"secret\":\"([^\"]+)\"(.*)\"sig\":\"([^\"]+)\"(.*)");
-		System.out.println(sess);
+		System.out.println("Session key: " + sess);
 		Matcher m = p.matcher(sess);
 
 		if(m.matches())

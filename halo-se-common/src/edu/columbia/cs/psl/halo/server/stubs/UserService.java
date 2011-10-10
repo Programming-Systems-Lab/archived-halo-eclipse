@@ -52,17 +52,6 @@ public interface UserService {
     /**
      * 
      * @return
-     *     returns edu.columbia.cs.psl.halo.server.stubs.User
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getMe", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMe")
-    @ResponseWrapper(localName = "getMeResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMeResponse")
-    public User getMe();
-
-    /**
-     * 
-     * @return
      *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Enrollment>
      */
     @WebMethod
@@ -74,11 +63,14 @@ public interface UserService {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns java.lang.String
      */
     @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "markTaskCompleted", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.MarkTaskCompleted")
     @ResponseWrapper(localName = "markTaskCompletedResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.MarkTaskCompletedResponse")
-    public void markTaskCompleted(
+    public String markTaskCompleted(
         @WebParam(name = "arg0", targetNamespace = "")
         Task arg0);
 
@@ -161,15 +153,12 @@ public interface UserService {
      * 
      * @return
      *     returns java.util.List<edu.columbia.cs.psl.halo.server.stubs.Quest>
-     * @throws Exception_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getAllQuests", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetAllQuests")
     @ResponseWrapper(localName = "getAllQuestsResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetAllQuestsResponse")
-    public List<Quest> getAllQuests()
-        throws Exception_Exception
-    ;
+    public List<Quest> getAllQuests();
 
     /**
      * 
@@ -260,6 +249,17 @@ public interface UserService {
     /**
      * 
      * @return
+     *     returns edu.columbia.cs.psl.halo.server.stubs.User
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getMe", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMe")
+    @ResponseWrapper(localName = "getMeResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetMeResponse")
+    public User getMe();
+
+    /**
+     * 
+     * @return
      *     returns java.lang.String
      */
     @WebMethod
@@ -320,5 +320,16 @@ public interface UserService {
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
         String arg2);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getLeadersStr", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetLeadersStr")
+    @ResponseWrapper(localName = "getLeadersStrResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetLeadersStrResponse")
+    public String getLeadersStr();
 
 }

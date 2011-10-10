@@ -53,6 +53,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.ui.part.ViewPart;
@@ -581,18 +582,35 @@ public class QuestHUD extends ViewPart {
 			if (postToFB) {
 				HALOServiceFactory.getInstance().getUserSvc().postTaskCompletionToFacebook(t);
 			}
+			QuestProgress qp = new QuestProgress();
+			qp.setQuest(t.getQuest());
+			qp.setTask(t);
+			qp.setCompleted(true);
+			qp.setUser(HALOServiceFactory.getInstance().getMe());
+			cachedProgress.put(t, qp);
+			
+			questsViewer.refresh();
+			questsViewer.expandAll();
+			
 			Activator.logBackground("TaskCompleteConfirmed", "" + t.getId());
 			Job j = new Job("Marking task completed") {
 				
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
-					HALOServiceFactory.getInstance().getUserSvc().markTaskCompleted(t);
+					final String ret = HALOServiceFactory.getInstance().getUserSvc().markTaskCompleted(t);
 					Display.getDefault().syncExec(new Runnable() {
 						
 						@Override
 						public void run() {
+							if(ret != null && !ret.equals(""))
+							{
+								MessageDialog.openInformation(parent.getShell(), "Task Completion Result", ret);
+							}
 							updateQuests();
-							
+							IWorkbenchPage page = getSite().getPage();
+							DashboardView view = (DashboardView) page
+									.findView(DashboardView.ID);
+							view.updateWindow();
 						}
 					});
 					return Status.OK_STATUS;
@@ -713,7 +731,7 @@ public class QuestHUD extends ViewPart {
 								parent.notifyListeners(SWT.Resize, new Event());
 								parent.layout(true);
 								detailsArea.layout(true);
-								questDetailsScroller.layout(true);
+								questDetailsScroller.layout(true,true);
 							}
 							if(qw != null){
 								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + qw.getQuest().getId());
@@ -723,7 +741,7 @@ public class QuestHUD extends ViewPart {
 								parent.notifyListeners(SWT.Resize, new Event());
 								parent.layout(true);
 								detailsArea.layout(true);
-								questDetailsScroller.layout(true);
+								questDetailsScroller.layout(true,true);
 							}
 						}
 					}

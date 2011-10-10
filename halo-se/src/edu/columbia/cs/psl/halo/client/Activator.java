@@ -48,8 +48,6 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		   URL configUrl = getBundle().getEntry("login.conf");
-		   URL fileURL = FileLocator.toFileURL(configUrl);
 
 //		secureCtx = LoginContextFactory.createContext("HALOLogin",fileURL, new LoginCallbackHandler());
 //		secureCtx.login();

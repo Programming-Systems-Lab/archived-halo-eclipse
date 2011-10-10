@@ -1,5 +1,6 @@
 package edu.columbia.cs.psl.halo.server.auth;
 
+import javax.ejb.EJBException;
 import javax.security.auth.login.LoginException;
 
 import com.sun.appserv.security.AppservPasswordLoginModule;
@@ -76,7 +77,8 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				ex.initCause(e);
 				throw ex;
 			}
-			throw new LoginException("Failed to login");
+//			throw new EJBException("Failed to login");
+//			throw new LoginException("Failed to login");
 		}
 		return false;
 
@@ -112,7 +114,8 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 					"left join enrollment admin on admin.user_id=u.id and admin.type=\"ADMIN\" " +
 					"where u.email=? and u.password=? group by u.id");
 			s.setString(1, _username);
-			s.setString(2, _password);
+			s.setString(2, getEncryptedPassword(_password));
+//			System.out.println(_username + " <"+_password+">" + "-"+getEncryptedPassword(_password)+"-");
 			s.execute();
 			ResultSet rs = s.getResultSet();
 			if(rs.next())
@@ -141,14 +144,13 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				ex.initCause(e);
 				throw ex;
 			}
-
-		throw new LoginException("Failed to login");
+			throw new LoginException("Failed to login :(");
 	}
 	
 	protected void authenticateUser() throws LoginException {
             if(!loginByRememberMe())
             	if(!loginByPassword())
-                    throw new LoginException("Login Failed for user " + _username);
+        			throw new LoginException("Failed to login :(");
 
 	}
 
