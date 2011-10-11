@@ -1,5 +1,6 @@
 package edu.columbia.cs.psl.halo.server.auth;
 
+import javax.ejb.EJBException;
 import javax.security.auth.login.LoginException;
 
 import com.sun.appserv.security.AppservPasswordLoginModule;
@@ -76,11 +77,31 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				ex.initCause(e);
 				throw ex;
 			}
-			
+//			throw new EJBException("Failed to login");
+//			throw new LoginException("Failed to login");
 		}
-		throw new LoginException("Failed to login");
+		return false;
+
 	}
-	
+	private final static String HEX_DIGITS = "0123456789abcdef";
+
+	public static String getEncryptedPassword(String plaintext) {
+		
+		java.security.MessageDigest d =null;
+				try {
+					d = java.security.MessageDigest.getInstance("SHA-1");
+				} catch (NoSuchAlgorithmException e) {
+				}
+				d.reset();
+				d.update(plaintext.getBytes());
+				byte[] hashedBytes =  d.digest();
+				StringBuffer sb = new StringBuffer(hashedBytes.length * 2);
+		        for (int i = 0; i < hashedBytes.length; i++) {
+		             int b = hashedBytes[i] & 0xFF;
+		             sb.append(HEX_DIGITS.charAt(b >>> 4)).append(HEX_DIGITS.charAt(b & 0xF));
+		        }
+		        return sb.toString();	
+	}
 	private boolean loginByPassword() throws LoginException
 	{
 			try
@@ -93,7 +114,8 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 					"left join enrollment admin on admin.user_id=u.id and admin.type=\"ADMIN\" " +
 					"where u.email=? and u.password=? group by u.id");
 			s.setString(1, _username);
-			s.setString(2, _password);
+			s.setString(2, getEncryptedPassword(_password));
+//			System.out.println(_username + " <"+_password+">" + "-"+getEncryptedPassword(_password)+"-");
 			s.execute();
 			ResultSet rs = s.getResultSet();
 			if(rs.next())
@@ -109,9 +131,9 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				if(rs.getInt("admin") == 1)
 					groups.add("ADMIN");
 				String[] gret = new String[groups.size()];
-				System.out.println("Set groups: " + gret);
+//				System.out.println("Set groups: " + gret);
 
-				System.out.println(_username + " " + gret);
+//				System.out.println(_username + " " + gret);
 				commitUserAuthentication(groups.toArray(gret));
 				conn.close();
 				return true;
@@ -122,14 +144,13 @@ public class HALOLoginModule extends AppservPasswordLoginModule {
 				ex.initCause(e);
 				throw ex;
 			}
-
-		throw new LoginException("Failed to login");
+			throw new LoginException("Failed to login :(");
 	}
 	
 	protected void authenticateUser() throws LoginException {
             if(!loginByRememberMe())
             	if(!loginByPassword())
-                    throw new LoginException("Login Failed for user " + _username);
+        			throw new LoginException("Failed to login :(");
 
 	}
 

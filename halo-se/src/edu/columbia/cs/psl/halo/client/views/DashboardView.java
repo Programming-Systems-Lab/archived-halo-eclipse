@@ -1,5 +1,8 @@
 package edu.columbia.cs.psl.halo.client.views;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
@@ -11,6 +14,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.columbia.cs.psl.halo.HALOServiceFactory;
@@ -23,7 +27,6 @@ public class DashboardView extends ViewPart {
 	private boolean wasLoggedIn = false;
 	public void facebookLoginUpdated(boolean nowLoggedIn)
 	{
-		System.out.println("fbLoginUpdated: wasLoggedIn: "+wasLoggedIn+", nowLoggedIn: "+nowLoggedIn);
 		if ((wasLoggedIn == true) && (nowLoggedIn == false)) {
 			HALOServiceFactory.getInstance().getUserSvc().logoutOfFacebook();
 		}
@@ -72,7 +75,7 @@ public class DashboardView extends ViewPart {
 		parentLayout.topControl = loginComposite;
 		parent.layout(true);
 	}
-
+	private Timer refreshTimer;
 	void loggedIn() {
 		parentLayout.topControl = dashboardScroller;
 		parent.layout();
@@ -81,10 +84,24 @@ public class DashboardView extends ViewPart {
 		Rectangle r = dashboardScroller.getClientArea();
 		dashboardScroller.setMinSize(dashboardComposite.computeSize(
 				r.width, SWT.DEFAULT));
-
+		refreshTimer = new Timer(true);
+		refreshTimer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				updateWindow();
+				IWorkbenchPage page = getSite()
+						.getPage();
+				QuestHUD view = (QuestHUD) page
+						.findView(QuestHUD.ID);
+				view.updateQuests();
+			}
+		}, 30000, 30000);
 	}
 
 	void loggedOut() {
+		refreshTimer.cancel();
+		refreshTimer = null;
 		parentLayout.topControl = loginComposite;
 		parent.layout(true);
 	}

@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
@@ -46,6 +47,14 @@ public class User extends LazyCycleBreaker implements Serializable {
 	private String facebookSessionKey;
 	private boolean hasFBkey;
 	
+	@Override
+	public int hashCode() {
+		return new Integer(id).hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof User && ((User) obj).getId() == getId());
+	}
 	public User() {
 		
 	}
@@ -113,6 +122,7 @@ public class User extends LazyCycleBreaker implements Serializable {
 
 	@XmlTransient
 	@OneToMany(mappedBy="user")
+	@OrderBy("completionTime DESC")
 	public List<AchievementRecord> getAchievements() {
 		return achievements;
 	}

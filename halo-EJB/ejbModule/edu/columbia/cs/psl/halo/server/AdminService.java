@@ -1,5 +1,6 @@
 package edu.columbia.cs.psl.halo.server;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -10,7 +11,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import edu.columbia.cs.psl.halo.entity.Assignment;
 import edu.columbia.cs.psl.halo.entity.Course;
 import edu.columbia.cs.psl.halo.entity.Enrollment;
+import edu.columbia.cs.psl.halo.entity.EnrollmentType;
 import edu.columbia.cs.psl.halo.entity.Quest;
+import edu.columbia.cs.psl.halo.entity.QuestProgress;
 import edu.columbia.cs.psl.halo.entity.Task;
 import edu.columbia.cs.psl.halo.entity.User;
 
@@ -19,6 +22,40 @@ import edu.columbia.cs.psl.halo.entity.User;
 @RolesAllowed("ADMIN")
 public class AdminService extends AbstractFacade<User> {
     
+	public void addUser(String first, String last, String email, String password)
+	{
+		Course c = getEntityManager().find(Course.class, 1);
+        
+		User u = new User();
+		u.setFirstName(first);
+		u.setLastName(last);
+		u.setEmail(email);
+		u.setPassword(UserService.getEncryptedPassword(password));
+		u.setXp(0);
+		getEntityManager().persist(u);
+		
+		Enrollment e = new Enrollment();
+		e.setUser(u);
+		e.setCourse(c);
+		e.setType(EnrollmentType.STUDENT);
+		
+		getEntityManager().persist(e);
+		
+		javax.persistence.criteria.CriteriaQuery<Task> cq = getEntityManager().getCriteriaBuilder().createQuery(Task.class);
+        cq.select(cq.from(Task.class));
+        for(Task t : getEntityManager().createQuery(cq).getResultList())
+		{
+			QuestProgress p = new QuestProgress();
+			p.setUser(u);
+			p.setTask(t);
+			p.setQuest(t.getQuest());
+			p.setUpdated(new Date());
+			p.setCompleted(false);
+			getEntityManager().persist(p);
+			
+			
+		}
+	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Course> getCourses()
 	{

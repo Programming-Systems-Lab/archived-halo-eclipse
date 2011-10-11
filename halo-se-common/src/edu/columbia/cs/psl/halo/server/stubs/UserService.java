@@ -63,11 +63,14 @@ public interface UserService {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns java.lang.String
      */
     @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "markTaskCompleted", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.MarkTaskCompleted")
     @ResponseWrapper(localName = "markTaskCompletedResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.MarkTaskCompletedResponse")
-    public void markTaskCompleted(
+    public String markTaskCompleted(
         @WebParam(name = "arg0", targetNamespace = "")
         Task arg0);
 
@@ -295,6 +298,14 @@ public interface UserService {
 
     /**
      * 
+     */
+    @WebMethod
+    @RequestWrapper(localName = "logoutOfFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebook")
+    @ResponseWrapper(localName = "logoutOfFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebookResponse")
+    public void logoutOfFacebook();
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
@@ -312,10 +323,13 @@ public interface UserService {
 
     /**
      * 
+     * @return
+     *     returns java.lang.String
      */
     @WebMethod
-    @RequestWrapper(localName = "logoutOfFacebook", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebook")
-    @ResponseWrapper(localName = "logoutOfFacebookResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.LogoutOfFacebookResponse")
-    public void logoutOfFacebook();
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getLeadersStr", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetLeadersStr")
+    @ResponseWrapper(localName = "getLeadersStrResponse", targetNamespace = "http://server.halo.psl.cs.columbia.edu/", className = "edu.columbia.cs.psl.halo.server.stubs.GetLeadersStrResponse")
+    public String getLeadersStr();
 
 }

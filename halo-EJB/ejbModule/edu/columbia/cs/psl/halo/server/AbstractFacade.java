@@ -74,15 +74,13 @@ public abstract class AbstractFacade<T> {
 //    	System.out.println("Req from " + ctx.getCallerPrincipal().getName());
     	if(ctx.getCallerPrincipal().getName().equalsIgnoreCase("anonymous"))
     		return null;
-    	//TODO remove this once we re-assemble the entire FB auth piece
-    	em.getEntityManagerFactory().getCache().evictAll();
+
     	Query q = getEntityManager().createQuery("select object(c) from User as c where c.email=:user");
 		q.setParameter("user", ctx.getCallerPrincipal().getName());
 		User r = null;
 		try
 		{
 		r = (User) q.getSingleResult();
-		System.out.println(r.getFacebookSessionKey());
 		r.setFBKeyFlag(r.getFacebookSessionKey() != null && !r.getFacebookSessionKey().equals(""));
 		}
 		catch(NoResultException e)

@@ -3,6 +3,8 @@ package edu.columbia.cs.psl.halo.client.views;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.security.PrivilegedAction;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
@@ -265,7 +267,8 @@ public class LoginComposite extends Composite {
 		data.horizontalSpan = 2;
 		fTextPassword.setLayoutData(data);
 	}
-
+	
+	
 	private String rememberToken = null;
 	private void handleButtonOKWidgetSelected() {
 		final String username = fTextUsername.getText();
@@ -301,6 +304,7 @@ public class LoginComposite extends Composite {
 					}
 					if (res) {
 						rememberToken =  HALOServiceFactory.getInstance().getUserSvc().getRememberMeToken();
+					
 						return Status.OK_STATUS;
 					} else {
 						return Status.CANCEL_STATUS;

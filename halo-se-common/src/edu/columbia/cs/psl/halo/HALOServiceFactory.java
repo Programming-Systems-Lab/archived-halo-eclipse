@@ -63,7 +63,7 @@ public class HALOServiceFactory {
 	public boolean login(String username, String password)
 	{
 		this.username = username;
-		this.password = UserWrapper.getEncryptedPassword(password);
+		this.password = password;
 		clearCache();
 		try
 		{

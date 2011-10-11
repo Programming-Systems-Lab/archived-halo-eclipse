@@ -4,7 +4,6 @@ package edu.columbia.cs.psl.halo.server.stubs;
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -18,10 +17,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://server.halo.psl.cs.columbia.edu/}lazyCycleBreaker">
  *       &lt;sequence>
- *         &lt;element ref="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
+ *         &lt;element name="course" type="{http://server.halo.psl.cs.columbia.edu/}course" minOccurs="0"/>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="type" type="{http://server.halo.psl.cs.columbia.edu/}enrollmentType" minOccurs="0"/>
- *         &lt;element ref="{http://server.halo.psl.cs.columbia.edu/}user" minOccurs="0"/>
+ *         &lt;element name="user" type="{http://server.halo.psl.cs.columbia.edu/}user" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -43,11 +42,9 @@ public class Enrollment
 {
 
     private final static long serialVersionUID = 100L;
-    @XmlElement(namespace = "http://server.halo.psl.cs.columbia.edu/")
     protected Course course;
     protected int id;
     protected EnrollmentType type;
-    @XmlElement(namespace = "http://server.halo.psl.cs.columbia.edu/")
     protected User user;
 
     /**
