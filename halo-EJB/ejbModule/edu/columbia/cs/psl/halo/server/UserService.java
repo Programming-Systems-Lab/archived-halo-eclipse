@@ -84,13 +84,29 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     	getEntityManager().merge(qp);
     	String ret = handleResults(t.getResultsIn());
     	User me = getUser();
-    	me.setXp(me.getXp() + t.getQuest().getExperiencePoints());
-    	if(t.getQuest().getExperiencePoints() > 0)
-    		ret += "You've received " + t.getQuest().getExperiencePoints() + " XP\n";
-    	if(me.getLevel().getXpMax() <= me.getXp())
+    	List<QuestProgress> done = me.getProgress();
+    	boolean allDone = true;
+    	for(Task tz : t.getQuest().getTasks())
     	{
-    		me.setLevel(getLevel(me.getLevel().getLevel() + 1));
-    		ret += "You've reached level " + me.getLevel().getLevel()+", hooray!\n";
+    		boolean found = false;
+    		for(QuestProgress qpz : done)
+    		{
+    			if(qpz.getTask().getId()==tz.getId())
+    				found = true;
+    		}
+    		if(!found)
+    			allDone = false;
+    	}
+    	if(allDone)
+    	{
+	    	me.setXp(me.getXp() + t.getQuest().getExperiencePoints());
+	    	if(t.getQuest().getExperiencePoints() > 0)
+	    		ret += "You've received " + t.getQuest().getExperiencePoints() + " XP\n";
+	    	if(me.getLevel().getXpMax() <= me.getXp())
+	    	{
+	    		me.setLevel(getLevel(me.getLevel().getLevel() + 1));
+	    		ret += "You've reached level " + me.getLevel().getLevel()+", hooray!\n";
+	    	}
     	}
     	getEntityManager().merge(me);
     	
@@ -321,7 +337,7 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
     }
     private final static String HEX_DIGITS = "0123456789abcdef";
 
-	private String getEncryptedPassword(String plaintext) {
+	public static String getEncryptedPassword(String plaintext) {
 		
 		java.security.MessageDigest d =null;
 				try {
@@ -461,7 +477,16 @@ public class UserService extends AbstractFacade<User> implements UserServiceRemo
 	@WebMethod
 	public String getLeadersStr()
 	{
-		return "(By XP points; top 10)\n1. Jon Bell (300) \n2. Swapneel Sheth (200) \n3. Nipun Arora (150)";
+		String r = "(By XP points; top 10)\n";
+		Query q = getEntityManager().createNativeQuery("SELECT * from h_user order by XP DESC, ID ASC LIMIT 10",User.class);
+		List<User> res = q.getResultList();
+		int i = 1;
+		for(User u : res)
+		{
+			r+=i+": " + u.getFirstName() + " " + u.getLastName() + " (" + u.getXp()+")\n";
+			i++;
+		}
+		return r;
 	}
 	public static void reportError(Exception ex, String message)
 	{

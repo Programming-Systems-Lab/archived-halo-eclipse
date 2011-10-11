@@ -2,7 +2,7 @@
 <feature
       id="edu.columbia.cs.psl.halo.client"
       label="HALO SE Client Environment"
-      version="1.0.1.3">
+      version="1.0.1.4">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
