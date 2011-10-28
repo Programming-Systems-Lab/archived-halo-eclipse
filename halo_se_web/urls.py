@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include('halo_admin.urls')),
 
     url(r'^halo_web/$', 'halo_web.views.index'),
+    url(r'^halo_web/(?P<course_id>\d+)/leaderboard/$', 'halo_web.views.leaderboard'),
     url(r'^halo_web/quests/$', 'halo_web.views.quests'),
     # Uncomment the next line to enable the admin:
 #    url(r'^admin/', include(admin.site.urls)),

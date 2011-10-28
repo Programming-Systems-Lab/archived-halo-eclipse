@@ -1,9 +1,10 @@
-{% if quest_list %}
+{% if courses %}
+	My Courses
 	<ul>
-	{% for quest in quest_list %}
-		<li>{{ quest }}</li>
+	{% for course in courses %}
+		<li><a href="/halo_web/{{course.id}}/leaderboard">{{ course.name }}</a></li>
 	{% endfor %}
 	</ul>
 {% else %}
-	<p>No quests are available.</p>
+	<p>You are not enrolled in any courses.</p>
 {% endif %}

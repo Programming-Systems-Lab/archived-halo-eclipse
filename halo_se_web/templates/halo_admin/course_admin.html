@@ -15,38 +15,36 @@
 	<div class="header">
 		<div class="title">HALO SE Administration</div> <div class="welcome" >Welcome, {{ user }}. <a href="/logout">Logout</a></div>
 	</div>
-
 	<ul class="admin-course-list">
 		{% for course in admin_courses %}
 			<li> <a href="/admin/{{ course.id }}">{{ course.name }} </a></li>
+			<ul>
+				<li><a href="/admin/{{course.id}}/add_assignment">(+) Add New Assignment</a></li>
+			{% for assignment in assignments %}
+				<li><a href="/admin/{{course.id}}/{{assignment.id}}/quests">{{assignment.title}}</a></li>
+			{% endfor %}
+			</ul>
 		{% endfor %}
 	</ul>
 
-	<div class="crud-wrapper">
-		<table id="crud-table">
-			<tr>
-				<td class="crud-item crud-assignments"><a href="/admin/{{ this_course.id }}/assignments">Assignments</a></td>
-				<td class="crud-add crud-assignments">Add</td>
-				<td class="crud-change crud-assignments">Change</td>
-			</tr>
-			<tr>
-				<td class="crud-item crud-quests"><a href="/admin/{{ this_course.id }}/quests">Quests</a></td>
-				<td class="crud-add crud-quests">Add</td>
-				<td class="crud-change crud-quests">Change</td>
-			</tr>
-			<tr>
-				<td class="crud-item crud-tasks">Tasks</td>
-				<td class="crud-add crud-tasks">Add</td>
-				<td class="crud-change crud-tasks">Change</td>
-			</tr>
-		</table>
-	</div>
-	
+	{% load charts %}
+	{% chart %}
+		{% chart-title "Tasks Completed This Week" %}
+		{% chart-data data %}
+		{% chart-type "bar" %}
+		{% chart-size "300x1000" %}
+		{% axis "left" %}
+			{% axis-labels students %}
+		{% endaxis %}
+		{% axis "bottom" %}
+			{% axis-range 0 data_max %}
+		{% endaxis %}
+	{% endchart %}
 	
 </body>
 </html>
 
 {% else %}
-Sorry, you do not have permission to see this page.
+Sorry, you do not have permission to see this page. Please <a href="/login">log in</a> to administer a course.
 
 {% endif %}

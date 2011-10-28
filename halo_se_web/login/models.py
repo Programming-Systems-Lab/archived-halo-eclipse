@@ -20,6 +20,8 @@ class HUser(models.Model):
         db_table = u'h_user'
     def __unicode__(self):
         return self.firstname + " " + self.lastname
+    def getName(self):
+        return self.firstname + " " + self.lastname
     def getPassword(self):
         return self.password
     def getEmail(self):
@@ -28,6 +30,8 @@ class HUser(models.Model):
         if (hashlib.sha1(typedPassword).hexdigest()==self.getPassword()):
             return True
         return False
+    def getXP(self):
+        return self.xp
     def getUserId(self):
         return self.id
     def is_active(self):

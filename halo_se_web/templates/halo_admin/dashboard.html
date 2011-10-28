@@ -5,6 +5,9 @@
 <head>
 	<title>HALO SE Admin</title>
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/dashboard.css" type="text/css" />
+<!--	<script src="{{ STATIC_URL }}js/jquery-1.6.4.js"></script>
+	<script src="{{ STATIC_URL }}js/jquery.jstree.js"></script>
+	<script src="{{ STATIC_URL }}js/dashboard.js"></script> -->
 </head>
 <body class="admin-dashboard">
 	<div class="header">
@@ -43,6 +46,14 @@ Please select a class to administer.
 			</ul>
 		{% endfor %} 
 	</ul>
+	{% load charts %}
+	{% chart %}
+		{% chart-data data1 %}
+		{% chart-size "300x200" %}
+		{% chart-type "pie" %}
+		{% chart-labels "One" "Two" "Three" %}
+		{% chart-alt "It worked!" %}
+	{% endchart %}
 	
 </body>
 </html>

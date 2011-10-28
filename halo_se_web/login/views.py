@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django import forms
 from django.shortcuts import render_to_response
@@ -7,7 +8,7 @@ from login.models import HUser
 import hashlib
 
 class LoginForm(forms.Form):
-    email = forms.CharField(max_length=100)
+    uni = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput(render_value=False),max_length=100)
 
 def doLogin(request):
@@ -22,18 +23,14 @@ def doLogin(request):
     if request.method == 'POST': # If the form has been submitted...
         form = LoginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            email = request.POST['email']
+            email = request.POST['uni']
             password = request.POST['password']
             user = authenticate(username=email, password=password)
             if user is not None:
                 if user.is_active:
                     # Redirect to a success page.
                     login(request, user)
-                    print "user.is_active and logged in"
-                    return render_to_response('login/success.html', {
-                        'email': email,
-                        'user': user,
-                    }, context_instance = RequestContext(request))
+                    return HttpResponseRedirect('/')
                 else:
                     # Return a 'disabled account' error message
                     error = u'account disabled'
@@ -57,9 +54,12 @@ def doLogout(request):
     return HttpResponseRedirect('/')
 
 def showCredentials(request):
-    user = HUser.objects.all()
-    password = HUser.objects.all()[0].getPassword()
-    email = HUser.objects.all()[0].getEmail()
-    return render_to_response('login/credentials.html', {'dump': user, 'password': password, 'email': email})
+    user = request.user
+    if not user.is_authenticated():
+        return render_to_response('login/notloggedin.html', {'dump': user}, context_instance = RequestContext(request))
+    else:
+        password = user.getPassword()
+        email = user.getEmail()
+        return render_to_response('login/credentials.html', {'dump': user, 'password': password, 'email': email}, context_instance = RequestContext(request))
 
 
