@@ -1,0 +1,15 @@
+{% if enr_this_course %}
+<div><a href="/halo_web">All courses</a></div><br/>
+
+<div class="leaderboard-title">Leaderboard</div>
+<table class="leaderboard-table">
+{% for leader in leaders %}
+	<tr class="leader">
+		<td class="leader-name">{{leader.firstname}} {{leader.lastname}}</td>
+		<td class="leader-score">{{leader.xp}}</td>
+	</tr>
+{% endfor %}
+</table>
+{% else %}
+Sorry, you do not have permission to view this page.
+{% endif %}

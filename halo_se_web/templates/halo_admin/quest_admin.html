@@ -1,0 +1,27 @@
+{% extends "base_admin.html" %}
+
+{% block content %}
+{% if admin_this_course %}
+<div class="assignment-admin-wrapper">
+
+	<ul class="admin-course-list">
+		{% for course in admin_courses %}
+			<li> <a href="/admin/{{ course.id }}">{{ course.name }} </a></li>
+		{% endfor %}
+	</ul>
+
+	<ul class="quest-list">
+		<li><a href="/admin/{{this_course.id}}/{{this_assignment.id}}/add_quest">(+) Add New Quest</a></li>
+		{% for quest in quest_list %}
+			<li><a href="/admin/{{ this_course.id }}/{{ this_assignment.id }}/{{ quest.id }}/tasks">{{ quest.name }}</a></li>
+		{% endfor %}
+	</ul>
+	
+	
+</div>
+
+{% else %}
+Sorry, you do not have permission to see this page.
+
+{% endif %}
+{% endblock %}
