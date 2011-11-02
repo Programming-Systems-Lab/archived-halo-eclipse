@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -142,7 +143,7 @@ public class LoginComposite extends Composite {
 		// fTextPassword.setText("test123");
 		// fTextUsername.setText("jon");
 		// handleButtonOKWidgetSelected();
-		IEclipsePreferences node = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+		IEclipsePreferences node = new InstanceScope().getNode(Activator.PLUGIN_ID);
 		String username = node.get("username", null);
 		String pass = node.get("password", null);
 		if(username != null & pass != null)
@@ -321,8 +322,7 @@ public class LoginComposite extends Composite {
 						Display.getDefault().syncExec(new Runnable() {
 							public void run() {
 								progressBar.setVisible(false);
-
-								IEclipsePreferences node = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+								IEclipsePreferences node = new InstanceScope().getNode(Activator.PLUGIN_ID);
 								if(rememberMe.getSelection())
 								{
 									node.put("username", username);

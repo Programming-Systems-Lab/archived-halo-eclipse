@@ -220,7 +220,7 @@ public class DashboardComposite extends Composite {
 
 	private void logoutButtonSelected(SelectionEvent e)
 	{
-		IEclipsePreferences node = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+		IEclipsePreferences node = new InstanceScope().getNode(Activator.PLUGIN_ID);
 
 		node.remove("username");
 		node.remove("password");
