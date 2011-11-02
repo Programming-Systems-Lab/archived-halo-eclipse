@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/edu.columbia.cs.psl.halo.client_1.0.1.5.jar" id="edu.columbia.cs.psl.halo.client" version="1.0.1.5">
+   <feature url="features/edu.columbia.cs.psl.halo.client_1.0.1.4.jar" id="edu.columbia.cs.psl.halo.client" version="1.0.1.4">
       <category name="HALO"/>
    </feature>
    <category-def name="HALO" label="HALO SE"/>

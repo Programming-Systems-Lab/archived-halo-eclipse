@@ -2,7 +2,7 @@
 <feature
       id="edu.columbia.cs.psl.halo.client"
       label="HALO SE Client Environment"
-      version="1.0.1.5">
+      version="1.0.1.4">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -16,19 +16,8 @@
       [Enter License Description here.]
    </license>
 
-   <requires>
-      <import plugin="org.eclipse.ui.forms"/>
-   </requires>
-
    <plugin
          id="edu.columbia.cs.psl.halo.client"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.ui.forms"
          download-size="0"
          install-size="0"
          version="0.0.0"

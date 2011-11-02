@@ -1,0 +1,22 @@
+body {
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.header {
+	background-color: lightblue;
+	border-radius: 15px;
+}
+
+.header .title {
+	font-weight: bold;
+	font-size: 24px;
+	margin-left: 30px;
+	padding-top: 30px;
+}
+.header .welcome {
+	text-align: right;
+}
+
+#crud-table {
+	padding:20px;
+}

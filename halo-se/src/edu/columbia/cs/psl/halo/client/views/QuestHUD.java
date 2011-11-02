@@ -150,88 +150,6 @@ public class QuestHUD extends ViewPart {
 				}
 			return true;
 		}
-//		@Override
-//		public void sort(Viewer viewer, Object[] elements) {
-//			System.out.println("running sort");
-//			if(elements.length > 0)
-//			{
-//				if(elements[0] instanceof Assignment)
-//				{
-//					ArrayList<Assignment> sorted = new ArrayList<Assignment>(elements.length);
-//					for(Object o : elements)
-//						sorted.add((Assignment) o);
-//					Collections.sort(sorted, new Comparator<Assignment>() {
-//
-//						@Override
-//						public int compare(Assignment o1, Assignment o2) {
-//							boolean o1Done = assignmentCompleted(o1);
-//							boolean o2Done = assignmentCompleted(o2);
-//							
-//							if(o1Done && ! o2Done)
-//								return 1;
-//							else if(o2Done && ! o1Done)
-//								return -1;
-//							else if(o1.getDueOn() != null && o2.getDueOn() != null)
-//								return o1.getDueOn().compare(o2.getDueOn());
-//							else
-//								return (o1.getId() < o2.getId() ? -1 : 1);
-//						}
-//					});
-//					for(Assignment a : sorted)
-//					{
-//						System.out.println(a.getTitle());
-//					}
-//					elements = sorted.toArray();
-//				}
-//				else if (elements[0] instanceof Quest) {
-//					ArrayList<Quest> sorted = new ArrayList<Quest>(elements.length);
-//					for(Object o : elements)
-//						sorted.add((Quest) o);
-//					Collections.sort(sorted, new Comparator<Quest>() {
-//
-//						@Override
-//						public int compare(Quest o1, Quest o2) {
-//							boolean o1Done = questCompleted(o1);
-//							boolean o2Done = questCompleted(o2);
-//							
-//							if(o1Done && ! o2Done)
-//								return 1;
-//							else if(o2Done && ! o1Done)
-//								return -1;
-//							else
-//								return (o1.getId() < o2.getId() ? -1 : 1);
-//						}
-//					});
-//					System.out.println(sorted);
-//					elements = sorted.toArray();
-//				}
-//				else if(elements[0] instanceof Task)
-//				{
-//					ArrayList<Task> sorted = new ArrayList<Task>(elements.length);
-//					for(Object o : elements)
-//						sorted.add((Task) o);
-//					Collections.sort(sorted, new Comparator<Task>() {
-//
-//						@Override
-//						public int compare(Task o1, Task o2) {
-//							if(!cachedProgress.containsKey(o1) || !cachedProgress.containsKey(o2))
-//								return 0;
-//							boolean o1Done = cachedProgress.get(o1).isCompleted();
-//							boolean o2Done = cachedProgress.get(o2).isCompleted();
-//							
-//							if(o1Done && ! o2Done)
-//								return -1;
-//							else if(o2Done && ! o1Done)
-//								return 1;
-//							else
-//								return (o1.getId() < o2.getId() ? -1 : 1);
-//						}
-//					});
-//					System.out.println(sorted);
-//					elements = sorted.toArray();
-//				}
-//			}
-//		}
 	}
 
 	class QuestDetails extends Composite {
@@ -306,9 +224,8 @@ public class QuestHUD extends ViewPart {
 			backgroundHeader.setText("Task Details");
 			questDueDate.setText("(Part of " + ((Quest) t.getQuest().getRef()).getName() +")");
 			
-			String objectives = "";
-			objectivesHeader.setText("Quest Background");
-			objectivesBody.setText(((Quest) t.getQuest().getRef()).getDescription());
+			objectivesHeader.setText("");
+			objectivesBody.setText("");
 			refreshLayout();
 		}
 		private void refreshLayout()
@@ -319,16 +236,16 @@ public class QuestHUD extends ViewPart {
 					SWT.DEFAULT));
 			getParent().layout(true,true);
 		}
-		public void setQuest(QuestWrapper w) {
-			questTitle.setText(w.getQuest().getName());
-			questDueDate.setText("(Part of " + w.getAssignment().getTitle()
-					+ ", due " + w.getDueStrHuman() + ")");
-			questBackground.setText(w.getQuest().getDescription());
+		public void setQuest(Quest w) {
+			questTitle.setText(w.getName());
+			questDueDate.setText("(Part of " + ((Assignment) w.getAssignment().getRef()).getTitle()
+					+ ", due " + QuestWrapper.getDueStrHuman((Assignment) w.getAssignment().getRef()) + ")");
+			questBackground.setText(w.getDescription() + "\nCompleting this quest will reward you with " + w.getExperiencePoints() + " XP");
 			backgroundHeader.setText("Background");
 
 			String objectives = "";
 
-			for (Task t : w.getQuest().getTasks()) {
+			for (Task t : w.getTasks()) {
 				objectives += t.getName() + "\n";
 			}
 			objectivesHeader.setText("Objectives");
@@ -710,18 +627,18 @@ public class QuestHUD extends ViewPart {
 						if (event.getSelection() instanceof IStructuredSelection) {
 							IStructuredSelection selection = (IStructuredSelection) event
 									.getSelection();
-							QuestWrapper qw = null;
+//							QuestWrapper qw = null;
 							if ((selection.getFirstElement()) instanceof Quest) {
 //								System.out.println(((Quest) selection.getFirstElement()).getId());
-								qw = quests.get(((Quest) selection.getFirstElement()).getId());
-								if(qw == null)
-								{
-									questsViewer.setSelection(null);
-									return;
-								}
-								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + qw.getQuest().getId());
+								Quest q = ((Quest) selection.getFirstElement());
+//								if(qw == null)
+//								{
+//									questsViewer.setSelection(null);
+//									return;
+//								}
+								Activator.logBackground("QuestHUDQuestOrTaskSelected", "" + q.getId());
 								detailsLayout.topControl = questDetailsScroller;
-								questDetails.setQuest(qw);
+								questDetails.setQuest(q);
 								refreshLayout();
 							}
 							else if((selection.getFirstElement()) instanceof Task) {

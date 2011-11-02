@@ -14,7 +14,8 @@ Require-Bundle: org.eclipse.ui,
  javax.xml.soap;bundle-version="1.2.0",
  org.eclipse.swt,
  org.eclipse.jface,
- org.eclipse.ui.workbench
+ org.eclipse.ui.workbench,
+ javax.mail;bundle-version="1.4.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,

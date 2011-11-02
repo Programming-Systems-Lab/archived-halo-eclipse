@@ -1,0 +1,38 @@
+{% extends "base_admin.html" %}
+{% block content %}
+{% if admin_this_course %}
+<div class="admin-wrapper">
+	<ul class="admin-course-list">
+		{% for course in admin_courses %}
+			<li> <a href="/admin/{{ course.id }}">{{ course.name }} </a></li>
+			<ul>
+				<li><a href="/admin/{{course.id}}/add_assignment">(+) Add New Assignment</a></li>
+			{% for assignment in assignments %}
+				<li><a href="/admin/{{course.id}}/{{assignment.id}}/quests">{{assignment.title}}</a></li>
+			{% endfor %}
+			</ul>
+		{% endfor %}
+	</ul>
+
+	{% load charts %}
+	{% chart %}
+		{% chart-title "Tasks Completed This Week" %}
+		{% chart-data data %}
+		{% chart-type "bar" %}
+		{% chart-size "300x1000" %}
+		{% axis "left" %}
+			{% axis-labels students %}
+		{% endaxis %}
+		{% axis "bottom" %}
+			{% axis-range 0 data_max %}
+		{% endaxis %}
+	{% endchart %}
+	
+</div>
+
+{% else %}
+Sorry, you do not have permission to see this page. Please <a href="/login">log in</a> to administer a course.
+
+{% endif %}
+
+{% endblock %}
