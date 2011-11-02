@@ -346,7 +346,7 @@ def student_list(request, course_id, focus_id = None):
     else: 
         focus = None
         focus_data = None
-        focus_max = None
+        focus_max = 0
         focus_labels = None
     if (user.is_authenticated()):
         u_id = user.getUserId()

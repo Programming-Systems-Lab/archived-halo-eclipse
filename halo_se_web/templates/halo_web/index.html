@@ -1,4 +1,6 @@
-{% if courses %}
+{% extends "base_generic.html" %}
+
+{% block content %}{% if courses %}
 	My Courses
 	<ul>
 	{% for course in courses %}
@@ -7,4 +9,4 @@
 	</ul>
 {% else %}
 	<p>You are not enrolled in any courses.</p>
-{% endif %}
+{% endif %} {% endblock %}

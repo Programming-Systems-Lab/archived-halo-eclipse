@@ -1,20 +1,7 @@
+{% extends "base_admin.html" %}
+{% block content %}
 {% if admin_this_course %}
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<title>HALO SE Admin</title>
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/dashboard.css" type="text/css" />
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/course_admin.css" type="text/css">
-<!--	<link rel="stylesheet" href="../../halo_admin/static/css/dashboard.css" type="text/css"> 
-	<link rel="stylesheet" href="../../halo_admin/static/css/course_admin.css" type="text/css"> -->
-
-
-</head>
-<body class="admin-wrapper">
-	<div class="header">
-		<div class="title">HALO SE Administration</div> <div class="welcome" >Welcome, {{ user }}. <a href="/logout">Logout</a></div>
-	</div>
+<div class="admin-wrapper">
 	<ul class="admin-course-list">
 		{% for course in admin_courses %}
 			<li> <a href="/admin/{{ course.id }}">{{ course.name }} </a></li>
@@ -41,10 +28,11 @@
 		{% endaxis %}
 	{% endchart %}
 	
-</body>
-</html>
+</div>
 
 {% else %}
 Sorry, you do not have permission to see this page. Please <a href="/login">log in</a> to administer a course.
 
 {% endif %}
+
+{% endblock %}

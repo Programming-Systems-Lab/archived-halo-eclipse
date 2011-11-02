@@ -27,10 +27,10 @@ def home(request):
             course = Course.objects.get(id=enr.getCourseId())
             admin_courses.append(course)
         if (len(admin_courses)>0):
-            return HttpResponseRedirect('/admin')
+            return HttpResponseRedirect('/admin/')
         else:
-            return HttpResponseRedirect('/halo_web')
-    return HttpResponseRedirect('/login')
+            return HttpResponseRedirect('/halo_web/')
+    return HttpResponseRedirect('/login/')
 
 def leaderboard(request, course_id):
     this_course = Course.objects.get(id=course_id)
