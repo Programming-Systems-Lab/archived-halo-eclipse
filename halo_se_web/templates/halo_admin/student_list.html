@@ -1,0 +1,42 @@
+{% extends "base_admin.html" %}
+{% block css %}<link rel="stylesheet" href="{{ STATIC_URL }}css/dashboard.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/student_list.css" type="text/css" /> {% endblock %}
+{% block content %}
+{% if admin_this_course %}
+<div class="admin-wrapper">
+
+<div class="left-half">
+<ul class="course-list">
+{% for stud in students %}
+	<li><a href="mailto:{{stud.email}}@columbia.edu"><img src="{{ STATIC_URL }}images/mail-icon.png"></img></a> <a href="/admin/{{course_id}}/student_list/{{stud.id}}">{{stud.name}}</a></li>
+{% endfor %}
+</ul>
+</div>
+<div class="right-half">
+{% if focus %}
+
+<div><a href="mailto:{{focus.email}}@columbia.edu"><img src="{{ STATIC_URL }}images/mail-icon.png"></img></a> {{focus.name}}</div>
+
+{% load charts %}
+{% chart %}
+	{% chart-title "Tasks Completed This Month" %}
+	{% chart-data focus_data %}
+	{% chart-type "line" %}
+	{% chart-size "300x300" %}
+	{% axis "left" %}
+		{% axis-labels focus_range %}
+	{% endaxis %}
+	{% axis "bottom" %}
+		{% axis-labels focus_labels %}
+	{% endaxis %}
+{% endchart %}
+
+{% endif %}
+</div>
+</div>
+
+{% else %}
+Sorry, you do not have permission to see this page. Please <a href="/login">log in</a> to administer a course.
+
+{% endif %}
+{% endblock %}

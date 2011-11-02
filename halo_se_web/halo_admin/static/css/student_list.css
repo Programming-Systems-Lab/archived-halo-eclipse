@@ -1,0 +1,9 @@
+div.left-half {
+	width: 40%;
+	float:left;
+}
+
+div.right-half{
+	width: 60%;
+	float:left;
+}

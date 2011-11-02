@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block css %}<link rel="stylesheet" href="{{ STATIC_URL }}css/dashboard.css" type="text/css" />{% endblock %}
+
+{% block title %}HALO SE Admin{% endblock %}
+
+{% block header %}
+	<div class="header">
+		<div class="title">HALO SE Administration</div> <div class="welcome" >Welcome, {{ user }}. <a href="/logout">Logout</a></div>
+	</div>{% endblock %}
+
+{% block content %}Admin content goes here{% endblock %}
